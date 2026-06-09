@@ -1,148 +1,104 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
+import { Terminal, Layers, Cpu, Database, Layout, Shield } from "lucide-react";
 
 const SKILLS = [
-  {
-    icon: "⚡",
-    title: "Core ABAP & S/4HANA",
-    desc: "ABAP 7.5, OO-ABAP, ECC to S/4HANA migration, HANA remediation, code push-down, AMDP.",
-    tags: ["ABAP 7.5", "OO-ABAP", "AMDP", "S/4HANA", "ECC Migration", "Code Push-Down"],
-  },
-  {
-    icon: "🔷",
-    title: "Modern SAP / Cloud",
-    desc: "CDS Views, RAP programming model, OData V2/V4, SAP Fiori, UI5, SAP BTP ABAP Environment.",
-    tags: ["CDS Views", "RAP", "OData V4", "Fiori", "SAP BTP", "ABAP Cloud"],
-  },
-  {
-    icon: "🔗",
-    title: "Integration & Interfaces",
-    desc: "ALE/IDoc, RFC, BAPIs, Proxies, external API integration, BRF+, SAP Workflow automation.",
-    tags: ["ALE/IDoc", "RFC", "BAPIs", "Proxies", "BRF+", "SAP Workflow"],
-  },
-  {
-    icon: "📊",
-    title: "Performance & Tooling",
-    desc: "SQL Trace, ABAP Runtime Analysis, ATC, Eclipse ADT, SmartShift, system dump analysis.",
-    tags: ["SQL Trace", "ATC", "Eclipse ADT", "SmartShift", "Runtime Analysis"],
-  },
-  {
-    icon: "📄",
-    title: "Forms & Output",
-    desc: "SmartForms, Adobe Forms, SAPscript, Web Dynpro for complex business output management.",
-    tags: ["SmartForms", "Adobe Forms", "SAPscript", "Web Dynpro", "ALV/SALV"],
-  },
-  {
-    icon: "🏢",
-    title: "SAP Modules",
-    desc: "Functional exposure across FICO, MM, SD — translating business requirements to technical specs.",
-    tags: ["SAP FICO", "SAP MM", "SAP SD", "Data Dictionary", "Enhancements"],
-  },
+  { name:"ABAP / ABAP 7.5",   pct:90, icon:<Terminal size={22}/> },
+  { name:"CDS Views",          pct:88, icon:<Layers size={22}/>   },
+  { name:"RAP / ABAP Cloud",   pct:85, icon:<Cpu size={22}/>      },
+  { name:"OData Services",     pct:84, icon:<Database size={22}/> },
+  { name:"AMDP / HANA SQL",    pct:80, icon:<Shield size={22}/>   },
+  { name:"SAP Fiori / UI5",    pct:78, icon:<Layout size={22}/>   },
 ];
 
-function SkillCard({ skill, delay }) {
-  const ref = useRef(null);
+function Counter({ value }) {
+  const [display, setDisplay] = useState(0);
   useEffect(() => {
-    const el = ref.current;
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) {
-        setTimeout(() => el.classList.add("visible"), delay);
-        io.unobserve(el);
-      }
-    }, { threshold: 0.1 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  return (
-    <div ref={ref} className="reveal" data-hover style={{
-      background: "var(--bg)",
-      padding: 32,
-      transition: "background 0.3s",
-      cursor: "default",
-    }}
-    onMouseEnter={e => e.currentTarget.style.background = "var(--surface)"}
-    onMouseLeave={e => e.currentTarget.style.background = "var(--bg)"}
-    >
-      <div style={{
-        width: 44, height: 44, borderRadius: 12,
-        background: "linear-gradient(135deg,rgba(78,155,255,0.15),rgba(137,170,204,0.08))",
-        border: "1px solid rgba(78,155,255,0.2)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        fontSize: 20, marginBottom: 20,
-      }}>{skill.icon}</div>
-      <div style={{ fontSize: 15, fontWeight: 700, color: "var(--text)", marginBottom: 10 }}>
-        {skill.title}
-      </div>
-      <p style={{ fontSize: 13, color: "var(--muted)", lineHeight: 1.65, marginBottom: 16 }}>
-        {skill.desc}
-      </p>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-        {skill.tags.map(t => (
-          <span key={t} style={{
-            fontSize: 11, fontWeight: 600,
-            padding: "4px 10px", borderRadius: 100,
-            background: "var(--surface2)",
-            border: "1px solid var(--stroke)",
-            color: "var(--muted)", letterSpacing: "0.02em",
-            transition: "all 0.2s",
-          }}>{t}</span>
-        ))}
-      </div>
-    </div>
-  );
+    let start = null;
+    const duration = 1800;
+    const step = ts => {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / duration, 1);
+      setDisplay(Math.round(p * value));
+      if (p < 1) requestAnimationFrame(step);
+    };
+    const t = setTimeout(() => requestAnimationFrame(step), 400);
+    return () => clearTimeout(t);
+  }, [value]);
+  return <>{display}</>;
 }
 
 export default function Skills() {
-  const headRef = useRef(null);
-  useEffect(() => {
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { headRef.current.classList.add("visible"); io.unobserve(headRef.current); }
-    }, { threshold: 0.1 });
-    io.observe(headRef.current);
-    return () => io.disconnect();
-  }, []);
-
   return (
-    <section id="skills" style={{ borderTop: "1px solid var(--stroke)" }}>
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "100px 40px" }}>
-        <div ref={headRef} className="reveal">
-          <div style={sectionLabel}>
-            <span style={{ display: "block", width: 32, height: 1, background: "var(--muted)" }} />
-            Technical Arsenal
-          </div>
-          <h2 style={sectionHeading}>
-            What I <em style={{ fontStyle: "normal", color: "var(--muted)" }}>work</em><br />with daily
-          </h2>
-          <p style={sectionSub}>
-            Deep expertise across the SAP stack — from legacy ABAP to modern cloud-native RAP architecture.
-          </p>
-        </div>
+    <section id="skills" style={{ padding:"100px 40px",maxWidth:1280,margin:"0 auto" }}>
+      <motion.div initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}
+        viewport={{ once:true }} style={{ marginBottom:80 }}>
+        <p style={label}>Technical Arsenal</p>
+        <h2 style={heading}>Core <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.3)" }}>Competencies</em></h2>
+      </motion.div>
 
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: 1,
-          background: "var(--stroke)",
-          border: "1px solid var(--stroke)",
-          borderRadius: 20,
-          overflow: "hidden",
-          marginTop: 60,
-        }}>
-          {SKILLS.map((s, i) => <SkillCard key={s.title} skill={s} delay={i * 80} />)}
-        </div>
+      <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(300px,1fr))",gap:24 }}>
+        {SKILLS.map((sk,i) => (
+          <motion.div key={sk.name}
+            initial={{ opacity:0,y:30 }}
+            whileInView={{ opacity:1,y:0 }}
+            viewport={{ once:true,margin:"-80px" }}
+            transition={{ delay:i*0.1,duration:0.7,ease:"easeOut" }}
+            whileHover={{ y:-8,borderColor:"rgba(99,102,241,0.4)" }}
+            style={{ borderRadius:40,border:"1px solid rgba(255,255,255,0.05)",
+              background:"rgba(255,255,255,0.018)",padding:36,
+              transition:"border-color 0.3s",overflow:"hidden",position:"relative" }}>
+            {/* icon + pct */}
+            <div style={{ display:"flex",alignItems:"flex-start",justifyContent:"space-between",marginBottom:32 }}>
+              <div style={{ padding:18,borderRadius:20,
+                background:"rgba(15,23,42,0.6)",border:"1px solid rgba(255,255,255,0.08)",
+                color:"rgba(255,255,255,0.4)" }}>
+                {sk.icon}
+              </div>
+              <div style={{ textAlign:"right" }}>
+                <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
+                  letterSpacing:"0.2em",textTransform:"uppercase",color:"rgba(255,255,255,0.25)",marginBottom:4 }}>
+                  Proficiency
+                </div>
+                <div style={{ fontFamily:"'Outfit',sans-serif",fontSize:36,fontWeight:700,
+                  color:"#fff",lineHeight:1,letterSpacing:"-1px" }}>
+                  <Counter value={sk.pct}/>%
+                </div>
+              </div>
+            </div>
+
+            <h4 style={{ fontFamily:"'Outfit',sans-serif",fontSize:22,fontWeight:700,
+              color:"#fff",marginBottom:24,letterSpacing:"-0.5px" }}>{sk.name}</h4>
+
+            {/* bar */}
+            <div style={{ height:3,background:"rgba(255,255,255,0.05)",borderRadius:2,overflow:"hidden" }}>
+              <motion.div
+                initial={{ width:0 }}
+                whileInView={{ width:`${sk.pct}%` }}
+                viewport={{ once:true }}
+                transition={{ duration:2, delay:0.3, ease:[0.34,1.56,0.64,1] }}
+                style={{ height:"100%",
+                  background:"linear-gradient(90deg,#6366F1,#D8B4FE,#22D3EE)",
+                  boxShadow:"0 0 20px rgba(99,102,241,0.5)",borderRadius:2,
+                  position:"relative",overflow:"hidden" }}>
+                <motion.div animate={{ x:["-100%","200%"], opacity:[0.3,0.6,0.3] }}
+                  transition={{ duration:2.5,repeat:Infinity,ease:"easeInOut" }}
+                  style={{ position:"absolute",inset:0,
+                    background:"linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent)" }}/>
+              </motion.div>
+            </div>
+
+            {/* corner glow */}
+            <div style={{ position:"absolute",bottom:-16,right:-16,width:80,height:80,
+              background:"rgba(99,102,241,0.06)",filter:"blur(20px)",borderRadius:"50%" }}/>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
 }
 
-const sectionLabel = {
-  display: "inline-flex", alignItems: "center", gap: 12,
-  fontSize: 11, letterSpacing: "0.35em", textTransform: "uppercase",
-  color: "var(--muted)", marginBottom: 24,
-};
-const sectionHeading = {
-  fontFamily: "'Fraunces', serif", fontStyle: "italic",
-  fontSize: "clamp(36px,5vw,64px)", lineHeight: 1.05,
-  letterSpacing: "-1px", color: "var(--text)", marginBottom: 16,
-};
-const sectionSub = { fontSize: 15, color: "var(--muted)", maxWidth: 480, lineHeight: 1.7 };
+const label = { fontFamily:"'JetBrains Mono',monospace",fontSize:11,
+  letterSpacing:"0.4em",textTransform:"uppercase",color:"#22D3EE",marginBottom:16 };
+const heading = { fontFamily:"'Outfit',sans-serif",fontSize:"clamp(36px,5vw,64px)",
+  fontWeight:700,color:"#fff",letterSpacing:"-2px",lineHeight:1.05 };

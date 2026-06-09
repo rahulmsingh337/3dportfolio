@@ -1,28 +1,26 @@
 import { useEffect, useRef } from "react";
 
 export default function Cursor() {
-  const cursorRef = useRef(null);
+  const ref = useRef(null);
 
   useEffect(() => {
-    const cursor = cursorRef.current;
-    const move = (e) => {
-      cursor.style.left = e.clientX + "px";
-      cursor.style.top = e.clientY + "px";
-    };
+    const el = ref.current;
+    const move = e => { el.style.left = e.clientX + "px"; el.style.top = e.clientY + "px"; };
     document.addEventListener("mousemove", move);
 
-    const addHover = () => cursor.classList.add("hovered");
-    const removeHover = () => cursor.classList.remove("hovered");
-    const hoverEls = document.querySelectorAll("a, button, [data-hover]");
-    hoverEls.forEach((el) => {
-      el.addEventListener("mouseenter", addHover);
-      el.addEventListener("mouseleave", removeHover);
-    });
-
-    return () => {
-      document.removeEventListener("mousemove", move);
+    const on  = () => el.classList.add("hovered");
+    const off = () => el.classList.remove("hovered");
+    const attach = () => {
+      document.querySelectorAll("a,button,[data-hover]").forEach(n => {
+        n.addEventListener("mouseenter", on);
+        n.addEventListener("mouseleave", off);
+      });
     };
+    attach();
+    const obs = new MutationObserver(attach);
+    obs.observe(document.body, { childList: true, subtree: true });
+    return () => { document.removeEventListener("mousemove", move); obs.disconnect(); };
   }, []);
 
-  return <div ref={cursorRef} className="cursor" />;
+  return <div ref={ref} className="cursor" />;
 }
