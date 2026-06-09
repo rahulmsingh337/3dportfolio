@@ -177,37 +177,9 @@ export default function Hero() {
                   e.target.parentElement.style.background="#0F172A";
                   e.target.parentElement.style.borderRadius="180px 180px 140px 140px"; }}
               />
-              {/* cert badge */}
-              <div style={{ position:"absolute",bottom:20,left:-28,
-                background:"rgba(15,23,42,0.94)",border:"1px solid rgba(255,255,255,0.08)",
-                borderRadius:16,padding:"14px 18px",display:"flex",alignItems:"center",gap:12,
-                backdropFilter:"blur(16px)" }}>
-                <div style={{ width:38,height:38,borderRadius:10,flexShrink:0,overflow:"hidden" }}>
-                  <img src={asset("/cert-sap-tech.png")} alt="cert"
-                    style={{ width:"100%",height:"100%",objectFit:"cover" }}/>
-                </div>
-                <div>
-                  <div style={{ fontSize:12,fontWeight:700,color:"#fff" }}>SAP Certified</div>
-                  <div style={{ fontSize:11,color:"rgba(255,255,255,0.35)",marginTop:2 }}>ABAP Cloud Developer</div>
-                </div>
-              </div>
-              {/* role tag */}
-              <div style={{ position:"absolute",top:28,right:-24,
-                background:"rgba(15,23,42,0.94)",border:"1px solid rgba(99,102,241,0.3)",
-                borderRadius:100,padding:"8px 16px",
-                fontFamily:"'JetBrains Mono',monospace",fontSize:11,fontWeight:700,
-                color:"#6366F1",backdropFilter:"blur(12px)",letterSpacing:"0.04em" }}>
-                Accenture · Lead
-              </div>
-              {/* github banner floating bottom-right */}
-              <div style={{ position:"absolute",bottom:-24,right:-28,
-                width:160,borderRadius:12,overflow:"hidden",
-                border:"1px solid rgba(255,255,255,0.07)",
-                boxShadow:"0 8px 32px rgba(0,0,0,0.5)" }}>
-                <img src={asset("/github-banner.png")} alt="github banner"
-                  style={{ width:"100%",display:"block" }}
-                  onError={e=>e.target.style.display="none"}/>
-              </div>
+
+
+
             </div>
           </div>
         </motion.div>
