@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { gsap } from "gsap";
 import { Mail, Phone, Download, MapPin, ExternalLink } from "lucide-react";
+import { asset } from "../utils/assetPath";
 
 const SvgLinkedIn = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -111,7 +112,7 @@ export default function Hero() {
                 onMouseLeave={e=>Object.assign(e.currentTarget.style,btnSolid)}>
                 View Projects ↓
               </a>
-              <a href="/resume.pdf" download data-hover style={btnOutline}
+              <a href={asset("/resume.pdf")} download data-hover style={btnOutline}
                 onMouseEnter={e=>Object.assign(e.currentTarget.style,btnOutlineHov)}
                 onMouseLeave={e=>Object.assign(e.currentTarget.style,btnOutline)}>
                 <Download size={13}/> Resume
@@ -148,7 +149,7 @@ export default function Hero() {
                 border:"1px solid rgba(99,102,241,0.06)",
                 borderRadius:"220px 220px 180px 180px" }}/>
               {/* photo */}
-              <img src="/rahul.jpg" alt="Rahul Singh"
+              <img src={asset("/rahul.jpg")} alt="Rahul Singh"
                 className="photo-glow"
                 style={{ width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top",
                   borderRadius:"180px 180px 140px 140px",
@@ -163,7 +164,7 @@ export default function Hero() {
                 borderRadius:16,padding:"14px 18px",display:"flex",alignItems:"center",gap:12,
                 backdropFilter:"blur(16px)" }}>
                 <div style={{ width:38,height:38,borderRadius:10,flexShrink:0,overflow:"hidden" }}>
-                  <img src="/cert-sap-tech.png" alt="cert"
+                  <img src={asset("/cert-sap-tech.png")} alt="cert"
                     style={{ width:"100%",height:"100%",objectFit:"cover" }}/>
                 </div>
                 <div>
@@ -184,7 +185,7 @@ export default function Hero() {
                 width:160,borderRadius:12,overflow:"hidden",
                 border:"1px solid rgba(255,255,255,0.07)",
                 boxShadow:"0 8px 32px rgba(0,0,0,0.5)" }}>
-                <img src="/github-banner.png" alt="github banner"
+                <img src={asset("/github-banner.png")} alt="github banner"
                   style={{ width:"100%",display:"block" }}
                   onError={e=>e.target.style.display="none"}/>
               </div>

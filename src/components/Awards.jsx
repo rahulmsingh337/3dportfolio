@@ -1,30 +1,31 @@
+import { asset } from "../utils/assetPath";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Trophy, Medal, Star, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const SKILL_TAGS = [
-  { id:"func", title:"SAP S/4HANA Functional Professional", issuer:"Infosys", image:"/cert-sap-func.png" },
-  { id:"tech", title:"SAP S/4HANA Technical Professional",  issuer:"Infosys", image:"/cert-sap-tech.png" },
+  { id:"func", title:"SAP S/4HANA Functional Professional", issuer:"Infosys", image:asset("/cert-sap-func.png") },
+  { id:"tech", title:"SAP S/4HANA Technical Professional",  issuer:"Infosys", image:asset("/cert-sap-tech.png") },
 ];
 
 const RISE = [
-  { id:"coe",    title:"COE ACE",           category:"Individual",  period:"H1-FY26", image:"/cert-coe-ace.png"  },
-  { id:"eureka", title:"Eureka",            category:"Individual",  period:"H1-FY26", image:"/cert-eureka.png"   },
-  { id:"rookie", title:"Rookie of the Qtr", category:"RISE Awards", period:"H1-FY26", image:"/cert-rookie.png"   },
-  { id:"rise2",  title:"Rookie of the Qtr", category:"RISE Awards", period:"FY25 Q2", image:"/ach-unit-rise.png" },
-  { id:"rise3",  title:"Rookie of the Qtr", category:"RISE Awards", period:"FY24 Q2", image:"/cert-rookie.png"   },
+  { id:"coe",    title:"COE ACE",           category:"Individual",  period:"H1-FY26", image:asset("/cert-coe-ace.png")  },
+  { id:"eureka", title:"Eureka",            category:"Individual",  period:"H1-FY26", image:asset("/cert-eureka.png")   },
+  { id:"rookie", title:"Rookie of the Qtr", category:"RISE Awards", period:"H1-FY26", image:asset("/cert-rookie.png")   },
+  { id:"rise2",  title:"Rookie of the Qtr", category:"RISE Awards", period:"FY25 Q2", image:asset("/ach-unit-rise.png") },
+  { id:"rise3",  title:"Rookie of the Qtr", category:"RISE Awards", period:"FY24 Q2", image:asset("/cert-rookie.png")   },
 ];
 
 const INSTA = [
-  { id:"ia1", title:"Onboarding Star",              note:"Delivered all requirements on time; helped manage team workload",         date:"Nov 2021", image:"/award-1.png" },
-  { id:"ia2", title:"Front-end API Dev",            note:"Helped create API in front-end web development",                        date:"Nov 2022", image:"/award-2.png" },
-  { id:"ia3", title:"Debugging & RCA",              note:"Helped in debugging and understanding root cause analysis",             date:"Sep 2022", image:"/award-3.png" },
-  { id:"ia4", title:"Project Skill Enhancement",   note:"Helped the team understand the project and enhance skills",             date:"Feb 2023", image:"/award-4.png" },
-  { id:"ia5", title:"Firebase Auth App",            note:"Helped build Firebase authentication application",                      date:"Apr 2023", image:"/award-5.png" },
-  { id:"ia6", title:"SAP Fiori App Builder",        note:"Recognised for building SAP Fiori application",                        date:"May 2023", image:"/award-6.png" },
-  { id:"ia7", title:"Peer Support — HTML/CSS",      note:"Supportive in solving doubts; helped teammates with HTML/CSS",          date:"Aug 2023", image:"/award-7.png" },
-  { id:"ia8", title:"Technical Documentation Lead", note:"Prepared artifacts and recordings on Kongara Project",                  date:"Nov 2023", image:"/award-8.png" },
-  { id:"ia9", title:"Quick Learner & Excellence",   note:"Recognised as a quick learner and excellent team member",              date:"Nov 2023", image:"/award-9.png" },
+  { id:"ia1", title:"Onboarding Star",              note:"Delivered all requirements on time; helped manage team workload",         date:"Nov 2021", image:asset("/award-1.png") },
+  { id:"ia2", title:"Front-end API Dev",            note:"Helped create API in front-end web development",                        date:"Nov 2022", image:asset("/award-2.png") },
+  { id:"ia3", title:"Debugging & RCA",              note:"Helped in debugging and understanding root cause analysis",             date:"Sep 2022", image:asset("/award-3.png") },
+  { id:"ia4", title:"Project Skill Enhancement",   note:"Helped the team understand the project and enhance skills",             date:"Feb 2023", image:asset("/award-4.png") },
+  { id:"ia5", title:"Firebase Auth App",            note:"Helped build Firebase authentication application",                      date:"Apr 2023", image:asset("/award-5.png") },
+  { id:"ia6", title:"SAP Fiori App Builder",        note:"Recognised for building SAP Fiori application",                        date:"May 2023", image:asset("/award-6.png") },
+  { id:"ia7", title:"Peer Support — HTML/CSS",      note:"Supportive in solving doubts; helped teammates with HTML/CSS",          date:"Aug 2023", image:asset("/award-7.png") },
+  { id:"ia8", title:"Technical Documentation Lead", note:"Prepared artifacts and recordings on Kongara Project",                  date:"Nov 2023", image:asset("/award-8.png") },
+  { id:"ia9", title:"Quick Learner & Excellence",   note:"Recognised as a quick learner and excellent team member",              date:"Nov 2023", image:asset("/award-9.png") },
 ];
 
 function Lightbox({ images, startIndex, onClose }) {
