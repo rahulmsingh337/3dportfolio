@@ -4,27 +4,40 @@ import { gsap } from "gsap";
 import { Mail, Phone, ExternalLink } from "lucide-react";
 
 const SvgLinkedIn = () => (
-  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+    <rect width="24" height="24" rx="6" fill="#0A66C2"/>
+    <path d="M7 9.5H5v9h2v-9zM6 8.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zM19 13.2c0-2.1-1.1-3.7-3-3.7-1 0-1.7.5-2 1.2V9.5h-2v9h2v-4.8c0-1.1.6-1.9 1.6-1.9 1 0 1.4.8 1.4 1.9v4.8h2V13.2z" fill="white"/>
   </svg>
 );
 const SvgGitHub = () => (
-  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+    <rect width="24" height="24" rx="6" fill="#24292e"/>
+    <path d="M12 3C7 3 3 7.1 3 12.3c0 4.1 2.6 7.6 6.2 8.8.5.1.6-.2.6-.4v-1.5c-2.6.6-3.1-1.2-3.1-1.2-.4-1.1-1-1.4-1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.8.8.1-.6.3-1.1.6-1.3-2.1-.2-4.3-1-4.3-4.6 0-1 .4-1.9 1-2.6-.1-.2-.4-1.2.1-2.5 0 0 .8-.3 2.7 1 .8-.2 1.6-.3 2.4-.3.8 0 1.6.1 2.4.3 1.9-1.3 2.7-1 2.7-1 .5 1.3.2 2.3.1 2.5.6.7 1 1.6 1 2.6 0 3.6-2.2 4.4-4.3 4.6.3.3.6.8.6 1.7v2.5c0 .2.1.5.6.4C18.4 19.9 21 16.4 21 12.3 21 7.1 17 3 12 3z" fill="white"/>
   </svg>
 );
-const SvgGlobe = () => (
-  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
-    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+const SvgInstagram = () => (
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
+    <defs>
+      <radialGradient id="ig2" cx="30%" cy="107%" r="150%">
+        <stop offset="0%" stopColor="#fdf497"/>
+        <stop offset="5%" stopColor="#fdf497"/>
+        <stop offset="45%" stopColor="#fd5949"/>
+        <stop offset="60%" stopColor="#d6249f"/>
+        <stop offset="90%" stopColor="#285AEB"/>
+      </radialGradient>
+    </defs>
+    <rect width="24" height="24" rx="6" fill="url(#ig2)"/>
+    <circle cx="12" cy="12" r="4" stroke="white" strokeWidth="1.5" fill="none"/>
+    <circle cx="17.5" cy="6.5" r="1.25" fill="white"/>
+    <rect x="3" y="3" width="18" height="18" rx="5" stroke="white" strokeWidth="1.5" fill="none"/>
   </svg>
 );
 
 
 const SOCIALS = [
-  { label:"LinkedIn", href:"https://www.linkedin.com/in/rahulmsingh337/", icon:<SvgLinkedIn/> },
+  { label:"LinkedIn", href:"https://www.linkedin.com/in/rahul-singh-sap-abap/", icon:<SvgLinkedIn/> },
   { label:"GitHub",   href:"https://github.com/rahulmsingh337",           icon:<SvgGitHub/>   },
-  { label:"Website",  href:"https://rahulmsingh337.github.io/",           icon:<SvgGlobe/>    },
+  { label:"Instagram", href:"https://www.instagram.com/squatile3375/",    icon:<SvgInstagram/> },
   { label:"WhatsApp", href:"https://wa.me/918989805836",                  icon:<Phone size={17}/> },
 ];
 
