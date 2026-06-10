@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { gsap } from "gsap";
-import { Mail, Phone, Download, MapPin, ExternalLink } from "lucide-react";
+import { Mail, Phone, Download, MapPin } from "lucide-react";
 import { asset } from "../utils/assetPath";
+
+const ROLES = ["SAP ABAP Lead", "S/4HANA Expert", "Clean Core Dev", "Migration Lead"];
 
 const SvgLinkedIn = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -21,7 +23,6 @@ const SvgInstagram = () => (
     <defs>
       <radialGradient id="ig1" cx="30%" cy="107%" r="150%">
         <stop offset="0%" stopColor="#fdf497"/>
-        <stop offset="5%" stopColor="#fdf497"/>
         <stop offset="45%" stopColor="#fd5949"/>
         <stop offset="60%" stopColor="#d6249f"/>
         <stop offset="90%" stopColor="#285AEB"/>
@@ -34,167 +35,274 @@ const SvgInstagram = () => (
   </svg>
 );
 
+// Orbiting tech tags around photo
+const TAGS = [
+  { label:"S/4HANA",  angle:0,   r:200, dur:18 },
+  { label:"RAP",      angle:72,  r:220, dur:22 },
+  { label:"CDS",      angle:144, r:195, dur:16 },
+  { label:"OData",    angle:216, r:215, dur:20 },
+  { label:"BTP",      angle:288, r:205, dur:24 },
+];
 
-const ROLES = ["SAP ABAP Lead", "S/4HANA Expert", "ABAP Cloud Dev", "Migration Lead"];
+// Split text into chars for animation
+function SplitText({ text, delay = 0, style = {} }) {
+  return (
+    <span style={{ display: "inline-block", overflow: "hidden", ...style }}>
+      {text.split("").map((ch, i) => (
+        <motion.span
+          key={i}
+          initial={{ y: "100%", opacity: 0, skewY: 8 }}
+          animate={{ y: "0%", opacity: 1, skewY: 0 }}
+          transition={{ duration: 0.6, delay: delay + i * 0.04, ease: [0.22,1,0.36,1] }}
+          style={{ display: "inline-block" }}
+        >
+          {ch === " " ? "\u00A0" : ch}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
 
 export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0);
   const containerRef = useRef(null);
-  const nameRef  = useRef(null);
-  const blurRefs = useRef([]);
+  const photoRef = useRef(null);
+  const mouse = useRef({ x: 0, y: 0 });
 
-  // scroll-driven opacity for initial section
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start","end end"] });
-  const initialOpacity = useTransform(scrollYProgress, [0, 0.35, 0.45], [1, 1, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.4, 0.5], [1, 1, 0]);
+  const y       = useTransform(scrollYProgress, [0, 0.5], [0, -60]);
 
   useEffect(() => {
-    const tl = gsap.timeline({ ease:"power3.out", delay:0.1 });
-    tl.fromTo(nameRef.current, { opacity:0, y:60 }, { opacity:1, y:0, duration:1.3 });
-    tl.fromTo(blurRefs.current,
-      { opacity:0, filter:"blur(14px)", y:24 },
-      { opacity:1, filter:"blur(0px)", y:0, duration:1, stagger:0.1 }, "-=0.9");
-  }, []);
-
-  useEffect(() => {
-    const t = setInterval(() => setRoleIdx(i => (i + 1) % ROLES.length), 2500);
+    const t = setInterval(() => setRoleIdx(i => (i+1) % ROLES.length), 2500);
     return () => clearInterval(t);
   }, []);
 
-  const addBlur = el => { if (el && !blurRefs.current.includes(el)) blurRefs.current.push(el); };
+  // 3D photo tilt on mouse move
+  useEffect(() => {
+    const el = photoRef.current;
+    if (!el) return;
+    const onMove = e => {
+      const rect = el.getBoundingClientRect();
+      const cx = rect.left + rect.width/2;
+      const cy = rect.top  + rect.height/2;
+      const rx = ((e.clientY - cy) / rect.height) * 18;
+      const ry = ((e.clientX - cx) / rect.width ) * -18;
+      el.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.04)`;
+    };
+    const onLeave = () => {
+      el.style.transform = "perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)";
+    };
+    el.addEventListener("mousemove", onMove);
+    el.addEventListener("mouseleave", onLeave);
+    return () => { el.removeEventListener("mousemove",onMove); el.removeEventListener("mouseleave",onLeave); };
+  }, []);
 
   return (
     <section ref={containerRef} id="hero" style={{ position:"relative", minHeight:"100vh" }}>
-      {/* sticky wrapper */}
-      <div style={{ position:"sticky", top:0, height:"100vh", overflow:"hidden",
-        display:"flex", alignItems:"center", justifyContent:"center" }}>
-
-        <motion.div style={{ opacity: initialOpacity, width:"100%", maxWidth:1280,
-          padding:"80px 40px 0", display:"grid", gridTemplateColumns:"1fr 1fr",
-          gap:72, alignItems:"center" }} className="hero-grid">
+      <div style={{
+        position:"sticky", top:0, height:"100vh", overflow:"hidden",
+        display:"flex", alignItems:"center", justifyContent:"center",
+      }}>
+        <motion.div style={{ opacity, y, width:"100%", maxWidth:1280,
+          padding:"80px 40px 0", display:"grid",
+          gridTemplateColumns:"1fr 1fr", gap:72, alignItems:"center" }}
+          className="hero-grid">
 
           {/* ── LEFT ── */}
           <div>
             {/* Available pill */}
-            <div ref={addBlur} style={{ display:"inline-flex",alignItems:"center",gap:10,
-              fontSize:11,letterSpacing:"0.35em",textTransform:"uppercase",
-              color:"rgba(255,255,255,0.35)",marginBottom:28 }}>
+            <motion.div
+              initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }}
+              transition={{ delay:0.2 }}
+              style={{ display:"inline-flex", alignItems:"center", gap:10,
+                fontSize:11, letterSpacing:"0.35em", textTransform:"uppercase",
+                color:"rgba(255,255,255,0.4)", marginBottom:28,
+                padding:"8px 16px", borderRadius:100,
+                background:"rgba(99,102,241,0.08)",
+                border:"1px solid rgba(99,102,241,0.2)",
+              }}>
               <span className="animate-pulse-dot" style={{
-                width:7,height:7,borderRadius:"50%",
-                background:"#3dd68c",boxShadow:"0 0 10px #3dd68c",display:"inline-block"
+                width:7, height:7, borderRadius:"50%",
+                background:"#3dd68c", boxShadow:"0 0 10px #3dd68c", display:"inline-block",
               }}/>
               Available for opportunities
-            </div>
+            </motion.div>
 
-            {/* Name */}
-            <h1 ref={nameRef} style={{
+            {/* Name — split char animation */}
+            <h1 style={{
               fontFamily:"'Outfit',sans-serif",
               fontSize:"clamp(52px,7.5vw,96px)",
-              lineHeight:0.93,letterSpacing:"-3px",color:"#fff",
-              marginBottom:16,opacity:0,
+              lineHeight:0.93, letterSpacing:"-3px", color:"#fff",
+              marginBottom:16, overflow:"hidden",
             }}>
-              Rahul<br/>Singh
+              <div style={{ display:"block" }}>
+                <SplitText text="Rahul" delay={0.3}/>
+              </div>
+              <div style={{ display:"block" }}>
+                <SplitText text="Singh" delay={0.55}/>
+              </div>
             </h1>
 
-            {/* Role line */}
-            <p ref={addBlur} style={{ fontSize:"clamp(14px,1.8vw,18px)",
-              color:"rgba(255,255,255,0.35)",marginBottom:10 }}>
+            {/* Role */}
+            <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:1 }}
+              style={{ fontSize:"clamp(14px,1.8vw,18px)", color:"rgba(255,255,255,0.35)", marginBottom:10 }}>
               <span key={roleIdx} className="animate-role-fade-in"
-                style={{ color:"#6366F1",fontFamily:"'Fraunces',serif",fontStyle:"italic",
-                  display:"inline-block" }}>
+                style={{ color:"#6366F1", fontFamily:"'Fraunces',serif",
+                  fontStyle:"italic", display:"inline-block" }}>
                 {ROLES[roleIdx]}
               </span>
               {" "}· Accenture · Noida
-            </p>
+            </motion.p>
 
-            {/* Location */}
-            <div ref={addBlur} style={{ display:"inline-flex",alignItems:"center",gap:6,
-              background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.07)",
-              borderRadius:100,padding:"6px 14px",marginBottom:28 }}>
+            {/* Location badge */}
+            <motion.div initial={{ opacity:0, x:-20 }} animate={{ opacity:1, x:0 }}
+              transition={{ delay:1.1 }}
+              style={{ display:"inline-flex", alignItems:"center", gap:6,
+                background:"rgba(255,255,255,0.04)",
+                border:"1px solid rgba(255,255,255,0.07)",
+                borderRadius:100, padding:"6px 14px", marginBottom:28 }}>
               <MapPin size={11} color="#6366F1"/>
-              <span style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
-                letterSpacing:"0.2em",textTransform:"uppercase",color:"rgba(255,255,255,0.3)" }}>
+              <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:10,
+                letterSpacing:"0.2em", textTransform:"uppercase",
+                color:"rgba(255,255,255,0.3)" }}>
                 Noida, Uttar Pradesh, India
               </span>
-            </div>
+            </motion.div>
 
             {/* Description */}
-            <p ref={addBlur} style={{ fontSize:15,lineHeight:1.75,
-              color:"rgba(255,255,255,0.4)",maxWidth:440,marginBottom:36 }}>
+            <motion.p initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }}
+              transition={{ delay:1.2 }}
+              style={{ fontSize:15, lineHeight:1.75, color:"rgba(255,255,255,0.4)",
+                maxWidth:440, marginBottom:36 }}>
               5+ years engineering enterprise SAP systems at Accenture & Infosys.
-              S/4HANA migration · HANA remediation · CDS Views · RAP · OData · ABAP Cloud.
-            </p>
+              S/4HANA migration · HANA remediation · Clean Core · RAP · OData · ABAP Cloud.
+            </motion.p>
 
             {/* CTAs */}
-            <div ref={addBlur} style={{ display:"flex",gap:12,flexWrap:"wrap",marginBottom:36 }}>
-              <a href="#projects" data-hover style={btnSolid}
-                onMouseEnter={e=>Object.assign(e.currentTarget.style,btnSolidHov)}
+            <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }}
+              transition={{ delay:1.3 }}
+              style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:36 }}>
+              <a href="#projects" data-hover className="mag-glow" style={btnSolid}
+                onMouseEnter={e=>Object.assign(e.currentTarget.style,btnSolidH)}
                 onMouseLeave={e=>Object.assign(e.currentTarget.style,btnSolid)}>
                 View Projects ↓
               </a>
-              <a href={asset("/resume.pdf")} download data-hover style={btnOutline}
-                onMouseEnter={e=>Object.assign(e.currentTarget.style,btnOutlineHov)}
+              <a href={asset("/resume.pdf")} download data-hover className="mag-glow" style={btnOutline}
+                onMouseEnter={e=>Object.assign(e.currentTarget.style,btnOutlineH)}
                 onMouseLeave={e=>Object.assign(e.currentTarget.style,btnOutline)}>
                 <Download size={13}/> Resume
               </a>
-            </div>
+            </motion.div>
 
             {/* Socials */}
-            <div ref={addBlur} style={{ display:"flex",gap:20,alignItems:"center" }}>
+            <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }}
+              transition={{ delay:1.5 }}
+              style={{ display:"flex", gap:16, alignItems:"center" }}>
               {[
                 { href:"https://www.linkedin.com/in/rahul-singh-sap-abap/", icon:<SvgLinkedIn/>, label:"LinkedIn" },
-                { href:"https://github.com/rahulmsingh337",            icon:<SvgGitHub/>,   label:"GitHub"   },
-                { href:"mailto:rs58598@gmail.com",                     icon:<Mail size={18}/>,     label:"Email"    },
-                { href:"https://wa.me/918989805836",                   icon:<Phone size={18}/>,    label:"WhatsApp" },
+                { href:"https://github.com/rahulmsingh337",                  icon:<SvgGitHub/>,   label:"GitHub"   },
+                { href:"https://www.instagram.com/squatile3375/",            icon:<SvgInstagram/>,label:"Instagram" },
+                { href:"mailto:rs58598@gmail.com",                           icon:<Mail size={18}/>, label:"Email" },
               ].map(s=>(
-                <a key={s.label} href={s.href} target="_blank" rel="noreferrer" data-hover
-                  title={s.label}
-                  style={{ color:"rgba(255,255,255,0.25)",transition:"color 0.2s",cursor:"none" }}
+                <motion.a key={s.label} href={s.href}
+                  target={s.label!=="Email"?"_blank":undefined}
+                  rel="noreferrer" data-hover title={s.label}
+                  whileHover={{ scale:1.25, rotate: 5 }}
+                  whileTap={{ scale:0.9 }}
+                  style={{ color:"rgba(255,255,255,0.25)", transition:"color 0.2s", cursor:"none" }}
                   onMouseEnter={e=>e.currentTarget.style.color="#6366F1"}
                   onMouseLeave={e=>e.currentTarget.style.color="rgba(255,255,255,0.25)"}>
                   {s.icon}
-                </a>
+                </motion.a>
               ))}
-            </div>
+            </motion.div>
           </div>
 
-          {/* ── RIGHT — Photo ── */}
-          <div style={{ display:"flex",justifyContent:"center" }} className="hero-photo-col">
-            <div className="animate-float" style={{ position:"relative",width:380,height:480 }}>
-              {/* outer rings */}
-              <div style={{ position:"absolute",inset:-20,
-                border:"1px solid rgba(99,102,241,0.15)",
-                borderRadius:36 }}/>
-              <div style={{ position:"absolute",inset:-40,
-                border:"1px solid rgba(99,102,241,0.06)",
-                borderRadius:44 }}/>
-              {/* photo */}
-              <img src={asset("/rahul.jpg")} alt="Rahul Singh"
-                className="photo-glow"
-                style={{ width:"100%",height:"100%",objectFit:"cover",objectPosition:"center 15%",
-                  borderRadius:24,
-                  filter:"contrast(1.02) brightness(0.98)" }}
-                onError={e=>{ e.target.style.display="none";
-                  e.target.parentElement.style.background="#0F172A";
-                  e.target.parentElement.style.borderRadius="24px"; }}
-              />
+          {/* ── RIGHT — 3D Photo ── */}
+          <div style={{ display:"flex", justifyContent:"center" }} className="hero-photo-col">
+            <div style={{ position:"relative", width:380, height:480 }}>
+              {/* Orbiting tags */}
+              {TAGS.map((tag,i) => (
+                <div key={tag.label} style={{
+                  position:"absolute",
+                  top:"50%", left:"50%",
+                  width:0, height:0,
+                  zIndex:10,
+                  animation:`orbit ${tag.dur}s linear infinite`,
+                  "--start-angle": `${tag.angle}deg`,
+                  "--radius": `${tag.r * 0.45}px`,
+                }}>
+                  <div style={{
+                    position:"absolute",
+                    transform:"translate(-50%,-50%)",
+                    fontFamily:"'JetBrains Mono',monospace",
+                    fontSize:10, fontWeight:700,
+                    padding:"4px 10px", borderRadius:100,
+                    background:"rgba(2,6,23,0.9)",
+                    border:`1px solid rgba(99,102,241,${0.3 + i*0.1})`,
+                    color:`hsl(${230+i*15},70%,70%)`,
+                    letterSpacing:"0.08em",
+                    whiteSpace:"nowrap",
+                    backdropFilter:"blur(8px)",
+                    boxShadow:`0 0 12px rgba(99,102,241,0.3)`,
+                  }}>
+                    {tag.label}
+                  </div>
+                </div>
+              ))}
 
-
-
+              {/* Photo with 3D tilt */}
+              <div ref={photoRef} style={{
+                width:"100%", height:"100%",
+                borderRadius:24, overflow:"hidden",
+                transition:"transform 0.15s ease",
+                willChange:"transform",
+              }}>
+                {/* glow border */}
+                <div style={{
+                  position:"absolute", inset:-2, borderRadius:26, zIndex:-1,
+                  background:"linear-gradient(135deg,#6366F1,#22D3EE,#D8B4FE,#6366F1)",
+                  backgroundSize:"300% 300%",
+                  animation:"gradient-shift 4s ease infinite",
+                }}/>
+                <img src={asset("/rahul.jpg")} alt="Rahul Singh"
+                  style={{ width:"100%", height:"100%",
+                    objectFit:"cover", objectPosition:"center 15%",
+                    borderRadius:24, display:"block" }}
+                />
+                {/* holographic shimmer overlay */}
+                <div style={{
+                  position:"absolute", inset:0, borderRadius:24,
+                  background:"linear-gradient(135deg,rgba(99,102,241,0.15),transparent 40%,rgba(34,211,238,0.1) 60%,transparent)",
+                  pointerEvents:"none",
+                }}/>
+              </div>
             </div>
           </div>
         </motion.div>
 
-        {/* scroll indicator */}
-        <div style={{ position:"absolute",bottom:36,left:"50%",transform:"translateX(-50%)",
-          display:"flex",flexDirection:"column",alignItems:"center",gap:8 }}>
-          <span style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
-            letterSpacing:"0.25em",color:"rgba(255,255,255,0.2)",textTransform:"uppercase" }}>
+        {/* Scroll indicator */}
+        <div style={{
+          position:"absolute", bottom:36, left:"50%",
+          transform:"translateX(-50%)",
+          display:"flex", flexDirection:"column", alignItems:"center", gap:8,
+        }}>
+          <motion.span
+            animate={{ opacity:[0.3,0.7,0.3] }}
+            transition={{ duration:2, repeat:Infinity }}
+            style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:10,
+              letterSpacing:"0.25em", color:"rgba(255,255,255,0.3)",
+              textTransform:"uppercase" }}>
             Scroll
-          </span>
-          <div style={{ width:1,height:40,background:"rgba(255,255,255,0.08)",position:"relative",overflow:"hidden" }}>
-            <div className="animate-scroll-down"
-              style={{ position:"absolute",inset:0,
-                background:"linear-gradient(to bottom,transparent,#6366F1)" }}/>
+          </motion.span>
+          <div style={{ width:1, height:40,
+            background:"rgba(255,255,255,0.08)",
+            position:"relative", overflow:"hidden" }}>
+            <div className="animate-scroll-down" style={{
+              position:"absolute", inset:0,
+              background:"linear-gradient(to bottom,transparent,#6366F1)",
+            }}/>
           </div>
         </div>
       </div>
@@ -209,10 +317,10 @@ export default function Hero() {
   );
 }
 
-const base = { display:"inline-flex",alignItems:"center",gap:8,fontFamily:"'Inter',sans-serif",
-  fontSize:13,fontWeight:700,padding:"13px 26px",borderRadius:100,
-  textDecoration:"none",cursor:"none",transition:"all 0.3s",letterSpacing:"0.02em" };
-const btnSolid    = { ...base, background:"#fff",color:"#020617",border:"1px solid transparent" };
-const btnSolidHov = { ...btnSolid, background:"#6366F1",color:"#fff",transform:"scale(1.04)" };
-const btnOutline  = { ...base, background:"transparent",color:"rgba(255,255,255,0.7)",border:"1px solid rgba(255,255,255,0.12)" };
-const btnOutlineHov={ ...btnOutline, borderColor:"#6366F1",color:"#6366F1",transform:"scale(1.04)" };
+const base={display:"inline-flex",alignItems:"center",gap:8,fontFamily:"'Inter',sans-serif",
+  fontSize:13,fontWeight:700,padding:"13px 26px",borderRadius:100,textDecoration:"none",
+  cursor:"none",transition:"all 0.3s",letterSpacing:"0.02em"};
+const btnSolid   ={...base,background:"#fff",color:"#020617",border:"1px solid transparent"};
+const btnSolidH  ={...btnSolid,background:"linear-gradient(135deg,#6366F1,#22D3EE)",color:"#fff",transform:"scale(1.05)"};
+const btnOutline ={...base,background:"transparent",color:"rgba(255,255,255,0.7)",border:"1px solid rgba(255,255,255,0.12)"};
+const btnOutlineH={...btnOutline,borderColor:"#6366F1",color:"#6366F1",transform:"scale(1.05)"};
