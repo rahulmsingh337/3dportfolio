@@ -69,7 +69,7 @@ export default function Hero() {
         display:"flex", alignItems:"center", justifyContent:"center" }}>
 
         <motion.div style={{ opacity: initialOpacity, width:"100%", maxWidth:1280,
-          padding:"0 40px", display:"grid", gridTemplateColumns:"1fr 1fr",
+          padding:"80px 40px 0", display:"grid", gridTemplateColumns:"1fr 1fr",
           gap:72, alignItems:"center" }} className="hero-grid">
 
           {/* ── LEFT ── */}
@@ -201,7 +201,7 @@ export default function Hero() {
 
       <style>{`
         @media(max-width:768px){
-          .hero-grid{grid-template-columns:1fr!important;gap:48px!important;padding-top:100px!important;}
+          .hero-grid{grid-template-columns:1fr!important;gap:48px!important;padding-top:80px!important;}
           .hero-photo-col{order:-1;}
         }
       `}</style>
