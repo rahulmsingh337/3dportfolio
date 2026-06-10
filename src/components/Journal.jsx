@@ -49,7 +49,7 @@ export default function Journal() {
       padding: "100px 0",
       borderTop: "1px solid rgba(255,255,255,0.05)",
     }}>
-      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }}>
+      <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 40px" }} className="section-pad">
 
         {/* Header */}
         <motion.div

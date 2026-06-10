@@ -247,3 +247,129 @@ body::after {
     0 0 40px rgba(99,102,241,.2),
     0 0 80px rgba(34,211,238,.1);
 }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   xs  < 480px   (small phones)
+   sm  < 640px   (phones)
+   md  < 768px   (large phones / small tablet)
+   lg  < 1024px  (tablets / small laptop)
+   xl  < 1280px  (laptops)
+   ══════════════════════════════════════════ */
+
+/* ── Navbar ────────────────────────────── */
+@media(max-width:479px) {
+  .nav-desktop { display:none !important; }
+  .nav-socials { display:none !important; }
+  .nav-divider-d { display:none !important; }
+  .nav-burger { display:inline-flex !important; }
+}
+
+/* ── Hero ──────────────────────────────── */
+@media(max-width:1023px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+    padding-top: 110px !important;
+    text-align: center;
+  }
+  .hero-photo-col { order: -1; justify-content: center !important; }
+  .hero-left-socials { justify-content: center !important; }
+  .hero-left-btns   { justify-content: center !important; }
+  .hero-left-loc    { justify-content: center !important; }
+  .hero-left-avail  { justify-content: center !important; }
+}
+@media(max-width:639px) {
+  .hero-grid { padding-top: 100px !important; gap: 32px !important; }
+  .hero-photo-wrap { width: 280px !important; height: 340px !important; }
+  .orbit-tag { display: none !important; }
+}
+@media(max-width:479px) {
+  .hero-grid { padding-top: 90px !important; }
+  .hero-photo-wrap { width: 240px !important; height: 300px !important; }
+}
+
+/* ── Section padding ───────────────────── */
+@media(max-width:1023px) {
+  .section-pad { padding: 80px 24px !important; }
+}
+@media(max-width:639px) {
+  .section-pad { padding: 60px 16px !important; }
+}
+@media(max-width:479px) {
+  .section-pad { padding: 48px 14px !important; }
+}
+
+/* ── Skills grid ───────────────────────── */
+@media(max-width:1023px) {
+  .skills-grid { grid-template-columns: repeat(auto-fill,minmax(280px,1fr)) !important; }
+}
+@media(max-width:639px) {
+  .skills-grid { grid-template-columns: 1fr !important; }
+  .skill-card-h { height: 260px !important; }
+}
+
+/* ── Experience timeline ───────────────── */
+@media(max-width:639px) {
+  .exp-header { flex-direction: column !important; gap: 8px !important; }
+  .exp-meta   { text-align: left !important; }
+  .exp-left   { padding-left: 32px !important; }
+}
+
+/* ── Projects grid ─────────────────────── */
+@media(max-width:1023px) {
+  .projects-grid { grid-template-columns: repeat(auto-fill,minmax(280px,1fr)) !important; }
+}
+@media(max-width:639px) {
+  .projects-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── SelectedWorks bento ───────────────── */
+@media(max-width:1023px) {
+  .bento-grid { grid-template-columns: 1fr !important; }
+  .bento-col-resp { grid-column: span 1 !important; }
+}
+
+/* ── Journal pills ─────────────────────── */
+@media(max-width:767px) {
+  .journal-pill {
+    flex-direction: column !important;
+    border-radius: 20px !important;
+    gap: 12px !important;
+    padding: 16px !important;
+  }
+  .journal-meta { flex-wrap: wrap !important; gap: 8px !important; }
+  .journal-title { white-space: normal !important; }
+}
+
+/* ── Awards grids ──────────────────────── */
+@media(max-width:639px) {
+  .awards-grid  { grid-template-columns: 1fr !important; }
+  .rise-grid    { grid-template-columns: repeat(2,1fr) !important; }
+  .insta-grid   { grid-template-columns: 1fr !important; }
+}
+@media(max-width:479px) {
+  .rise-grid    { grid-template-columns: 1fr !important; }
+}
+
+/* ── ImpactStrip ───────────────────────── */
+@media(max-width:767px) {
+  .impact-grid { grid-template-columns: repeat(2,1fr) !important; gap: 20px !important; }
+  .impact-wrap { padding: 40px 20px !important; border-radius: 20px !important; }
+}
+@media(max-width:479px) {
+  .impact-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── Contact ───────────────────────────── */
+@media(max-width:639px) {
+  .contact-heading { letter-spacing: -2px !important; }
+  .contact-links   { gap: 10px !important; }
+  .contact-link    { font-size: 11px !important; padding: 10px 16px !important; }
+  .footer-bar      { flex-direction: column !important; text-align: center !important; gap: 12px !important; }
+}
+
+/* ── Typography scale ──────────────────── */
+@media(max-width:479px) {
+  h1 { letter-spacing: -2px !important; }
+}

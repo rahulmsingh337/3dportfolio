@@ -71,7 +71,7 @@ export default function Contact() {
         width:"70%",height:"55%",pointerEvents:"none",
         background:"radial-gradient(ellipse at 50% 100%,rgba(99,102,241,0.08) 0%,transparent 70%)" }}/>
 
-      <div style={{ position:"relative",zIndex:1,maxWidth:1280,margin:"0 auto",
+      <div className="section-pad" style={{ position:"relative",zIndex:1,maxWidth:1280,margin:"0 auto",
         padding:"100px 40px 64px",textAlign:"center" }}>
 
         <motion.div initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}
@@ -80,7 +80,7 @@ export default function Contact() {
             letterSpacing:"0.35em",textTransform:"uppercase",
             color:"rgba(255,255,255,0.25)",marginBottom:32 }}>Let's Connect</p>
 
-          <h2 style={{ fontFamily:"'Outfit',sans-serif",
+          <h2 className="contact-heading" style={{ fontFamily:"'Outfit',sans-serif",
             fontSize:"clamp(48px,9vw,110px)",fontWeight:800,
             lineHeight:0.93,letterSpacing:"-4px",color:"#fff",marginBottom:52 }}>
             Let's build<br/>something.
@@ -90,7 +90,7 @@ export default function Contact() {
         {/* CTA buttons */}
         <motion.div initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}
           viewport={{ once:true }} transition={{ delay:0.15 }}
-          style={{ display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap",marginBottom:64 }}>
+          className="contact-links" style={{ display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap",marginBottom:64 }}>
           <a href="mailto:rs58598@gmail.com" data-hover style={btnPrimary}
             onMouseEnter={e=>{e.currentTarget.style.background="#6366F1";e.currentTarget.style.color="#fff";}}
             onMouseLeave={e=>{e.currentTarget.style.background="#fff";e.currentTarget.style.color="#020617";}}>
@@ -107,7 +107,7 @@ export default function Contact() {
         </motion.div>
 
         {/* Footer bar */}
-        <div style={{ display:"flex",justifyContent:"space-between",alignItems:"center",
+        <div className="footer-bar" style={{ display:"flex",justifyContent:"space-between",alignItems:"center",
           paddingTop:32,borderTop:"1px solid rgba(255,255,255,0.05)",
           fontSize:12,color:"rgba(255,255,255,0.25)",flexWrap:"wrap",gap:16,
           fontFamily:"'JetBrains Mono',monospace",letterSpacing:"0.08em" }}>

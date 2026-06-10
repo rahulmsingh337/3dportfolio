@@ -44,7 +44,7 @@ const STATS = [
 
 export default function ImpactStrip() {
   return (
-    <div style={{ maxWidth:1280, margin:"0 auto", padding:"0 40px 100px" }}>
+    <div style={{ maxWidth:1280, margin:"0 auto", padding:"0 40px 100px" }} className="section-pad">
       <div style={{
         position:"relative", overflow:"hidden",
         borderRadius:32, padding:"60px 40px",
@@ -60,7 +60,7 @@ export default function ImpactStrip() {
           animation:"border-flow 3s linear infinite",
         }}/>
 
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))", gap:32 }}>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))", gap:32 }} className="impact-grid">
           {STATS.map((s, i) => (
             <motion.div key={s.label}
               initial={{ opacity:0, y:30 }}

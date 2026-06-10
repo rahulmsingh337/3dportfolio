@@ -73,7 +73,7 @@ function SkillCard({ sk, index }) {
       whileInView={{ opacity:1, y:0 }}
       viewport={{ once:true, margin:"-60px" }}
       transition={{ delay:index*0.1, duration:0.7, ease:[0.22,1,0.36,1] }}
-      style={{ height:280, perspective:800, cursor:"default" }}
+      style={{ height:280, perspective:800, cursor:"default" }} className="skill-card-h"
       onClick={() => setFlipped(f => !f)}
       data-hover
     >
@@ -157,7 +157,7 @@ function SkillCard({ sk, index }) {
 
 export default function Skills() {
   return (
-    <section id="skills" style={{ padding:"100px 40px", maxWidth:1280, margin:"0 auto" }}>
+    <section id="skills" style={{ padding:"100px 40px", maxWidth:1280, margin:"0 auto" }} className="section-pad">
       <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }}
         viewport={{ once:true }} style={{ marginBottom:72 }}>
         <p style={lbl}>Technical Arsenal</p>
@@ -171,7 +171,7 @@ export default function Skills() {
       </motion.div>
 
       <div style={{ display:"grid",
-        gridTemplateColumns:"repeat(auto-fill,minmax(320px,1fr))", gap:20 }}>
+        gridTemplateColumns:"repeat(auto-fill,minmax(320px,1fr))", gap:20 }} className="skills-grid">
         {SKILL_CARDS.map((sk,i) => <SkillCard key={sk.title} sk={sk} index={i}/>)}
       </div>
     </section>

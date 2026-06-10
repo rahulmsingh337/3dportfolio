@@ -86,7 +86,7 @@ export default function Awards() {
     <>
       <AnimatePresence>{lb && <Lightbox images={lb.images} startIndex={lb.i} onClose={()=>setLb(null)}/>}</AnimatePresence>
 
-      <section id="awards" style={{ padding:"100px 40px",maxWidth:1280,margin:"0 auto" }}>
+      <section id="awards" style={{ padding:"100px 40px",maxWidth:1280,margin:"0 auto" }} className="section-pad">
         <motion.div initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}
           viewport={{ once:true }} style={{ marginBottom:80 }}>
           <p style={lbl}>Recognition & Achievements</p>
@@ -100,7 +100,7 @@ export default function Awards() {
         {/* ── Skill Tags ── */}
         <SectionHeader icon={<Medal size={16}/>} color="#6366F1" label="Infosys Skill Tags"/>
         <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",
-          gap:16,marginBottom:72 }}>
+          gap:16,marginBottom:72 }} className="awards-grid">
           {SKILL_TAGS.map((t,i)=>(
             <motion.div key={t.id}
               initial={{ opacity:0,y:24 }} whileInView={{ opacity:1,y:0 }}
@@ -134,7 +134,7 @@ export default function Awards() {
         {/* ── RISE Awards ── */}
         <SectionHeader icon={<Trophy size={16}/>} color="#D8B4FE" label="EASSAP RISE Awards"/>
         <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(200px,1fr))",
-          gap:16,marginBottom:72 }}>
+          gap:16,marginBottom:72 }} className="rise-grid">
           {RISE.map((a,i)=>(
             <motion.div key={a.id}
               initial={{ opacity:0,y:24 }} whileInView={{ opacity:1,y:0 }}
@@ -165,7 +165,7 @@ export default function Awards() {
 
         {/* ── INSTA Awards ── */}
         <SectionHeader icon={<Star size={16}/>} color="#22D3EE" label="Insta Awards — Peer Recognition (16 Consecutive)"/>
-        <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:12 }}>
+        <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(280px,1fr))",gap:12 }} className="insta-grid">
           {INSTA.map((a,i)=>(
             <motion.div key={a.id}
               initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}

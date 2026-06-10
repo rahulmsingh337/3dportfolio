@@ -105,29 +105,14 @@ export default function Hero() {
         display:"flex", alignItems:"center", justifyContent:"center",
       }}>
         <motion.div style={{ opacity, y, width:"100%", maxWidth:1280,
-          padding:"110px 40px 0", display:"grid",
+          padding:"100px 40px 0", display:"grid",
           gridTemplateColumns:"1fr 1fr", gap:72, alignItems:"center" }}
-          className="hero-grid">
+          className="hero-grid section-pad">
 
           {/* ── LEFT ── */}
           <div>
             {/* Available pill */}
-            <motion.div
-              initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }}
-              transition={{ delay:0.2 }}
-              style={{ display:"inline-flex", alignItems:"center", gap:10,
-                fontSize:11, letterSpacing:"0.35em", textTransform:"uppercase",
-                color:"rgba(255,255,255,0.4)", marginBottom:28,
-                padding:"8px 16px", borderRadius:100,
-                background:"rgba(99,102,241,0.08)",
-                border:"1px solid rgba(99,102,241,0.2)",
-              }}>
-              <span className="animate-pulse-dot" style={{
-                width:7, height:7, borderRadius:"50%",
-                background:"#3dd68c", boxShadow:"0 0 10px #3dd68c", display:"inline-block",
-              }}/>
-              Available for opportunities
-            </motion.div>
+            
 
             {/* Name — split char animation */}
             <h1 style={{
@@ -137,10 +122,10 @@ export default function Hero() {
               marginBottom:16, overflow:"hidden",
             }}>
               <div style={{ display:"block" }}>
-                <SplitText text="Rahul" delay={0.3}/>
+                <SplitText text="RAHUL" delay={0.3}/>
               </div>
               <div style={{ display:"block" }}>
-                <SplitText text="Singh" delay={0.55}/>
+                <SplitText text="SINGH" delay={0.55}/>
               </div>
             </h1>
 
@@ -182,7 +167,7 @@ export default function Hero() {
             {/* CTAs */}
             <motion.div initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }}
               transition={{ delay:1.3 }}
-              style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:36 }}>
+              style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:36 }} className="hero-left-btns">
               <a href="#projects" data-hover className="mag-glow" style={btnSolid}
                 onMouseEnter={e=>Object.assign(e.currentTarget.style,btnSolidH)}
                 onMouseLeave={e=>Object.assign(e.currentTarget.style,btnSolid)}>
@@ -198,7 +183,7 @@ export default function Hero() {
             {/* Socials */}
             <motion.div initial={{ opacity:0 }} animate={{ opacity:1 }}
               transition={{ delay:1.5 }}
-              style={{ display:"flex", gap:16, alignItems:"center" }}>
+              style={{ display:"flex", gap:16, alignItems:"center" }} className="hero-left-socials">
               {[
                 { href:"https://www.linkedin.com/in/rahul-singh-sap-abap/", icon:<SvgLinkedIn/>, label:"LinkedIn" },
                 { href:"https://github.com/rahulmsingh337",                  icon:<SvgGitHub/>,   label:"GitHub"   },
@@ -224,7 +209,7 @@ export default function Hero() {
             <div style={{ position:"relative", width:380, height:480 }}>
               {/* Orbiting tags */}
               {TAGS.map((tag,i) => (
-                <div key={tag.label} style={{
+                <div key={tag.label} className="orbit-tag" style={{
                   position:"absolute",
                   top:"50%", left:"50%",
                   width:0, height:0,

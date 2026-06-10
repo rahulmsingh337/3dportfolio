@@ -61,7 +61,7 @@ export default function Experience() {
             </div>
 
             <div style={{ display:"flex",flexWrap:"wrap",alignItems:"flex-start",
-              justifyContent:"space-between",gap:16,marginBottom:24 }}>
+              justifyContent:"space-between",gap:16,marginBottom:24 }} className="exp-header">
               <div>
                 <h3 style={{ fontFamily:"'Outfit',sans-serif",fontSize:26,fontWeight:700,
                   color:"#fff",letterSpacing:"-0.5px",marginBottom:4 }}>{job.role}</h3>
