@@ -4,8 +4,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { Trophy, Medal, Star, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const SKILL_TAGS = [
-  { id:"func", title:"SAP S/4HANA Functional Professional", issuer:"Infosys", image:asset("/cert-sap-func.png") },
-  { id:"tech", title:"SAP S/4HANA Technical Professional",  issuer:"Infosys", image:asset("/cert-sap-tech.png") },
+  { id:"func", title:"SAP S/4HANA Functional Professional",        issuer:"Infosys", image:asset("/cert-sap-func.png") },
+  { id:"tech", title:"SAP S/4HANA Technical Professional",         issuer:"Infosys", image:asset("/cert-sap-tech.png") },
+  { id:"caig", title:"SAP Certified Generative AI Developer (C_AIG)", issuer:"SAP — In Progress", image:asset("/cert-sap-tech.png") },
 ];
 
 const RISE = [
@@ -13,7 +14,8 @@ const RISE = [
   { id:"eureka", title:"Eureka",            category:"Individual",  period:"H1-FY26", image:asset("/cert-eureka.png")   },
   { id:"rookie", title:"Rookie of the Qtr", category:"RISE Awards", period:"H1-FY26", image:asset("/cert-rookie.png")   },
   { id:"rise2",  title:"Rookie of the Qtr", category:"RISE Awards", period:"FY25 Q2", image:asset("/ach-unit-rise.png") },
-  { id:"rise3",  title:"Rookie of the Qtr", category:"RISE Awards", period:"FY24 Q2", image:asset("/cert-rookie.png")   },
+  { id:"rise3",  title:"Rookie of the Qtr",            category:"RISE Awards", period:"FY24 Q2", image:asset("/cert-rookie.png")   },
+  { id:"client", title:"Client Appreciation Letter",   category:"Global Logistics Client", period:"Jan 2024", image:asset("/award-1.png")       },
 ];
 
 const INSTA = [

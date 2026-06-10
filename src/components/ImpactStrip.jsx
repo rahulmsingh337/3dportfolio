@@ -2,10 +2,10 @@ import { motion } from "motion/react";
 import { Award, Shield, Briefcase } from "lucide-react";
 
 const STATS = [
-  { value:"16 Consecutive", label:"INSTA Peer Awards", icon:<Award size={22} color="#6366F1"/> },
-  { value:"5×",             label:"Unit Rise Awards",  icon:<Award size={22} color="#22D3EE"/> },
-  { value:"ABAP Cloud",     label:"SAP Certified",     icon:<Shield size={22} color="#6366F1"/> },
-  { value:"5+ Years",       label:"SAP Consulting",    icon:<Briefcase size={22} color="#D8B4FE"/> },
+  { value:"5+",             label:"Years Enterprise SAP",      icon:<Briefcase size={22} color="#6366F1"/> },
+  { value:"60+",            label:"ABAP Objects Remediated",   icon:<Shield size={22} color="#22D3EE"/>   },
+  { value:"€50K+",          label:"Client Cost Avoided",       icon:<Award size={22} color="#D8B4FE"/>    },
+  { value:"16×",            label:"Consecutive INSTA Awards",  icon:<Award size={22} color="#3dd68c"/>    },
 ];
 
 export default function ImpactStrip() {

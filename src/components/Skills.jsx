@@ -3,12 +3,12 @@ import { motion } from "motion/react";
 import { Terminal, Layers, Cpu, Database, Layout, Shield } from "lucide-react";
 
 const SKILLS = [
-  { name:"ABAP / ABAP 7.5",   pct:90, icon:<Terminal size={22}/> },
-  { name:"CDS Views",          pct:88, icon:<Layers size={22}/>   },
-  { name:"RAP / ABAP Cloud",   pct:85, icon:<Cpu size={22}/>      },
-  { name:"OData Services",     pct:84, icon:<Database size={22}/> },
-  { name:"AMDP / HANA SQL",    pct:80, icon:<Shield size={22}/>   },
-  { name:"SAP Fiori / UI5",    pct:78, icon:<Layout size={22}/>   },
+  { name:"ABAP / ABAP 7.5",      pct:92, icon:<Terminal size={22}/> },
+  { name:"CDS Views",             pct:88, icon:<Layers size={22}/>   },
+  { name:"RAP / ABAP Cloud",      pct:86, icon:<Cpu size={22}/>      },
+  { name:"OData V2/V4",           pct:85, icon:<Database size={22}/> },
+  { name:"Clean Core / BTP",      pct:82, icon:<Shield size={22}/>   },
+  { name:"SAP Fiori / UI5",       pct:80, icon:<Layout size={22}/>   },
 ];
 
 function Counter({ value }) {
