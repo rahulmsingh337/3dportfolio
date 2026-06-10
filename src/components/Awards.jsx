@@ -6,7 +6,6 @@ import { Trophy, Medal, Star, X, ChevronLeft, ChevronRight } from "lucide-react"
 const SKILL_TAGS = [
   { id:"func", title:"SAP S/4HANA Functional Professional",        issuer:"Infosys", image:asset("/cert-sap-func.png") },
   { id:"tech", title:"SAP S/4HANA Technical Professional",         issuer:"Infosys", image:asset("/cert-sap-tech.png") },
-  { id:"caig", title:"SAP Certified Generative AI Developer (C_AIG)", issuer:"SAP — In Progress", image:asset("/cert-sap-tech.png") },
 ];
 
 const RISE = [
