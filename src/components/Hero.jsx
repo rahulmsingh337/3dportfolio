@@ -105,7 +105,7 @@ export default function Hero() {
         display:"flex", alignItems:"center", justifyContent:"center",
       }}>
         <motion.div style={{ opacity, y, width:"100%", maxWidth:1280,
-          padding:"80px 40px 0", display:"grid",
+          padding:"110px 40px 0", display:"grid",
           gridTemplateColumns:"1fr 1fr", gap:72, alignItems:"center" }}
           className="hero-grid">
 
@@ -309,7 +309,7 @@ export default function Hero() {
 
       <style>{`
         @media(max-width:768px){
-          .hero-grid{grid-template-columns:1fr!important;gap:48px!important;padding-top:80px!important;}
+          .hero-grid{grid-template-columns:1fr!important;gap:48px!important;padding-top:120px!important;}
           .hero-photo-col{order:-1;}
         }
       `}</style>
