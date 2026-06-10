@@ -159,23 +159,23 @@ export default function Hero() {
 
           {/* ── RIGHT — Photo ── */}
           <div style={{ display:"flex",justifyContent:"center" }} className="hero-photo-col">
-            <div className="animate-float" style={{ position:"relative",width:360,height:460 }}>
+            <div className="animate-float" style={{ position:"relative",width:380,height:480 }}>
               {/* outer rings */}
-              <div style={{ position:"absolute",inset:-24,
+              <div style={{ position:"absolute",inset:-20,
                 border:"1px solid rgba(99,102,241,0.15)",
-                borderRadius:"200px 200px 160px 160px" }}/>
-              <div style={{ position:"absolute",inset:-48,
+                borderRadius:36 }}/>
+              <div style={{ position:"absolute",inset:-40,
                 border:"1px solid rgba(99,102,241,0.06)",
-                borderRadius:"220px 220px 180px 180px" }}/>
+                borderRadius:44 }}/>
               {/* photo */}
               <img src={asset("/rahul.jpg")} alt="Rahul Singh"
                 className="photo-glow"
-                style={{ width:"100%",height:"100%",objectFit:"cover",objectPosition:"center top",
-                  borderRadius:"180px 180px 140px 140px",
-                  filter:"grayscale(10%) contrast(1.05) brightness(0.95)" }}
+                style={{ width:"100%",height:"100%",objectFit:"cover",objectPosition:"center 15%",
+                  borderRadius:24,
+                  filter:"contrast(1.02) brightness(0.98)" }}
                 onError={e=>{ e.target.style.display="none";
                   e.target.parentElement.style.background="#0F172A";
-                  e.target.parentElement.style.borderRadius="180px 180px 140px 140px"; }}
+                  e.target.parentElement.style.borderRadius="24px"; }}
               />
 
 
