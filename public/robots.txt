@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://3dportfolio-rahulmsingh337.vercel.app/sitemap.xml
+Sitemap: https://rahulsinghsap.vercel.app/sitemap.xml
 
 # Allow all major crawlers explicitly
 User-agent: Googlebot
