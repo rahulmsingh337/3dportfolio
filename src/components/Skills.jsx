@@ -6,8 +6,8 @@ const SKILL_CARDS = [
   {
     icon:<Terminal size={28}/>, title:"S/4HANA Transformation & EAM", color:"#6366F1",
     desc:"SAP S/4HANA transformation, custom code remediation, HANA optimization, SAP EAM — F2173/F2175 Fiori apps, Maintenance Cutover & Hypercare.",
-    tags:["S/4HANA","SAP EAM","Custom Code Remediation","HANA Optimization","AMDP","Code Push-Down","ATC Compliance"],
-    back:"60+ ABAP objects remediated. F2173 & F2175 EAM Fiori apps enhanced. Maintenance Phase Cutover & Hypercare supported.",
+    tags:["S/4HANA","SAP EAM","F2173 / F2175","Maintenance Management","Asset Management","Custom Code Remediation","Migration Assessment","AMDP","ATC Compliance"],
+    back:"60+ ABAP objects remediated. F2173 & F2175 EAM Fiori enhancements. Maintenance Phase 9 Cutover & Hypercare. Zero critical post-go-live defects.",
     pct:92,
   },
   {

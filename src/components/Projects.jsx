@@ -34,6 +34,18 @@ const PROJECTS = [
     tags:["React","TypeScript","Gemini API","Firebase","AI/ML"],
     outcome:"Live at prompifytech.vercel.app",
     link:"https://prompifytech.vercel.app" },
+  { id:"eam",      icon:<Layers size={26}/>,    title:"SAP EAM Fiori Enhancements — F2173 & F2175",
+    desc:"Delivered enhancements for SAP EAM Fiori apps F2173 (Manage Maintenance Orders) and F2175 (Schedule Maintenance Orders & Operations) for Sun Chemical S/4HANA transformation. Improved maintenance planning and order execution processes.",
+    tags:["SAP EAM","F2173","F2175","SAP Fiori","S/4HANA","Sun Chemical"],
+    outcome:"Supported Maintenance Phase 9 Cutover and go-live with zero critical defects." },
+  { id:"massprint", icon:<BarChart3 size={26}/>, title:"Maintenance Order Mass-Printing Solution",
+    desc:"Designed and implemented enterprise-scale mass-printing capability for maintenance orders integrated with SAP Fiori applications. Streamlined operational execution and reduced manual effort for maintenance teams.",
+    tags:["SAP EAM","Mass Printing","SAP Fiori","ABAP","Clean Core"],
+    outcome:"Eliminated manual print effort for maintenance operations teams." },
+  { id:"fscm",     icon:<Database size={26}/>,  title:"FSCM Impact Assessment & S/4HANA Conversion Analysis",
+    desc:"Performed FSCM field-mapping analysis during SAP S/4HANA migration. Identified custom object impacts and remediation requirements. Collaborated with solution architects during design and testing cycles.",
+    tags:["FSCM","S/4HANA","Migration Assessment","Custom Code","Impact Analysis"],
+    outcome:"Comprehensive migration readiness assessment supporting business go-live planning." },
 ];
 
 function Modal({ project, onClose }) {

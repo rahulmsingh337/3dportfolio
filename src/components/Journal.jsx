@@ -2,6 +2,16 @@ import { motion } from "motion/react";
 
 const ENTRIES = [
   {
+    id: 0,
+    title: "SAP EAM on S/4HANA: F2173 & F2175 Fiori enhancements for Sun Chemical",
+    category: "Sun Chemical",
+    categoryColor: "#22D3EE",
+    readTime: "10 min read",
+    date: "Jun 2026",
+    icon: "🔧",
+    href: "https://www.linkedin.com/in/rahul-singh-sap-abap/",
+  },
+  {
     id: 1,
     title: "ECC to S/4HANA: What nobody tells you about HANA remediation",
     category: "Migration",
