@@ -3,8 +3,8 @@ import { motion } from "motion/react";
 const ENTRIES = [
   {
     id: 0,
-    title: "SAP EAM on S/4HANA: F2173 & F2175 Fiori enhancements for Sun Chemical",
-    category: "Sun Chemical",
+    title: "SAP EAM on S/4HANA: F2173 & F2175 Fiori enhancements — Maintenance Order Management",
+    category: "SAP EAM",
     categoryColor: "#22D3EE",
     readTime: "10 min read",
     date: "Jun 2026",
