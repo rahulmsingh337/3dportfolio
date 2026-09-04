@@ -5,6 +5,7 @@ import { Trophy, Medal, Star, X, ChevronLeft, ChevronRight } from "lucide-react"
 
 const SKILL_TAGS = [
   { id:"func", title:"SAP S/4HANA Functional Professional",        issuer:"Infosys", image:asset("/cert-sap-func.png") },
+  { id:"abapd", title:"SAP Certified Back-End Developer – ABAP Cloud (C_ABAPD_2601)", issuer:"SAP SE", image:asset("/cert-sap-tech.png") },
   { id:"tech", title:"SAP S/4HANA Technical Professional",         issuer:"Infosys", image:asset("/cert-sap-tech.png") },
 ];
 

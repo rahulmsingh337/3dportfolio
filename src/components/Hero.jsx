@@ -4,7 +4,7 @@ import { gsap } from "gsap";
 import { Mail, Phone, Download, MapPin } from "lucide-react";
 import { asset } from "../utils/assetPath";
 
-const ROLES = ["SAP ABAP Lead", "S/4HANA Expert", "Clean Core Dev", "Migration Lead"];
+const ROLES = ["SAP ABAP Lead", "S/4HANA Transformation", "ABAP Cloud Certified", "EAM Specialist"];
 
 const SvgLinkedIn = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -160,8 +160,7 @@ export default function Hero() {
               transition={{ delay:1.2 }}
               style={{ fontSize:15, lineHeight:1.75, color:"rgba(255,255,255,0.4)",
                 maxWidth:440, marginBottom:36 }}>
-              5+ years engineering enterprise SAP systems at Accenture & Infosys.
-              S/4HANA migration · HANA remediation · Clean Core · RAP · OData · ABAP Cloud.
+              5+ years delivering SAP S/4HANA transformation, ABAP Cloud & Clean Core modernization at Accenture & Infosys. EAM · RAP · CDS · OData V4 · Fiori · Custom Code Remediation.
             </motion.p>
 
             {/* CTAs */}

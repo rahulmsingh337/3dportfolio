@@ -4,17 +4,17 @@ import { Terminal, Layers, Cpu, Database, Layout, Shield, Bot } from "lucide-rea
 
 const SKILL_CARDS = [
   {
-    icon:<Terminal size={28}/>, title:"Core ABAP & S/4HANA", color:"#6366F1",
-    desc:"ABAP 7.5, OO-ABAP, ECC-to-S/4HANA migration, HANA remediation, code push-down, AMDP. Led remediation of 60+ custom objects.",
-    tags:["ABAP 7.5","OO-ABAP","AMDP","S/4HANA","ECC Migration","Code Push-Down","Module Pool"],
-    back:"60+ custom ABAP objects remediated. 40–60% query performance improvement via AMDP & code push-down.",
+    icon:<Terminal size={28}/>, title:"S/4HANA Transformation & EAM", color:"#6366F1",
+    desc:"SAP S/4HANA transformation, custom code remediation, HANA optimization, SAP EAM — F2173/F2175 Fiori apps, Maintenance Cutover & Hypercare.",
+    tags:["S/4HANA","SAP EAM","Custom Code Remediation","HANA Optimization","AMDP","Code Push-Down","ATC Compliance"],
+    back:"60+ ABAP objects remediated. F2173 & F2175 EAM Fiori apps enhanced. Maintenance Phase Cutover & Hypercare supported.",
     pct:92,
   },
   {
-    icon:<Layers size={28}/>, title:"Modern SAP / Clean Core", color:"#22D3EE",
-    desc:"CDS Views, RAP model, OData V2/V4, SAP BTP ABAP Environment, Clean Core extensibility, Released APIs, Steampunk.",
-    tags:["CDS Views","RAP","OData V4","SAP BTP","Clean Core","Steampunk","Fiori Elements"],
-    back:"~30% custom footprint reduction via Released API adoption and side-by-side extensibility patterns.",
+    icon:<Layers size={28}/>, title:"ABAP Cloud & Clean Core", color:"#22D3EE",
+    desc:"ABAP Cloud development, Clean Core extensibility, CDS Views, RAP (RESTful ABAP Programming), OData V2/V4, SAP BTP ABAP Environment, Released APIs, Steampunk.",
+    tags:["ABAP Cloud","Clean Core","CDS Views","RAP","OData V4","SAP BTP","Fiori Elements","Released APIs"],
+    back:"SAP Certified Back-End Developer – ABAP Cloud (C_ABAPD_2601). ~30% custom footprint reduction via Clean Core extensibility.",
     pct:88,
   },
   {

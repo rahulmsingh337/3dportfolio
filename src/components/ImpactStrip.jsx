@@ -36,7 +36,7 @@ function AnimatedNumber({ value, suffix = "", prefix = "" }) {
 }
 
 const STATS = [
-  { value:"5",  suffix:"+", prefix:"",   label:"Years Enterprise SAP",    icon:<Briefcase size={22}/>, color:"#6366F1" },
+  { value:"5",  suffix:"+", prefix:"",   label:"Years SAP Transformation", icon:<Briefcase size={22}/>, color:"#6366F1" },
   { value:"60", suffix:"+", prefix:"",   label:"ABAP Objects Remediated", icon:<Shield size={22}/>,    color:"#22D3EE" },
   { value:"50", suffix:"K+",prefix:"€",  label:"Client Cost Avoided",     icon:<TrendingUp size={22}/>,color:"#D8B4FE" },
   { value:"16", suffix:"×", prefix:"",   label:"Consecutive INSTA Awards",icon:<Award size={22}/>,     color:"#3dd68c" },

@@ -3,20 +3,20 @@ import { Briefcase, MapPin, Calendar, CheckCircle2 } from "lucide-react";
 
 const JOBS = [
   {
-    company:"Accenture", role:"Software Development Lead",
+    company:"Accenture", role:"SAP ABAP Lead | S/4HANA Transformation",
     period:"Dec 2025 – Present", location:"Noida, UP", current:true,
     points:[
-      "Lead end-to-end ECC-to-S/4HANA migration workstreams — HANA remediation of 60+ custom ABAP objects, eliminating ATC critical findings for Clean Core compliance.",
-      "Develop CDS Views, OData V4 Services, and RAP-based Fiori apps on SAP BTP, reducing custom footprint ~30% via Released API adoption and side-by-side extensibility.",
-      "Redesign legacy ABAP using code push-down and AMDP — achieving 40–60% query-level performance improvements on large HANA datasets.",
+      "Lead SAP S/4HANA transformation workstreams — HANA remediation of 60+ custom ABAP objects, eliminating ATC critical findings for Clean Core compliance.",
+      "Enhance F2173 (Manage Maintenance Orders) and F2175 (Schedule Maintenance Orders & Operations) Fiori apps; support SAP EAM transformation, Maintenance Phase Cutover and Hypercare.",
+      "Develop CDS Views, OData V4 Services, and RAP-based Fiori apps on SAP BTP, reducing custom footprint ~30% via Released API adoption and Clean Core extensibility.",
+      "Implement enterprise-scale maintenance order mass-printing solution following SAP Clean Core principles; deliver RAP-based applications on SAP BTP ABAP Environment.",
       "Collaborate with SmartShift product team on ABAP automation tooling — reducing manual migration assessment effort by ~35% per sprint.",
-      "Conduct structured code reviews across 6+ ABAP developers, enforcing ATC, Clean Core, and TDD (ABAP Unit Testing) standards.",
-      "Partner with FICO, MM, SD functional architects to deliver scalable Clean Core technical solutions.",
+      "Conduct structured code reviews across 6+ ABAP developers, enforcing ATC compliance, Clean Core guidelines, and ABAP Unit Testing (TDD) standards.",
     ],
-    tech:["ABAP Cloud","S/4HANA","Clean Core","RAP","CDS Views","OData V4","SAP BTP","SmartShift","AMDP","Fiori Elements","ATC","TDD"],
+    tech:["S/4HANA Transformation","ABAP Cloud","Clean Core","RAP","CDS Views","OData V4","SAP EAM","SAP Fiori","SAP BTP","AMDP","SmartShift","ATC","TDD","Custom Code Remediation"],
   },
   {
-    company:"Infosys Private Limited", role:"SAP ABAP & Fiori Consultant",
+    company:"Infosys Private Limited", role:"SAP ABAP Consultant | Infosys Certified Fiori Consultant",
     period:"May 2021 – Dec 2025", location:"Noida, UP", current:false,
     points:[
       "Progressed from ABAP Developer to AMS Track Lead within 18 months — led technical delivery for 3 concurrent application management projects for global manufacturing and logistics clients.",
