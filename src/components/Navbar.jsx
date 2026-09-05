@@ -359,15 +359,17 @@ export default function Navbar() {
       </nav>
 
       <style>{`
-        .nav-lnk { display: none !important; }
-        .nav-socials-wrap { display: none !important; }
+        /* Mobile first — hide desktop elements */
+        .nav-lnk       { display: none !important; }
+        .nav-socials   { display: none !important; }
         .nav-divider-d { display: none !important; }
-        .nav-burger { display: inline-flex !important; }
-        @media(min-width: 900px) {
-          .nav-lnk { display: inline-flex !important; align-items: center; }
-          .nav-socials-wrap { display: inline-flex !important; align-items: center; gap: 6px; }
+        .nav-burger    { display: inline-flex !important; }
+        /* Desktop — show everything */
+        @media (min-width: 900px) {
+          .nav-lnk       { display: inline-flex !important; align-items: center; }
+          .nav-socials   { display: inline-flex !important; align-items: center; gap: 6px; }
           .nav-divider-d { display: block !important; }
-          .nav-burger { display: none !important; }
+          .nav-burger    { display: none !important; }
         }
       `}</style>
     </>
