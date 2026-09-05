@@ -1,0 +1,164 @@
+/* ═══════════════════════════════════════════════════════════════
+   FULL RESPONSIVE SYSTEM
+   Breakpoints:
+     xs  < 400px   tiny phones
+     sm  < 640px   phones
+     md  < 768px   large phones / small tablet
+     lg  < 1024px  tablets / small laptop
+     xl  ≥ 1024px  desktop (default layout)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Base box-sizing reset ───────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+img, video, canvas { max-width: 100%; }
+
+/* ── Navbar ──────────────────────────────────────────────────── */
+@media (max-width: 639px) {
+  .nav-desktop  { display: none !important; }
+  .nav-socials  { display: none !important; }
+  .nav-divider-d{ display: none !important; }
+  .nav-burger   { display: inline-flex !important; }
+}
+@media (min-width: 640px) {
+  .nav-desktop  { display: inline-flex !important; align-items: center; }
+  .nav-socials  { display: inline-flex !important; align-items: center; }
+  .nav-divider-d{ display: block !important; }
+  .nav-burger   { display: none !important; }
+}
+
+/* ── Hero ────────────────────────────────────────────────────── */
+/* Desktop: 2-col side-by-side */
+.hero-grid {
+  grid-template-columns: 1fr 1fr !important;
+  gap: 72px !important;
+  padding-top: 100px !important;
+}
+/* Tablet */
+@media (max-width: 1023px) {
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+    padding: 100px 24px 0 !important;
+    text-align: center;
+  }
+  .hero-photo-col { order: -1; justify-content: center !important; }
+  .hero-left-btns,
+  .hero-left-socials { justify-content: center !important; }
+}
+/* Phone */
+@media (max-width: 639px) {
+  .hero-grid { padding: 90px 16px 0 !important; gap: 32px !important; }
+  .hero-photo-wrap { width: 260px !important; height: 320px !important; }
+  .orbit-tag  { display: none !important; }
+}
+/* Tiny phone */
+@media (max-width: 399px) {
+  .hero-grid { padding: 80px 12px 0 !important; }
+  .hero-photo-wrap { width: 220px !important; height: 280px !important; }
+}
+
+/* ── Section padding ─────────────────────────────────────────── */
+.section-pad { padding: 100px 40px !important; }
+@media (max-width: 1023px) { .section-pad { padding: 80px 24px !important; } }
+@media (max-width: 639px)  { .section-pad { padding: 60px 16px !important; } }
+@media (max-width: 399px)  { .section-pad { padding: 48px 12px !important; } }
+
+/* ── Skills grid ─────────────────────────────────────────────── */
+.skills-grid {
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+}
+@media (max-width: 767px) {
+  .skills-grid { grid-template-columns: 1fr !important; }
+  .skill-card-h { height: 260px !important; }
+}
+
+/* ── Experience ──────────────────────────────────────────────── */
+.exp-left { padding-left: 56px !important; }
+@media (max-width: 639px) {
+  .exp-left  { padding-left: 36px !important; }
+  .exp-header{ flex-direction: column !important; gap: 8px !important; }
+  .exp-meta  { text-align: left !important; }
+}
+
+/* ── Projects grid ───────────────────────────────────────────── */
+.projects-grid {
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)) !important;
+}
+@media (max-width: 767px) {
+  .projects-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── SelectedWorks bento ─────────────────────────────────────── */
+@media (max-width: 1023px) {
+  .bento-grid     { grid-template-columns: 1fr !important; }
+  .bento-col-resp { grid-column: span 1 !important; }
+}
+
+/* ── Journal pills ───────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .journal-pill  {
+    flex-direction: column !important;
+    border-radius: 20px !important;
+    padding: 16px !important;
+    gap: 10px !important;
+  }
+  .journal-meta  { flex-wrap: wrap !important; gap: 6px !important; }
+  .journal-title { white-space: normal !important; }
+}
+
+/* ── Awards ──────────────────────────────────────────────────── */
+.awards-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important; }
+.rise-grid   { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)) !important; }
+.insta-grid  { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important; }
+@media (max-width: 639px) {
+  .awards-grid { grid-template-columns: 1fr !important; }
+  .rise-grid   { grid-template-columns: repeat(2, 1fr) !important; }
+  .insta-grid  { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 399px) {
+  .rise-grid   { grid-template-columns: 1fr !important; }
+}
+
+/* ── ImpactStrip ─────────────────────────────────────────────── */
+.impact-grid { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important; }
+.impact-wrap { padding: 60px 40px !important; border-radius: 32px !important; }
+@media (max-width: 767px) {
+  .impact-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 20px !important; }
+  .impact-wrap { padding: 36px 20px !important; border-radius: 20px !important; }
+}
+@media (max-width: 399px) {
+  .impact-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── Contact ─────────────────────────────────────────────────── */
+@media (max-width: 639px) {
+  .contact-heading { letter-spacing: -2px !important; font-size: clamp(40px,10vw,80px) !important; }
+  .contact-links   { gap: 10px !important; }
+  .contact-link    { font-size: 11px !important; padding: 10px 14px !important; }
+  .footer-bar      { flex-direction: column !important; align-items: center !important; text-align: center !important; gap: 12px !important; }
+}
+
+/* ── Modal (Projects lightbox) ───────────────────────────────── */
+@media (max-width: 639px) {
+  .modal-inner { padding: 28px 20px !important; border-radius: 24px !important; margin: 16px !important; }
+}
+
+/* ── Typography global scale ─────────────────────────────────── */
+@media (max-width: 639px) {
+  h1 { letter-spacing: -2px !important; }
+  h2 { letter-spacing: -1px !important; }
+}
+
+/* ── Scrollbar hide on mobile ────────────────────────────────── */
+@media (max-width: 639px) {
+  ::-webkit-scrollbar { width: 0 !important; }
+}
+
+/* ── Touch targets ───────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  a, button { min-height: 44px; min-width: 44px; }
+  .nav-link { padding: 8px 12px !important; }
+}
+
+/* ── Prevent overflow on all screens ────────────────────────── */
+html, body { overflow-x: hidden; max-width: 100vw; }

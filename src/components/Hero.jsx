@@ -205,7 +205,7 @@ export default function Hero() {
 
           {/* ── RIGHT — 3D Photo ── */}
           <div style={{ display:"flex", justifyContent:"center" }} className="hero-photo-col">
-            <div style={{ position:"relative", width:380, height:480 }}>
+            <div className="hero-photo-wrap" style={{ position:"relative", width:380, height:480 }}>
               {/* Orbiting tags */}
               {TAGS.map((tag,i) => (
                 <div key={tag.label} className="orbit-tag" style={{

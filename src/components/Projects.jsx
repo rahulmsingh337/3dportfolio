@@ -60,7 +60,7 @@ function Modal({ project, onClose }) {
         initial={{ scale:0.9,opacity:0 }} animate={{ scale:1,opacity:1 }}
         exit={{ scale:0.9,opacity:0 }}
         onClick={e=>e.stopPropagation()}
-        style={{ width:"100%",maxWidth:600,background:"#0F172A",
+        className="modal-inner" style={{ width:"100%",maxWidth:600,background:"#0F172A",
           border:"1px solid rgba(255,255,255,0.1)",borderRadius:40,
           padding:48,position:"relative",overflow:"hidden" }}>
         <div style={{ position:"absolute",inset:"0 0 auto 0",height:1,

@@ -33,7 +33,7 @@ const JOBS = [
 
 export default function Experience() {
   return (
-    <section id="experience" style={{ padding:"100px 40px",maxWidth:1280,margin:"0 auto" }}>
+    <section id="experience" className="section-pad" style={{ padding:"100px 40px",maxWidth:1280,margin:"0 auto" }}>
       <motion.div initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}
         viewport={{ once:true }} style={{ marginBottom:80 }}>
         <p style={label}>Professional Path</p>

@@ -46,7 +46,7 @@ const STATS = [
 export default function ImpactStrip() {
   return (
     <div style={{ maxWidth:1280, margin:"0 auto", padding:"0 40px 100px" }} className="section-pad">
-      <div style={{
+      <div className="impact-wrap" style={{
         position:"relative", overflow:"hidden",
         borderRadius:32, padding:"60px 40px",
         background:"rgba(255,255,255,0.015)",
