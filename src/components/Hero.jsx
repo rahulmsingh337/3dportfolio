@@ -292,9 +292,27 @@ export default function Hero() {
       </div>
 
       <style>{`
-        @media(max-width:768px){
-          .hero-grid{grid-template-columns:1fr!important;gap:48px!important;padding-top:120px!important;}
-          .hero-photo-col{order:-1;}
+        @media(max-width:1023px){
+          .hero-grid{
+            grid-template-columns:1fr!important;
+            gap:20px!important;
+            padding:90px 20px 0!important;
+            text-align:center!important;
+            align-items:center!important;
+          }
+          .hero-photo-col{ order:-1!important; display:flex!important; justify-content:center!important; }
+          .hero-left-btns{ justify-content:center!important; }
+          .hero-left-socials{ justify-content:center!important; }
+          .hero-left-loc{ justify-content:center!important; display:flex!important; }
+          .orbit-tag{ display:none!important; }
+        }
+        @media(max-width:639px){
+          .hero-grid{ gap:14px!important; padding:80px 16px 0!important; }
+          .hero-photo-wrap{ width:240px!important; height:300px!important; }
+        }
+        @media(max-width:399px){
+          .hero-photo-wrap{ width:200px!important; height:260px!important; }
+          .hero-grid{ padding:75px 12px 0!important; }
         }
       `}</style>
     </section>

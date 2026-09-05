@@ -359,19 +359,15 @@ export default function Navbar() {
       </nav>
 
       <style>{`
-        @keyframes logo-spin {
-          from { transform: rotate(0deg);   }
-          to   { transform: rotate(360deg); }
-        }
-        @media(min-width: 640px) {
-          .nav-desktop   { display: inline-flex !important; }
-          .nav-socials   { display: inline-flex !important; }
+        .nav-lnk { display: none !important; }
+        .nav-socials-wrap { display: none !important; }
+        .nav-divider-d { display: none !important; }
+        .nav-burger { display: inline-flex !important; }
+        @media(min-width: 900px) {
+          .nav-lnk { display: inline-flex !important; align-items: center; }
+          .nav-socials-wrap { display: inline-flex !important; align-items: center; gap: 6px; }
           .nav-divider-d { display: block !important; }
-          .nav-burger    { display: none !important; }
-        }
-        @media(max-width: 639px) {
-          .nav-burger    { display: inline-flex !important; }
-          .nav-divider-d { display: none !important; }
+          .nav-burger { display: none !important; }
         }
       `}</style>
     </>
