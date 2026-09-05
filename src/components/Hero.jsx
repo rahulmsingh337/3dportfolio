@@ -65,6 +65,7 @@ function SplitText({ text, delay = 0, style = {} }) {
 
 export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0);
+  const [flipped, setFlipped] = useState(false);
   const containerRef = useRef(null);
   const photoRef = useRef(null);
   const mouse = useRef({ x: 0, y: 0 });
@@ -236,31 +237,104 @@ export default function Hero() {
                 </div>
               ))}
 
-              {/* Photo with 3D tilt */}
-              <div ref={photoRef} style={{
-                width:"100%", height:"100%",
-                borderRadius:24, overflow:"hidden",
-                transition:"transform 0.15s ease",
-                willChange:"transform",
-              }}>
-                {/* glow border */}
-                <div style={{
-                  position:"absolute", inset:-2, borderRadius:26, zIndex:-1,
-                  background:"linear-gradient(135deg,#6366F1,#22D3EE,#D8B4FE,#6366F1)",
-                  backgroundSize:"300% 300%",
-                  animation:"gradient-shift 4s ease infinite",
-                }}/>
-                <img src={asset("/rahul.jpg")} alt="Rahul Singh"
-                  style={{ width:"100%", height:"100%",
-                    objectFit:"cover", objectPosition:"center 15%",
-                    borderRadius:24, display:"block" }}
-                />
-                {/* holographic shimmer overlay */}
-                <div style={{
-                  position:"absolute", inset:0, borderRadius:24,
-                  background:"linear-gradient(135deg,rgba(99,102,241,0.15),transparent 40%,rgba(34,211,238,0.1) 60%,transparent)",
-                  pointerEvents:"none",
-                }}/>
+              {/* 3D Flip Card — front: cyberpunk photo, back: award photo */}
+              <div
+                data-hover
+                style={{
+                  width:"100%", height:"100%",
+                  perspective:1000,
+                  cursor:"none",
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.querySelector(".flip-inner").style.transform = "rotateY(180deg)";
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.querySelector(".flip-inner").style.transform = "rotateY(0deg)";
+                }}
+                onClick={() => setFlipped(f => !f)}
+              >
+                <div className="flip-inner" style={{
+                  width:"100%", height:"100%",
+                  position:"relative",
+                  transformStyle:"preserve-3d",
+                  transition:"transform 0.8s cubic-bezier(0.34,1.56,0.64,1)",
+                  transform: flipped ? "rotateY(180deg)" : undefined,
+                }}>
+                  {/* ── FRONT — cyberpunk profile ── */}
+                  <div style={{
+                    position:"absolute", inset:0,
+                    backfaceVisibility:"hidden",
+                    WebkitBackfaceVisibility:"hidden",
+                    borderRadius:24, overflow:"hidden",
+                  }}>
+                    <div style={{
+                      position:"absolute", inset:-2, borderRadius:26, zIndex:-1,
+                      background:"linear-gradient(135deg,#6366F1,#22D3EE,#D8B4FE,#6366F1)",
+                      backgroundSize:"300% 300%",
+                      animation:"gradient-shift 4s ease infinite",
+                    }}/>
+                    <img src={asset("/rahul.jpg")} alt="Rahul Singh"
+                      style={{ width:"100%", height:"100%",
+                        objectFit:"cover", objectPosition:"center 15%",
+                        borderRadius:24, display:"block" }}
+                    />
+                    <div style={{
+                      position:"absolute", inset:0, borderRadius:24,
+                      background:"linear-gradient(135deg,rgba(99,102,241,0.15),transparent 40%,rgba(34,211,238,0.1) 60%,transparent)",
+                      pointerEvents:"none",
+                    }}/>
+                    {/* Hover hint */}
+                    <div style={{
+                      position:"absolute", bottom:14, left:"50%",
+                      transform:"translateX(-50%)",
+                      fontFamily:"'JetBrains Mono',monospace",
+                      fontSize:10, letterSpacing:"0.15em",
+                      color:"rgba(255,255,255,0.5)",
+                      background:"rgba(2,6,23,0.7)",
+                      backdropFilter:"blur(8px)",
+                      padding:"4px 12px", borderRadius:100,
+                      whiteSpace:"nowrap",
+                      pointerEvents:"none",
+                    }}>Hover / Tap to flip ↻</div>
+                  </div>
+
+                  {/* ── BACK — Rise Award photo ── */}
+                  <div style={{
+                    position:"absolute", inset:0,
+                    backfaceVisibility:"hidden",
+                    WebkitBackfaceVisibility:"hidden",
+                    transform:"rotateY(180deg)",
+                    borderRadius:24, overflow:"hidden",
+                  }}>
+                    <div style={{
+                      position:"absolute", inset:-2, borderRadius:26, zIndex:-1,
+                      background:"linear-gradient(135deg,#F59E0B,#EF4444,#F59E0B)",
+                      backgroundSize:"300% 300%",
+                      animation:"gradient-shift 4s ease infinite",
+                    }}/>
+                    <img src={asset("/rahul-award.png")} alt="Rahul Singh — Rise Award"
+                      style={{ width:"100%", height:"100%",
+                        objectFit:"cover", objectPosition:"center top",
+                        borderRadius:24, display:"block" }}
+                    />
+                    {/* Gold overlay */}
+                    <div style={{
+                      position:"absolute", inset:0, borderRadius:24,
+                      background:"linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,0.6) 100%)",
+                      pointerEvents:"none",
+                    }}/>
+                    {/* Award label */}
+                    <div style={{
+                      position:"absolute", bottom:16, left:0, right:0,
+                      textAlign:"center",
+                      fontFamily:"'Outfit',sans-serif",
+                      fontSize:13, fontWeight:700,
+                      color:"#F59E0B",
+                      textShadow:"0 2px 8px rgba(0,0,0,0.8)",
+                      letterSpacing:"0.05em",
+                    }}>🏆 Unit Rise Award Recipient</div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
