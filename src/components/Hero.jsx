@@ -143,7 +143,7 @@ export default function Hero() {
             {/* Location badge */}
             <motion.div initial={{ opacity:0, x:-20 }} animate={{ opacity:1, x:0 }}
               transition={{ delay:1.1 }}
-              style={{ display:"inline-flex", alignItems:"center", gap:6,
+              className="hero-left-loc" style={{ display:"inline-flex", alignItems:"center", gap:6,
                 background:"rgba(255,255,255,0.04)",
                 border:"1px solid rgba(255,255,255,0.07)",
                 borderRadius:100, padding:"6px 14px", marginBottom:28 }}>
