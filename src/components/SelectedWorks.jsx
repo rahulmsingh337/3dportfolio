@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { IS_MOBILE } from "../utils/motion";
 import { motion } from "motion/react";
 
 const WORKS = [

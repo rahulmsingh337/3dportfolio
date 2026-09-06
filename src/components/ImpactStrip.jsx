@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { IS_MOBILE } from "../utils/motion";
 import { motion } from "motion/react";
 import { Award, Shield, Briefcase, TrendingUp } from "lucide-react";
 
@@ -64,8 +65,7 @@ export default function ImpactStrip() {
         <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))", gap:32 }} className="impact-grid">
           {STATS.map((s, i) => (
             <motion.div key={s.label}
-              initial={{ opacity:0, y:30 }}
-              whileInView={{ opacity:1, y:0 }}
+              {...(IS_MOBILE ? {} : {initial:{ opacity:0, y:30 }, whileInView:{ opacity:1, y:0 }})}
               viewport={{ once:true }}
               transition={{ delay:i*0.12, duration:0.7 }}
               whileHover={{ scale:1.05 }}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { IS_MOBILE } from "../utils/motion";
 import { motion, AnimatePresence } from "motion/react";
 import { Zap, BarChart3, Mail, Terminal, Database, Layers, X, ExternalLink } from "lucide-react";
 

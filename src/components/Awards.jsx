@@ -1,5 +1,6 @@
 import { asset } from "../utils/assetPath";
 import { useState } from "react";
+import { IS_MOBILE } from "../utils/motion";
 import { motion, AnimatePresence } from "motion/react";
 import { Trophy, Medal, Star, X, ChevronLeft, ChevronRight } from "lucide-react";
 

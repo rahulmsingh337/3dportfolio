@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { IS_MOBILE } from "../utils/motion";
 import { motion } from "motion/react";
 import { Terminal, Layers, Cpu, Database, Layout, Shield, Bot } from "lucide-react";
 
@@ -69,8 +70,7 @@ function SkillCard({ sk, index }) {
 
   return (
     <motion.div
-      initial={{ opacity:0, y:50 }}
-      whileInView={{ opacity:1, y:0 }}
+      {...(IS_MOBILE ? {} : {initial:{ opacity:0, y:30 }, whileInView:{ opacity:1, y:0 }})}
       viewport={{ once:true, margin:"-60px" }}
       transition={{ delay:index*0.1, duration:0.7, ease:[0.22,1,0.36,1] }}
       style={{ height:280, perspective:800, cursor:"default" }} className="skill-card-h"
@@ -158,7 +158,7 @@ function SkillCard({ sk, index }) {
 export default function Skills() {
   return (
     <section id="skills" style={{ padding:"100px 40px", maxWidth:1280, margin:"0 auto" }} className="section-pad">
-      <motion.div initial={{ opacity:0, y:20 }} whileInView={{ opacity:1, y:0 }}
+      <motion.div {...(IS_MOBILE ? {} : {initial:{ opacity:0, y:30 }, whileInView:{ opacity:1, y:0 }})}
         viewport={{ once:true }} style={{ marginBottom:72 }}>
         <p style={lbl}>Technical Arsenal</p>
         <h2 style={hdg} className="glitch" data-text="Core Competencies">

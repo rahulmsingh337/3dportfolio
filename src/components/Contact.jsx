@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { IS_MOBILE } from "../utils/motion";
 import { motion } from "motion/react";
 import { gsap } from "gsap";
 import { Mail, Phone, ExternalLink } from "lucide-react";

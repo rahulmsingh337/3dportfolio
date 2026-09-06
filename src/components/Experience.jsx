@@ -1,3 +1,4 @@
+import { IS_MOBILE } from "../utils/motion";
 import { motion } from "motion/react";
 import { Briefcase, MapPin, Calendar, CheckCircle2 } from "lucide-react";
 

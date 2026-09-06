@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { gsap } from "gsap";
 import { Mail, Phone, Download, MapPin } from "lucide-react";
 import { asset } from "../utils/assetPath";
+import { IS_MOBILE } from "../utils/motion";
 
 const ROLES = ["SAP ABAP Lead", "S/4HANA Transformation", "ABAP Cloud Certified", "EAM Specialist"];
 
@@ -105,7 +106,7 @@ export default function Hero() {
         position:"sticky", top:0, height:"100vh", overflow:"hidden",
         display:"flex", alignItems:"center", justifyContent:"center",
       }}>
-        <motion.div style={{ opacity, y, width:"100%", maxWidth:1280,
+        <motion.div style={{ opacity: IS_MOBILE ? 1 : opacity, y: IS_MOBILE ? 0 : y, width:"100%", maxWidth:1280,
           padding:"100px 40px 0", display:"grid",
           gridTemplateColumns:"1fr 1fr", gap:72, alignItems:"center" }}
           className="hero-grid section-pad">
