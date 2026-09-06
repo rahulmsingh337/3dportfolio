@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
-import { gsap } from "gsap";
+import { motion, useScroll, useTransform } from "motion/react";
+// gsap loaded dynamically below
 import { Mail, Phone, Download, MapPin } from "lucide-react";
 import { asset } from "../utils/assetPath";
 import { IS_MOBILE } from "../utils/motion";
