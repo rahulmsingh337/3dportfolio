@@ -62,7 +62,7 @@ export default function ImpactStrip() {
           animation:"border-flow 3s linear infinite",
         }}/>
 
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))", gap:32 }} className="impact-grid">
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:32 }} className="impact-grid">
           {STATS.map((s, i) => (
             <motion.div key={s.label}
               {...(IS_MOBILE ? {} : {initial:{ opacity:0, y:30 }, whileInView:{ opacity:1, y:0 }})}

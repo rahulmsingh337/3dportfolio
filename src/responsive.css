@@ -50,12 +50,15 @@ img, video, canvas { max-width: 100%; }
 }
 
 /* ── ImpactStrip ───────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  .impact-grid { grid-template-columns: repeat(3,1fr) !important; gap: 20px !important; }
+}
 @media (max-width: 767px) {
-  .impact-grid { grid-template-columns: repeat(2,1fr) !important; gap: 20px !important; }
+  .impact-grid { grid-template-columns: repeat(2,1fr) !important; gap: 16px !important; }
   .impact-wrap { padding: 36px 20px !important; border-radius: 20px !important; }
 }
 @media (max-width: 399px) {
-  .impact-grid { grid-template-columns: 1fr !important; }
+  .impact-grid { grid-template-columns: repeat(2,1fr) !important; gap: 12px !important; }
 }
 
 /* ── Section padding ───────────────────────────────────────── */
