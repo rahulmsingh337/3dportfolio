@@ -94,14 +94,14 @@ export default function Contact() {
           viewport={{ once:true }} transition={{ delay:0.15 }}
           className="contact-links" style={{ display:"flex",gap:14,justifyContent:"center",flexWrap:"wrap",marginBottom:64 }}>
           <a href="mailto:rs58598@gmail.com" data-hover style={btnPrimary}
-            onMouseEnter={e=>{e.currentTarget.style.background="#6366F1";e.currentTarget.style.color="#fff";}}
+            onMouseEnter={e=>{e.currentTarget.style.background="#6366F1";e.currentTarget.style.color="#fff";playLinkSound();}}
             onMouseLeave={e=>{e.currentTarget.style.background="#fff";e.currentTarget.style.color="#020617";}}>
             <Mail size={14}/> Email me ↗
           </a>
           {SOCIALS.map(s=>(
             <a key={s.label} href={s.href} target="_blank" rel="noreferrer" data-hover
               style={btnGhost}
-              onMouseEnter={e=>{e.currentTarget.style.borderColor="#6366F1";e.currentTarget.style.color="#6366F1";}}
+              onMouseEnter={e=>{e.currentTarget.style.borderColor="#6366F1";e.currentTarget.style.color="#6366F1";playLinkSound();}}
               onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(255,255,255,0.08)";e.currentTarget.style.color="rgba(255,255,255,0.4)";}}>
               {s.icon}{s.label}
             </a>
