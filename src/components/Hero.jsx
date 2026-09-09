@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { Mail, Phone, Download, MapPin } from "lucide-react";
 import { asset } from "../utils/assetPath";
 import { IS_MOBILE } from "../utils/motion";
+import { playFlipSound } from "../utils/flipSound";
 
 const ROLES = ["SAP ABAP Lead", "S/4HANA Transformation", "ABAP Cloud Certified", "EAM Specialist"];
 
@@ -67,23 +68,7 @@ function SplitText({ text, delay = 0, style = {} }) {
 export default function Hero() {
   const [roleIdx, setRoleIdx] = useState(0);
   const [flipped, setFlipped] = useState(false);
-  const audioRef = useRef(null);
-
-  // Preload flip sound
-  useEffect(() => {
-    audioRef.current = new Audio(asset("/flip.mp3"));
-    audioRef.current.volume = 0.5;
-    audioRef.current.preload = "auto";
-  }, []);
-
-  const playFlip = () => {
-    try {
-      if (audioRef.current) {
-        audioRef.current.currentTime = 0;
-        audioRef.current.play().catch(() => {});
-      }
-    } catch(e) {}
-  };
+  
   const containerRef = useRef(null);
   const photoRef = useRef(null);
   const mouse = useRef({ x: 0, y: 0 });
@@ -265,13 +250,13 @@ export default function Hero() {
                 }}
                 onMouseEnter={e => {
                   e.currentTarget.querySelector(".flip-inner").style.transform = "rotateY(180deg)";
-                  playFlip();
+                  playFlipSound();
                 }}
                 onMouseLeave={e => {
                   e.currentTarget.querySelector(".flip-inner").style.transform = "rotateY(0deg)";
-                  playFlip();
+                  playFlipSound();
                 }}
-                onClick={() => { setFlipped(f => !f); playFlip(); }}
+                onClick={() => { setFlipped(f => !f); playFlipSound(); }}
               >
                 <div className="flip-inner" style={{
                   width:"100%", height:"100%",

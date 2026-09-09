@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { playFlipSound } from "../utils/flipSound";
 import { IS_MOBILE } from "../utils/motion";
 import { motion } from "motion/react";
 import { Terminal, Layers, Cpu, Database, Layout, Shield, Bot } from "lucide-react";
@@ -74,7 +75,7 @@ function SkillCard({ sk, index }) {
       viewport={{ once:true, margin:"-60px" }}
       transition={{ delay:index*0.1, duration:0.7, ease:[0.22,1,0.36,1] }}
       style={{ height:280, perspective:800, cursor:"default" }} className="skill-card-h"
-      onClick={() => setFlipped(f => !f)}
+      onClick={() => { setFlipped(f => !f); playFlipSound(); }}
       data-hover
     >
       <div ref={ref} style={{
