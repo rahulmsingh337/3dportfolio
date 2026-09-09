@@ -98,14 +98,26 @@ export default function Contact() {
             onMouseLeave={e=>{e.currentTarget.style.background="#fff";e.currentTarget.style.color="#020617";}}>
             <Mail size={14}/> Email me ↗
           </a>
-          {SOCIALS.map(s=>(
+          {SOCIALS.map(s=>{
+            const isWA = s.label === "WhatsApp";
+            const hoverColor = isWA ? "#25D366" : "#6366F1";
+            return (
             <a key={s.label} href={s.href} target="_blank" rel="noreferrer" data-hover
-              style={btnGhost}
-              onMouseEnter={e=>{e.currentTarget.style.borderColor="#6366F1";e.currentTarget.style.color="#6366F1";playLinkSound();}}
-              onMouseLeave={e=>{e.currentTarget.style.borderColor="rgba(255,255,255,0.08)";e.currentTarget.style.color="rgba(255,255,255,0.4)";}}>
+              style={isWA ? {...btnGhost, borderColor:"rgba(37,211,102,0.3)"} : btnGhost}
+              onMouseEnter={e=>{
+                e.currentTarget.style.borderColor=hoverColor;
+                e.currentTarget.style.color=hoverColor;
+                if(isWA) e.currentTarget.style.background="rgba(37,211,102,0.12)";
+                playLinkSound();
+              }}
+              onMouseLeave={e=>{
+                e.currentTarget.style.borderColor=isWA?"rgba(37,211,102,0.3)":"rgba(255,255,255,0.08)";
+                e.currentTarget.style.color="rgba(255,255,255,0.4)";
+                e.currentTarget.style.background="transparent";
+              }}>
               {s.icon}{s.label}
             </a>
-          ))}
+          );})}
         </motion.div>
 
         {/* Footer bar */}
