@@ -3,6 +3,7 @@ import { IS_MOBILE } from "../utils/motion";
 import { motion } from "motion/react";
 import { gsap } from "gsap";
 import { Mail, Phone, ExternalLink } from "lucide-react";
+import { playLinkSound } from "../utils/linkSound";
 
 const SvgLinkedIn = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
