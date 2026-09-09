@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IS_MOBILE } from "../utils/motion";
+import { playHoverSound } from "../utils/hoverSound";
 import { motion, AnimatePresence } from "motion/react";
 import { Zap, BarChart3, Mail, Terminal, Database, Layers, X, ExternalLink } from "lucide-react";
 
@@ -132,7 +133,7 @@ export default function Projects() {
             <motion.div key={p.id}
               initial={{ opacity:0,y:40 }} whileInView={{ opacity:1,y:0 }}
               viewport={{ once:true }} transition={{ delay:i*0.08,duration:0.7 }}
-              whileHover={{ scale:1.015,borderColor:"rgba(99,102,241,0.4)" }}
+              whileHover={{ scale:1.015,borderColor:"rgba(99,102,241,0.4)" }} onHoverStart={() => playHoverSound()}
               onClick={()=>setSelected(p)} data-hover
               style={{ position:"relative",borderRadius:40,border:"1px solid rgba(255,255,255,0.07)",
                 background:"rgba(15,23,42,0.5)",padding:40,cursor:"none",

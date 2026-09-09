@@ -5,6 +5,7 @@ import { Mail, Phone, Download, MapPin } from "lucide-react";
 import { asset } from "../utils/assetPath";
 import { IS_MOBILE } from "../utils/motion";
 import { playFlipSound } from "../utils/flipSound";
+import { playHoverSound } from "../utils/hoverSound";
 
 const ROLES = ["SAP ABAP Lead", "S/4HANA Transformation", "ABAP Cloud Certified", "EAM Specialist"];
 
@@ -172,12 +173,12 @@ export default function Hero() {
               transition={{ delay:1.3 }}
               style={{ display:"flex", gap:12, flexWrap:"wrap", marginBottom:36 }} className="hero-left-btns">
               <a href="#projects" data-hover className="mag-glow" style={btnSolid}
-                onMouseEnter={e=>Object.assign(e.currentTarget.style,btnSolidH)}
+                onMouseEnter={e=>{ Object.assign(e.currentTarget.style,btnSolidH); playHoverSound(); }}
                 onMouseLeave={e=>Object.assign(e.currentTarget.style,btnSolid)}>
                 View Projects ↓
               </a>
               <a href={asset("/resume.pdf")} download data-hover className="mag-glow" style={btnOutline}
-                onMouseEnter={e=>Object.assign(e.currentTarget.style,btnOutlineH)}
+                onMouseEnter={e=>{ Object.assign(e.currentTarget.style,btnOutlineH); playHoverSound(); }}
                 onMouseLeave={e=>Object.assign(e.currentTarget.style,btnOutline)}>
                 <Download size={13}/> Resume
               </a>
@@ -196,7 +197,7 @@ export default function Hero() {
                 <motion.a key={s.label} href={s.href}
                   target={s.label!=="Email"?"_blank":undefined}
                   rel="noreferrer" data-hover title={s.label}
-                  whileHover={{ scale:1.25, rotate: 5 }}
+                  whileHover={{ scale:1.25, rotate: 5 }} onHoverStart={() => playHoverSound()}
                   whileTap={{ scale:0.9 }}
                   style={{ color:"rgba(255,255,255,0.25)", transition:"color 0.2s", cursor:"none" }}
                   onMouseEnter={e=>e.currentTarget.style.color="#6366F1"}

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { IS_MOBILE } from "../utils/motion";
+import { playHoverSound } from "../utils/hoverSound";
 import { motion } from "motion/react";
 import { Award, Shield, Briefcase, TrendingUp } from "lucide-react";
 
@@ -69,7 +70,7 @@ export default function ImpactStrip() {
               {...(IS_MOBILE ? {} : {initial:{ opacity:0, y:30 }, whileInView:{ opacity:1, y:0 }})}
               viewport={{ once:true }}
               transition={{ delay:i*0.12, duration:0.7 }}
-              whileHover={{ scale:1.05 }}
+              whileHover={{ scale:1.05 }} onHoverStart={() => playHoverSound()}
               style={{ display:"flex", flexDirection:"column", alignItems:"center",
                 textAlign:"center", gap:0, cursor:"default" }}>
               <motion.div

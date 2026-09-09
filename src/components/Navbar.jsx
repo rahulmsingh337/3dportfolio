@@ -1,3 +1,4 @@
+import { playHoverSound } from '../utils/hoverSound';
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -191,7 +192,7 @@ export default function Navbar() {
                   cursor: "none", transition: "transform 0.2s, background 0.2s",
                   background: "rgba(255,255,255,0.04)",
                 }}
-                onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.15)"; e.currentTarget.style.background = "rgba(255,255,255,0.1)"; }}
+                onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.15)"; playHoverSound(); e.currentTarget.style.background = "rgba(255,255,255,0.1)"; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.background = "rgba(255,255,255,0.04)"; }}
               >{s.icon}</a>
             ))}
@@ -213,7 +214,7 @@ export default function Navbar() {
           onMouseEnter={e => {
             e.currentTarget.style.background = "linear-gradient(135deg,#6366F1,#22D3EE)";
             e.currentTarget.style.color = "#fff";
-            e.currentTarget.style.transform = "scale(1.04)";
+            e.currentTarget.style.transform = "scale(1.04)"; playHoverSound();
           }}
           onMouseLeave={e => {
             e.currentTarget.style.background = "#fff";

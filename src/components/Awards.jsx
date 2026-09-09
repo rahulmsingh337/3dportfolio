@@ -1,3 +1,4 @@
+import { playHoverSound } from "../utils/hoverSound";
 import { asset } from "../utils/assetPath";
 import { useState } from "react";
 import { IS_MOBILE } from "../utils/motion";
@@ -150,7 +151,7 @@ export default function Awards() {
                 <img src={a.image} alt={a.title}
                   style={{ width:"100%",height:"100%",objectFit:"cover",objectPosition:"top",
                     transition:"transform 0.5s" }}
-                  onMouseEnter={e=>e.target.style.transform="scale(1.06)"}
+                  onMouseEnter={e=>{ e.target.style.transform="scale(1.06)"; playHoverSound(); }}
                   onMouseLeave={e=>e.target.style.transform="scale(1)"}/>
               </div>
               <div style={{ padding:16 }}>
