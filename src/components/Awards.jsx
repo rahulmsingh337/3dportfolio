@@ -112,7 +112,7 @@ export default function Awards() {
               style={{ position:"relative",borderRadius:20,border:"1px solid rgba(255,255,255,0.06)",
                 background:"rgba(255,255,255,0.02)",padding:20,cursor:"none",overflow:"hidden",
                 transition:"all 0.3s" }}
-              whileHover={{ background:"rgba(255,255,255,0.04)",borderColor:"rgba(99,102,241,0.3)" }}>
+              whileHover={{ background:"rgba(255,255,255,0.04)",borderColor:"rgba(99,102,241,0.3)" }} onHoverStart={() => playHoverSound()}>
               <div style={{ position:"absolute",top:0,left:0,right:0,height:1,
                 background:"linear-gradient(90deg,#6366F1,#22D3EE)" }}/>
               <div style={{ display:"flex",alignItems:"center",gap:16 }}>
@@ -146,7 +146,7 @@ export default function Awards() {
               style={{ borderRadius:20,border:"1px solid rgba(255,255,255,0.06)",
                 background:"rgba(255,255,255,0.02)",overflow:"hidden",cursor:"none",
                 transition:"all 0.3s" }}
-              whileHover={{ borderColor:"rgba(212,180,254,0.3)" }}>
+              whileHover={{ borderColor:"rgba(212,180,254,0.3)" }} onHoverStart={() => playHoverSound()}>
               <div style={{ height:120,overflow:"hidden" }}>
                 <img src={a.image} alt={a.title}
                   style={{ width:"100%",height:"100%",objectFit:"cover",objectPosition:"top",
@@ -176,7 +176,7 @@ export default function Awards() {
               onClick={()=>setLb({ images:INSTA.map(x=>x.image),i })} data-hover
               style={{ display:"flex",gap:14,borderRadius:16,border:"1px solid rgba(255,255,255,0.05)",
                 background:"rgba(255,255,255,0.02)",padding:16,cursor:"none",transition:"all 0.3s" }}
-              whileHover={{ background:"rgba(255,255,255,0.04)",borderColor:"rgba(34,211,238,0.25)" }}>
+              whileHover={{ background:"rgba(255,255,255,0.04)",borderColor:"rgba(34,211,238,0.25)" }} onHoverStart={() => playHoverSound()}>
               <div style={{ width:60,height:44,borderRadius:8,overflow:"hidden",
                 border:"1px solid rgba(255,255,255,0.08)",flexShrink:0 }}>
                 <img src={a.image} alt={a.title}
