@@ -41,10 +41,11 @@ const SvgInstagram = () => (
 // Orbiting tech tags around photo
 const TAGS = [
   { label:"S/4HANA",  angle:0,   r:200, dur:18 },
-  { label:"RAP",      angle:72,  r:220, dur:22 },
-  { label:"CDS",      angle:144, r:195, dur:16 },
-  { label:"OData",    angle:216, r:215, dur:20 },
-  { label:"BTP",      angle:288, r:205, dur:24 },
+  { label:"RAP",      angle:60,  r:220, dur:22 },
+  { label:"CDS",      angle:120, r:195, dur:16 },
+  { label:"OData",    angle:180, r:215, dur:20 },
+  { label:"BTP",      angle:240, r:205, dur:24 },
+  { label:"GenAI 🤖", angle:300, r:210, dur:19 },
 ];
 
 // Split text into chars for animation
