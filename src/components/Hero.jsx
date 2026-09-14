@@ -343,31 +343,6 @@ export default function Hero() {
                 </div>
               </div>
             </div>
-
-            {/* Cert badge — bottom left of photo */}
-            <div style={{
-              position:"absolute", bottom:-16, left:-20,
-              background:"rgba(15,23,42,0.95)",
-              border:"1px solid rgba(255,255,255,0.08)",
-              borderRadius:16, padding:"12px 16px",
-              display:"flex", alignItems:"center", gap:12,
-              backdropFilter:"blur(16px)",
-              boxShadow:"0 8px 32px rgba(0,0,0,0.5)",
-              zIndex:20,
-            }}>
-              <div style={{
-                width:36, height:36, borderRadius:10, flexShrink:0, overflow:"hidden",
-                border:"1px solid rgba(99,102,241,0.3)",
-              }}>
-                <img src={asset("/cert-abap-cloud.png")} alt="SAP Cert"
-                  style={{ width:"100%", height:"100%", objectFit:"cover", objectPosition:"top" }}/>
-              </div>
-              <div>
-                <div style={{ fontSize:11, fontWeight:700, color:"#fff", lineHeight:1.3 }}>SAP Certified</div>
-                <div style={{ fontSize:10, color:"rgba(255,255,255,0.4)", marginTop:2 }}>ABAP Cloud Developer</div>
-                <div style={{ fontSize:10, color:"rgba(255,255,255,0.4)", marginTop:1 }}>Generative AI Developer</div>
-              </div>
-            </div>
           </div>
         </motion.div>
 
