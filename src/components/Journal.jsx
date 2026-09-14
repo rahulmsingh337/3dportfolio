@@ -3,6 +3,16 @@ import { motion } from "motion/react";
 
 const ENTRIES = [
   {
+    id: -1,
+    title: "SAP Certified – Generative AI Developer: What it covers and how I prepared",
+    category: "Certification",
+    categoryColor: "#F59E0B",
+    readTime: "7 min read",
+    date: "Sep 2026",
+    icon: "🤖",
+    href: "https://www.credly.com/badges/cab1bb32-9291-400d-82d3-e8fd8327b0c0",
+  },
+  {
     id: 0,
     title: "SAP EAM on S/4HANA: F2173 & F2175 Fiori enhancements — Maintenance Order Management",
     category: "SAP EAM",
