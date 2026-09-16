@@ -17,6 +17,36 @@ export default function LoadingScreen({ onComplete }) {
   const t0 = useRef(performance.now());
   const DURATION = 3200;
 
+  // Voice intro using browser Web Speech API
+  useEffect(() => {
+    const speak = () => {
+      if (!window.speechSynthesis) return;
+      window.speechSynthesis.cancel(); // clear queue
+      const utter = new SpeechSynthesisUtterance(
+        "Hi, I am Rahul Singh. You will learn more about me while checking my website."
+      );
+      utter.rate   = 0.92;
+      utter.pitch  = 1.05;
+      utter.volume = 1;
+      // Prefer a natural English voice if available
+      const voices = window.speechSynthesis.getVoices();
+      const preferred = voices.find(v =>
+        /en[-_](US|GB|AU)/i.test(v.lang) && /natural|neural|premium|siri|google/i.test(v.name)
+      ) || voices.find(v => /en[-_](US|GB)/i.test(v.lang));
+      if (preferred) utter.voice = preferred;
+      window.speechSynthesis.speak(utter);
+    };
+
+    // Voices may not be loaded yet on first render
+    if (window.speechSynthesis.getVoices().length > 0) {
+      speak();
+    } else {
+      window.speechSynthesis.addEventListener("voiceschanged", speak, { once: true });
+    }
+
+    return () => window.speechSynthesis.cancel();
+  }, []);
+
   // Progress counter
   useEffect(() => {
     let raf;
