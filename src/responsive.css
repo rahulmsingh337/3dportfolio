@@ -81,3 +81,24 @@ img, video, canvas { max-width: 100%; }
 @media (max-width: 639px) {
   ::-webkit-scrollbar { width: 0 !important; }
 }
+
+/* ── Kill ALL framer-motion animations on mobile ──────────────
+   Targets every element framer-motion touches.
+   This eliminates IntersectionObserver + RAF overhead on mobile. */
+html.is-mobile * {
+  animation-duration: 0.001ms !important;
+  animation-delay: 0ms !important;
+  transition-duration: 0.001ms !important;
+  transition-delay: 0ms !important;
+}
+/* Keep only essential transitions (background, color, border) */
+html.is-mobile a,
+html.is-mobile button {
+  transition-duration: 0.2s !important;
+  transition-property: background, color, border-color !important;
+}
+/* Ensure all elements are visible (framer sets opacity:0 on initial) */
+html.is-mobile [style*="opacity: 0"],
+html.is-mobile [style*="opacity:0"] {
+  opacity: 1 !important;
+}
