@@ -9,42 +9,79 @@ const SEQUENCE = [
   { word: "INNOVATE",  sub: "ABAP Cloud · GenAI · Fiori",    color: "#F59E0B" },
 ];
 
+const SPEECH_TEXT = "Hi, I am Rahul Singh. You will learn more about me while checking my website.";
+const DURATION = 5500;
+
 export default function LoadingScreen({ onComplete }) {
   const [progress, setProgress] = useState(0);
   const [seqIdx, setSeqIdx]     = useState(0);
   const [glitch, setGlitch]     = useState(false);
+  const completed = useRef(false);
 
-  const t0          = useRef(performance.now());
-  const DURATION    = 4800;
-  const speechDone  = useRef(false);
-  const animDone    = useRef(false);
-  const completed   = useRef(false);
-
-  const tryComplete = () => {
-    if (speechDone.current && animDone.current && !completed.current) {
-      completed.current = true;
-      setTimeout(onComplete, 300);
-    }
+  const finish = () => {
+    if (completed.current) return;
+    completed.current = true;
+    setTimeout(onComplete, 400);
   };
 
-  // Progress bar animation
+  // Voice — fires immediately, calls finish() when done
   useEffect(() => {
+    if (!window.speechSynthesis) { return; }
+
+    const doSpeak = () => {
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(SPEECH_TEXT);
+      utter.rate   = 0.82;
+      utter.pitch  = 1.0;
+      utter.volume = 1.0;
+
+      const voices = window.speechSynthesis.getVoices();
+      const pick =
+        voices.find(v => /en.US/i.test(v.lang) && /google|natural|premium/i.test(v.name)) ||
+        voices.find(v => /en.US/i.test(v.lang)) ||
+        voices.find(v => /en/i.test(v.lang));
+      if (pick) utter.voice = pick;
+
+      utter.onend   = finish;
+      utter.onerror = finish; // don't block on error
+
+      window.speechSynthesis.speak(utter);
+
+      // Hard fallback — if onend never fires, complete after estimated duration
+      // Average speaking rate ~130 wpm, sentence ~15 words ≈ ~7s at 0.82 rate
+      setTimeout(finish, 8000);
+    };
+
+    const voices = window.speechSynthesis.getVoices();
+    if (voices.length > 0) {
+      doSpeak();
+    } else {
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.onvoiceschanged = null;
+        doSpeak();
+      };
+      // Fallback if event never fires
+      setTimeout(doSpeak, 500);
+    }
+
+    return () => window.speechSynthesis.cancel();
+  }, []);
+
+  // Progress animation — runs for DURATION, then holds at 100% waiting for speech
+  useEffect(() => {
+    const t0 = performance.now();
     let raf;
     const tick = now => {
-      const pct = Math.min(100, Math.floor(((now - t0.current) / DURATION) * 100));
+      const pct = Math.min(100, Math.floor(((now - t0) / DURATION) * 100));
       setProgress(pct);
-      if (pct < 100) {
-        raf = requestAnimationFrame(tick);
-      } else {
-        animDone.current = true;
-        tryComplete();
-      }
+      if (pct < 100) raf = requestAnimationFrame(tick);
+      // At 100% just stop — finish() is driven by speech onend
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, []);
 
-  // Word cycling with glitch
+  // Word cycling
   useEffect(() => {
     const interval = DURATION / SEQUENCE.length;
     const cycle = () => {
@@ -58,48 +95,6 @@ export default function LoadingScreen({ onComplete }) {
     return () => clearInterval(t);
   }, []);
 
-  // Voice intro — loader waits for speech to finish
-  useEffect(() => {
-    const speak = () => {
-      if (!window.speechSynthesis) {
-        speechDone.current = true;
-        tryComplete();
-        return;
-      }
-      window.speechSynthesis.cancel();
-      const utter = new SpeechSynthesisUtterance(
-        "Hi, I am Rahul Singh. You will learn more about me while checking my website."
-      );
-      utter.rate   = 0.88;
-      utter.pitch  = 1.05;
-      utter.volume = 1;
-
-      const voices = window.speechSynthesis.getVoices();
-      const preferred =
-        voices.find(v => /en[-_](US|GB|AU)/i.test(v.lang) && /natural|neural|premium|google/i.test(v.name)) ||
-        voices.find(v => /en[-_](US|GB)/i.test(v.lang));
-      if (preferred) utter.voice = preferred;
-
-      utter.onend  = () => { speechDone.current = true; tryComplete(); };
-      utter.onerror= () => { speechDone.current = true; tryComplete(); };
-
-      window.speechSynthesis.speak(utter);
-    };
-
-    if (window.speechSynthesis) {
-      if (window.speechSynthesis.getVoices().length > 0) {
-        speak();
-      } else {
-        window.speechSynthesis.addEventListener("voiceschanged", speak, { once: true });
-        setTimeout(() => { if (!speechDone.current) speak(); }, 600);
-      }
-    } else {
-      speechDone.current = true;
-    }
-
-    return () => { if (window.speechSynthesis) window.speechSynthesis.cancel(); };
-  }, []);
-
   const current = SEQUENCE[seqIdx];
 
   return (
@@ -110,15 +105,12 @@ export default function LoadingScreen({ onComplete }) {
       alignItems:"center", justifyContent:"center",
       overflow:"hidden",
     }}>
-      {/* Animated grid */}
       <div style={{
         position:"absolute", inset:0,
         backgroundImage:"linear-gradient(rgba(99,102,241,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,0.06) 1px,transparent 1px)",
         backgroundSize:"60px 60px",
         animation:"grid-drift 8s linear infinite",
       }}/>
-
-      {/* Corner glows */}
       <div style={{ position:"absolute", top:-100, left:-100, width:400, height:400,
         background:`radial-gradient(circle,${current.color}22 0%,transparent 70%)`,
         filter:"blur(40px)", transition:"background 0.4s" }}/>
@@ -126,7 +118,6 @@ export default function LoadingScreen({ onComplete }) {
         background:`radial-gradient(circle,${current.color}18 0%,transparent 70%)`,
         filter:"blur(40px)", transition:"background 0.4s" }}/>
 
-      {/* Top-left */}
       <div style={{ position:"absolute", top:32, left:40, display:"flex", alignItems:"center", gap:10 }}>
         <div style={{ width:28, height:28, borderRadius:"50%",
           background:"linear-gradient(135deg,#6366F1,#22D3EE)",
@@ -138,7 +129,6 @@ export default function LoadingScreen({ onComplete }) {
         </span>
       </div>
 
-      {/* Top-right expertise pills */}
       <div style={{ position:"absolute", top:32, right:40, display:"flex", gap:8 }}>
         {["S/4HANA","ABAP Cloud","GenAI"].map((tag,i) => (
           <div key={tag} style={{
@@ -152,93 +142,73 @@ export default function LoadingScreen({ onComplete }) {
         ))}
       </div>
 
-      {/* Main word */}
       <div style={{ position:"relative", textAlign:"center", zIndex:1 }}>
         {glitch && (
           <>
             <div style={{ position:"absolute", inset:0,
-              fontFamily:"'Outfit',sans-serif",
-              fontSize:"clamp(64px,12vw,140px)", fontWeight:800, letterSpacing:"-4px",
-              color:"#22D3EE", opacity:0.6, transform:"translate(-3px,1px)",
-              clipPath:"polygon(0 0,100% 0,100% 40%,0 40%)" }}>{current.word}</div>
+              fontFamily:"'Outfit',sans-serif", fontSize:"clamp(64px,12vw,140px)",
+              fontWeight:800, letterSpacing:"-4px", color:"#22D3EE", opacity:0.6,
+              transform:"translate(-3px,1px)", clipPath:"polygon(0 0,100% 0,100% 40%,0 40%)" }}>
+              {current.word}
+            </div>
             <div style={{ position:"absolute", inset:0,
-              fontFamily:"'Outfit',sans-serif",
-              fontSize:"clamp(64px,12vw,140px)", fontWeight:800, letterSpacing:"-4px",
-              color:"#D8B4FE", opacity:0.5, transform:"translate(3px,-1px)",
-              clipPath:"polygon(0 60%,100% 60%,100% 100%,0 100%)" }}>{current.word}</div>
+              fontFamily:"'Outfit',sans-serif", fontSize:"clamp(64px,12vw,140px)",
+              fontWeight:800, letterSpacing:"-4px", color:"#D8B4FE", opacity:0.5,
+              transform:"translate(3px,-1px)", clipPath:"polygon(0 60%,100% 60%,100% 100%,0 100%)" }}>
+              {current.word}
+            </div>
           </>
         )}
-        <div style={{
-          fontFamily:"'Outfit',sans-serif",
+        <div style={{ fontFamily:"'Outfit',sans-serif",
           fontSize:"clamp(64px,12vw,140px)", fontWeight:800, letterSpacing:"-4px",
-          color:"#fff", lineHeight:1,
-          textShadow:`0 0 60px ${current.color}40`,
-        }}>{current.word}</div>
-
-        <div style={{
-          fontFamily:"'JetBrains Mono',monospace",
+          color:"#fff", lineHeight:1, textShadow:`0 0 60px ${current.color}40` }}>
+          {current.word}
+        </div>
+        <div style={{ fontFamily:"'JetBrains Mono',monospace",
           fontSize:"clamp(11px,1.5vw,14px)", letterSpacing:"0.25em",
-          textTransform:"uppercase", color:current.color,
-          marginTop:16, opacity:glitch?0:1,
-          transition:"opacity 0.15s, color 0.3s",
-        }}>{current.sub}</div>
-
-        <div style={{
-          height:2, marginTop:20, width:"100%",
+          textTransform:"uppercase", color:current.color, marginTop:16,
+          opacity:glitch?0:1, transition:"opacity 0.15s, color 0.3s" }}>
+          {current.sub}
+        </div>
+        <div style={{ height:2, marginTop:20, width:"100%",
           background:`linear-gradient(90deg,transparent,${current.color},transparent)`,
-          boxShadow:`0 0 12px ${current.color}80`,
-          transition:"background 0.4s",
-        }}/>
+          boxShadow:`0 0 12px ${current.color}80`, transition:"background 0.4s" }}/>
       </div>
 
-      {/* Ghost progress number */}
       <div style={{ position:"absolute", bottom:40, right:48,
-        fontFamily:"'Outfit',sans-serif",
-        fontSize:"clamp(80px,12vw,140px)", fontWeight:800, letterSpacing:"-6px",
-        color:"#fff", opacity:0.04, lineHeight:1, userSelect:"none" }}>
+        fontFamily:"'Outfit',sans-serif", fontSize:"clamp(80px,12vw,140px)",
+        fontWeight:800, letterSpacing:"-6px", color:"#fff", opacity:0.04,
+        lineHeight:1, userSelect:"none" }}>
         {String(progress).padStart(3,"0")}
       </div>
 
-      {/* Bottom status */}
       <div style={{ position:"absolute", bottom:44, left:40,
         fontFamily:"'JetBrains Mono',monospace",
         fontSize:11, color:"rgba(255,255,255,0.2)", letterSpacing:"0.2em" }}>
         ACCENTURE · SAP ABAP LEAD · NOIDA
       </div>
 
-      {/* Progress bar */}
       <div style={{ position:"absolute", bottom:0, left:0, right:0,
         height:2, background:"rgba(255,255,255,0.05)" }}>
-        <div style={{
-          height:"100%", width:`${progress}%`,
+        <div style={{ height:"100%", width:`${progress}%`,
           background:`linear-gradient(90deg,#6366F1,${current.color})`,
           boxShadow:`0 0 16px ${current.color}`,
-          transition:"width 0.04s linear, background 0.4s",
-        }}/>
+          transition:"width 0.04s linear, background 0.4s" }}/>
       </div>
 
-      {/* Dot indicators */}
-      <div style={{ position:"absolute", bottom:16,
-        display:"flex", gap:8, alignItems:"center" }}>
+      <div style={{ position:"absolute", bottom:16, display:"flex", gap:8, alignItems:"center" }}>
         {SEQUENCE.map((s,i) => (
           <div key={i} style={{
             width:i===seqIdx?24:6, height:6, borderRadius:3,
             background:i===seqIdx?current.color:"rgba(255,255,255,0.1)",
-            transition:"all 0.3s ease",
-            boxShadow:i===seqIdx?`0 0 8px ${current.color}`:"none",
+            transition:"all 0.3s", boxShadow:i===seqIdx?`0 0 8px ${current.color}`:"none",
           }}/>
         ))}
       </div>
 
       <style>{`
-        @keyframes grid-drift {
-          from{background-position:0 0,0 0;}
-          to{background-position:60px 60px,60px 60px;}
-        }
-        @keyframes fade-tag {
-          from{opacity:0;transform:translateY(-8px);}
-          to{opacity:1;transform:translateY(0);}
-        }
+        @keyframes grid-drift{from{background-position:0 0,0 0;}to{background-position:60px 60px,60px 60px;}}
+        @keyframes fade-tag{from{opacity:0;transform:translateY(-8px);}to{opacity:1;transform:translateY(0);}}
       `}</style>
     </div>
   );
