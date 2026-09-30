@@ -7,7 +7,7 @@ import { IS_MOBILE } from "../utils/motion";
 import { playFlipSound } from "../utils/flipSound";
 import { playHoverSound } from "../utils/hoverSound";
 
-const ROLES = ["SAP ABAP Lead", "S/4HANA Transformation", "ABAP Cloud Certified", "EAM Specialist", "GenAI Developer"];
+const ROLES = ["SAP ABAP Lead", "S/4HANA Transformation", "ABAP Cloud Certified", "EAM Specialist", "GenAI Developer", "S/4HANA Upgrade Certified"];
 
 const SvgLinkedIn = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">

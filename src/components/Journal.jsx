@@ -3,6 +3,16 @@ import { motion } from "motion/react";
 
 const ENTRIES = [
   {
+    id: -2,
+    title: "SAP Certified – S/4HANA Conversion & System Upgrade: Technical skills for enterprise migration",
+    category: "Certification",
+    categoryColor: "#22D3EE",
+    readTime: "8 min read",
+    date: "Sep 2026",
+    icon: "🔷",
+    href: "https://www.credly.com/badges/1b8a388a-5611-4175-9e26-c9916ed5b442",
+  },
+  {
     id: -1,
     title: "SAP Certified – Generative AI Developer: What it covers and how I prepared",
     category: "Certification",
