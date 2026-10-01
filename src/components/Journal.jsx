@@ -3,6 +3,16 @@ import { motion } from "motion/react";
 
 const ENTRIES = [
   {
+    id: -3,
+    title: "SAP Certified – Positioning SAP Business AI Platform: BTP core capabilities and intelligent technologies",
+    category: "Certification",
+    categoryColor: "#F59E0B",
+    readTime: "6 min read",
+    date: "Sep 2026",
+    icon: "🧠",
+    href: "https://www.credly.com/badges/d1912d28-7b2a-437f-b88f-b9a67b841a61",
+  },
+  {
     id: -2,
     title: "SAP Certified – S/4HANA Conversion & System Upgrade: Technical skills for enterprise migration",
     category: "Certification",

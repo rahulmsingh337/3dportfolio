@@ -10,6 +10,7 @@ const SKILL_TAGS = [
   { id:"abapd", title:"SAP Certified Back-End Developer – ABAP Cloud (C_ABAPD_2601)", issuer:"SAP SE · Issued Apr 18, 2026", image:asset("/cert-abap-cloud.png") },
   { id:"genai", title:"SAP Certified – SAP Generative AI Developer", issuer:"SAP SE · Issued Sep 13, 2026", image:asset("/cert-genai.png") },
   { id:"s4upgrade", title:"SAP Certified – SAP S/4HANA Conversion and SAP System Upgrade", issuer:"SAP SE · Issued Sep 28, 2026", image:asset("/cert-s4hana-upgrade.png") },
+  { id:"btpai", title:"SAP Certified – Positioning SAP Business AI Platform", issuer:"SAP SE · Issued Sep 30, 2026", image:asset("/cert-btp-ai.png") },
   { id:"tech", title:"SAP S/4HANA Technical Professional",         issuer:"Infosys", image:asset("/cert-sap-tech.png") },
 ];
 
