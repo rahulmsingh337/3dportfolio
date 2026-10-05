@@ -3,6 +3,16 @@ import { motion } from "motion/react";
 
 const ENTRIES = [
   {
+    id: -4,
+    title: "SAP Certified – Positioning the Autonomous Enterprise: Strategy, architecture and value proposition",
+    category: "Certification",
+    categoryColor: "#3dd68c",
+    readTime: "6 min read",
+    date: "Oct 2026",
+    icon: "⚙️",
+    href: "https://www.credly.com/badges/13bb62a4-9d1a-478f-8b73-830b1a6c942d",
+  },
+  {
     id: -3,
     title: "SAP Certified – Positioning SAP Business AI Platform: BTP core capabilities and intelligent technologies",
     category: "Certification",
