@@ -1,6 +1,5 @@
 import { useState, lazy, Suspense } from "react";
 import LoadingScreen from "./components/LoadingScreen";
-import SEO from "./components/SEO";
 import "./index.css";
 
 const IS_MOBILE = typeof window !== "undefined" &&
@@ -43,15 +42,6 @@ export default function App() {
       {loading
         ? <LoadingScreen onComplete={() => setLoading(false)} />
         : <>
-            <SEO />
-            <div aria-hidden="true" style={{
-              position:"absolute", left:"-9999px", top:0,
-              width:1, height:1, overflow:"hidden", opacity:0, pointerEvents:"none"
-            }}>
-              <h1>Rahul Singh - SAP ABAP Lead</h1>
-              <p>S/4HANA · ABAP Cloud · SAP EAM · RAP · CDS · OData V4 · Noida · rs58598@gmail.com</p>
-            </div>
-
             <Suspense fallback={null}>
               <AnimatedBackground />
               {!IS_MOBILE && <Cursor />}

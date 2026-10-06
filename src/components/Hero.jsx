@@ -121,7 +121,7 @@ export default function Hero() {
             
 
             {/* Name — split char animation */}
-            <h1 style={{
+            <h1 aria-label="Rahul Singh — SAP ABAP Lead" style={{
               fontFamily:"'Outfit',sans-serif",
               fontSize:"clamp(52px,7.5vw,96px)",
               lineHeight:0.93, letterSpacing:"-3px", color:"#fff",
@@ -319,7 +319,7 @@ export default function Hero() {
                       backgroundSize:"300% 300%",
                       animation:"gradient-shift 4s ease infinite",
                     }}/>
-                    <img src={asset("/rahul-award.png")} alt="Rahul Singh — Rise Award"
+                    <img src={asset("/rahul-award.webp")} alt="Rahul Singh — Rise Award"
                       style={{ width:"100%", height:"100%",
                         objectFit:"cover", objectPosition:"center top",
                         borderRadius:24, display:"block" }}

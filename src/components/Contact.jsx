@@ -131,7 +131,7 @@ export default function Contact() {
               background:"#3dd68c",boxShadow:"0 0 8px #3dd68c",display:"inline-block" }}/>
             Available for opportunities
           </div>
-          <div>+91-8989805836</div>
+          <div>Open to SAP ABAP Cloud &amp; S/4HANA roles</div>
         </div>
       </div>
     </section>

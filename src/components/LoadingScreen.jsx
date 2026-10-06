@@ -14,31 +14,28 @@ export default function LoadingScreen({ onComplete }) {
   const [seqIdx, setSeqIdx]     = useState(0);
   const [glitch, setGlitch]     = useState(false);
 
-  const t0          = useRef(performance.now());
-  const DURATION    = 4800;
-  const speechDone  = useRef(false);
-  const animDone    = useRef(false);
-  const completed   = useRef(false);
+  const t0        = useRef(0);
+  const completed = useRef(false);
+  const reduced   = typeof window !== "undefined" &&
+    window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const DURATION  = reduced ? 0 : 1500;
 
-  const tryComplete = () => {
-    if (speechDone.current && animDone.current && !completed.current) {
-      completed.current = true;
-      setTimeout(onComplete, 300);
-    }
+  const finish = () => {
+    if (completed.current) return;
+    completed.current = true;
+    onComplete();
   };
 
-  // Progress bar animation
+  // Progress bar animation (hard-capped at DURATION; no external dependencies)
   useEffect(() => {
+    if (reduced) { finish(); return; }
     let raf;
+    t0.current = performance.now();
     const tick = now => {
       const pct = Math.min(100, Math.floor(((now - t0.current) / DURATION) * 100));
       setProgress(pct);
-      if (pct < 100) {
-        raf = requestAnimationFrame(tick);
-      } else {
-        animDone.current = true;
-        tryComplete();
-      }
+      if (pct < 100) raf = requestAnimationFrame(tick);
+      else setTimeout(finish, 150);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
@@ -46,6 +43,7 @@ export default function LoadingScreen({ onComplete }) {
 
   // Word cycling with glitch
   useEffect(() => {
+    if (reduced) return;
     const interval = DURATION / SEQUENCE.length;
     const cycle = () => {
       setGlitch(true);
@@ -56,48 +54,6 @@ export default function LoadingScreen({ onComplete }) {
     };
     const t = setInterval(cycle, interval);
     return () => clearInterval(t);
-  }, []);
-
-  // Voice intro — loader waits for speech to finish
-  useEffect(() => {
-    const speak = () => {
-      if (!window.speechSynthesis) {
-        speechDone.current = true;
-        tryComplete();
-        return;
-      }
-      window.speechSynthesis.cancel();
-      const utter = new SpeechSynthesisUtterance(
-        "Hi, I am Rahul Singh. You will learn more about me while checking my website."
-      );
-      utter.rate   = 0.88;
-      utter.pitch  = 1.05;
-      utter.volume = 1;
-
-      const voices = window.speechSynthesis.getVoices();
-      const preferred =
-        voices.find(v => /en[-_](US|GB|AU)/i.test(v.lang) && /natural|neural|premium|google/i.test(v.name)) ||
-        voices.find(v => /en[-_](US|GB)/i.test(v.lang));
-      if (preferred) utter.voice = preferred;
-
-      utter.onend  = () => { speechDone.current = true; tryComplete(); };
-      utter.onerror= () => { speechDone.current = true; tryComplete(); };
-
-      window.speechSynthesis.speak(utter);
-    };
-
-    if (window.speechSynthesis) {
-      if (window.speechSynthesis.getVoices().length > 0) {
-        speak();
-      } else {
-        window.speechSynthesis.addEventListener("voiceschanged", speak, { once: true });
-        setTimeout(() => { if (!speechDone.current) speak(); }, 600);
-      }
-    } else {
-      speechDone.current = true;
-    }
-
-    return () => { if (window.speechSynthesis) window.speechSynthesis.cancel(); };
   }, []);
 
   const current = SEQUENCE[seqIdx];
@@ -205,6 +161,16 @@ export default function LoadingScreen({ onComplete }) {
         fontSize:11, color:"rgba(255,255,255,0.2)", letterSpacing:"0.2em" }}>
         ACCENTURE · SAP ABAP LEAD · NOIDA
       </div>
+
+      {/* Skip */}
+      <button onClick={finish} aria-label="Skip intro"
+        style={{ position:"absolute", top:32, right:40, marginTop:36, zIndex:2,
+          background:"transparent", border:"1px solid rgba(255,255,255,0.15)",
+          color:"rgba(255,255,255,0.5)", fontFamily:"'JetBrains Mono',monospace",
+          fontSize:10, letterSpacing:"0.2em", padding:"6px 12px", borderRadius:100,
+          cursor:"pointer", textTransform:"uppercase" }}>
+        Skip
+      </button>
 
       {/* Progress bar */}
       <div style={{ position:"absolute", bottom:0, left:0, right:0,

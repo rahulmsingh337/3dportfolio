@@ -1,21 +1,4 @@
 User-agent: *
 Allow: /
 
-# Sitemaps
 Sitemap: https://rahulsinghsap.vercel.app/sitemap.xml
-
-# Allow all major crawlers explicitly
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: LinkedInBot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /

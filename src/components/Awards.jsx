@@ -6,34 +6,34 @@ import { motion, AnimatePresence } from "motion/react";
 import { Trophy, Medal, Star, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const SKILL_TAGS = [
-  { id:"func", title:"SAP S/4HANA Functional Professional",        issuer:"Infosys", image:asset("/cert-sap-func.png") },
-  { id:"abapd", title:"SAP Certified Back-End Developer – ABAP Cloud (C_ABAPD_2601)", issuer:"SAP SE · Issued Apr 18, 2026", image:asset("/cert-abap-cloud.png") },
-  { id:"genai", title:"SAP Certified – SAP Generative AI Developer", issuer:"SAP SE · Issued Sep 13, 2026", image:asset("/cert-genai.png") },
-  { id:"s4upgrade", title:"SAP Certified – SAP S/4HANA Conversion and SAP System Upgrade", issuer:"SAP SE · Issued Sep 28, 2026", image:asset("/cert-s4hana-upgrade.png") },
-  { id:"btpai", title:"SAP Certified – Positioning SAP Business AI Platform", issuer:"SAP SE · Issued Sep 30, 2026", image:asset("/cert-btp-ai.png") },
-  { id:"autonomous", title:"SAP Certified – Positioning the Autonomous Enterprise", issuer:"SAP SE · Issued Oct 4, 2026", image:asset("/cert-autonomous.png") },
-  { id:"tech", title:"SAP S/4HANA Technical Professional",         issuer:"Infosys", image:asset("/cert-sap-tech.png") },
+  { id:"func", title:"SAP S/4HANA Functional Professional",        issuer:"Infosys", image:asset("/cert-sap-func.webp") },
+  { id:"abapd", title:"SAP Certified Back-End Developer – ABAP Cloud (C_ABAPD_2601)", issuer:"SAP SE · Issued Apr 18, 2026", image:asset("/cert-abap-cloud.webp") },
+  { id:"genai", title:"SAP Certified – SAP Generative AI Developer", issuer:"SAP SE · Issued Sep 13, 2026", image:asset("/cert-genai.webp") },
+  { id:"s4upgrade", title:"SAP Certified – SAP S/4HANA Conversion and SAP System Upgrade", issuer:"SAP SE · Issued Sep 28, 2026", image:asset("/cert-s4hana-upgrade.webp") },
+  { id:"btpai", title:"SAP Certified – Positioning SAP Business AI Platform", issuer:"SAP SE · Issued Sep 30, 2026", image:asset("/cert-btp-ai.webp") },
+  { id:"autonomous", title:"SAP Certified – Positioning the Autonomous Enterprise", issuer:"SAP SE · Issued Oct 4, 2026", image:asset("/cert-autonomous.webp") },
+  { id:"tech", title:"SAP S/4HANA Technical Professional",         issuer:"Infosys", image:asset("/cert-sap-tech.webp") },
 ];
 
 const RISE = [
-  { id:"coe",    title:"COE ACE",           category:"Individual",  period:"H1-FY26", image:asset("/cert-coe-ace.png")  },
-  { id:"eureka", title:"Eureka",            category:"Individual",  period:"H1-FY26", image:asset("/cert-eureka.png")   },
-  { id:"rookie", title:"Rookie of the Qtr", category:"RISE Awards", period:"H1-FY26", image:asset("/cert-rookie.png")   },
-  { id:"rise2",  title:"Rookie of the Qtr", category:"RISE Awards", period:"FY25 Q2", image:asset("/ach-unit-rise.png") },
-  { id:"rise3",  title:"Rookie of the Qtr",            category:"RISE Awards", period:"FY24 Q2", image:asset("/cert-rookie.png")   },
-  { id:"client", title:"Client Appreciation Letter",   category:"Global Logistics Client", period:"Jan 2024", image:asset("/award-1.png")       },
+  { id:"coe",    title:"COE ACE",           category:"Individual",  period:"H1-FY26", image:asset("/cert-coe-ace.webp")  },
+  { id:"eureka", title:"Eureka",            category:"Individual",  period:"H1-FY26", image:asset("/cert-eureka.webp")   },
+  { id:"rookie", title:"Rookie of the Qtr", category:"RISE Awards", period:"H1-FY26", image:asset("/cert-rookie.webp")   },
+  { id:"rise2",  title:"Rookie of the Qtr", category:"RISE Awards", period:"FY25 Q2", image:asset("/ach-unit-rise.webp") },
+  { id:"rise3",  title:"Rookie of the Qtr",            category:"RISE Awards", period:"FY24 Q2", image:asset("/cert-rookie.webp")   },
+  { id:"client", title:"Client Appreciation Letter",   category:"Global Logistics Client", period:"Jan 2024", image:asset("/award-1.webp")       },
 ];
 
 const INSTA = [
-  { id:"ia1", title:"Onboarding Star",              note:"Delivered all requirements on time; helped manage team workload",         date:"Nov 2021", image:asset("/award-1.png") },
-  { id:"ia2", title:"Front-end API Dev",            note:"Helped create API in front-end web development",                        date:"Nov 2022", image:asset("/award-2.png") },
-  { id:"ia3", title:"Debugging & RCA",              note:"Helped in debugging and understanding root cause analysis",             date:"Sep 2022", image:asset("/award-3.png") },
-  { id:"ia4", title:"Project Skill Enhancement",   note:"Helped the team understand the project and enhance skills",             date:"Feb 2023", image:asset("/award-4.png") },
-  { id:"ia5", title:"Firebase Auth App",            note:"Helped build Firebase authentication application",                      date:"Apr 2023", image:asset("/award-5.png") },
-  { id:"ia6", title:"SAP Fiori App Builder",        note:"Recognised for building SAP Fiori application",                        date:"May 2023", image:asset("/award-6.png") },
-  { id:"ia7", title:"Peer Support — HTML/CSS",      note:"Supportive in solving doubts; helped teammates with HTML/CSS",          date:"Aug 2023", image:asset("/award-7.png") },
-  { id:"ia8", title:"Technical Documentation Lead", note:"Prepared artifacts and recordings on Kongara Project",                  date:"Nov 2023", image:asset("/award-8.png") },
-  { id:"ia9", title:"Quick Learner & Excellence",   note:"Recognised as a quick learner and excellent team member",              date:"Nov 2023", image:asset("/award-9.png") },
+  { id:"ia1", title:"Onboarding Star",              note:"Delivered all requirements on time; helped manage team workload",         date:"Nov 2021", image:asset("/award-1.webp") },
+  { id:"ia2", title:"Front-end API Dev",            note:"Helped create API in front-end web development",                        date:"Nov 2022", image:asset("/award-2.webp") },
+  { id:"ia3", title:"Debugging & RCA",              note:"Helped in debugging and understanding root cause analysis",             date:"Sep 2022", image:asset("/award-3.webp") },
+  { id:"ia4", title:"Project Skill Enhancement",   note:"Helped the team understand the project and enhance skills",             date:"Feb 2023", image:asset("/award-4.webp") },
+  { id:"ia5", title:"Firebase Auth App",            note:"Helped build Firebase authentication application",                      date:"Apr 2023", image:asset("/award-5.webp") },
+  { id:"ia6", title:"SAP Fiori App Builder",        note:"Recognised for building SAP Fiori application",                        date:"May 2023", image:asset("/award-6.webp") },
+  { id:"ia7", title:"Peer Support — HTML/CSS",      note:"Supportive in solving doubts; helped teammates with HTML/CSS",          date:"Aug 2023", image:asset("/award-7.webp") },
+  { id:"ia8", title:"Technical Documentation Lead", note:"Prepared artifacts and recordings on Kongara Project",                  date:"Nov 2023", image:asset("/award-8.webp") },
+  { id:"ia9", title:"Quick Learner & Excellence",   note:"Recognised as a quick learner and excellent team member",              date:"Nov 2023", image:asset("/award-9.webp") },
 ];
 
 function Lightbox({ images, startIndex, onClose }) {
@@ -69,7 +69,7 @@ function Lightbox({ images, startIndex, onClose }) {
       <motion.img key={cur}
         initial={{ opacity:0,scale:0.93 }} animate={{ opacity:1,scale:1 }}
         transition={{ duration:0.2 }}
-        src={images[cur]} alt="Certificate"
+        src={images[cur]} alt={`Certificate or award image ${cur+1} of ${images.length}`}
         onClick={e=>e.stopPropagation()}
         style={{ maxHeight:"90vh",maxWidth:"min(92vw,960px)",
           objectFit:"contain",borderRadius:12,boxShadow:"0 32px 80px rgba(0,0,0,0.8)" }}/>
@@ -122,7 +122,7 @@ export default function Awards() {
               <div style={{ display:"flex",alignItems:"center",gap:16 }}>
                 <div style={{ width:72,height:52,borderRadius:10,overflow:"hidden",
                   border:"1px solid rgba(255,255,255,0.1)",flexShrink:0 }}>
-                  <img src={t.image} alt={t.title}
+                  <img src={t.image} alt={t.title} loading="lazy"
                     style={{ width:"100%",height:"100%",objectFit:"cover" }}/>
                 </div>
                 <div>
@@ -152,7 +152,7 @@ export default function Awards() {
                 transition:"all 0.3s" }}
               whileHover={{ borderColor:"rgba(212,180,254,0.3)" }} onHoverStart={() => playHoverSound()}>
               <div style={{ height:120,overflow:"hidden" }}>
-                <img src={a.image} alt={a.title}
+                <img src={a.image} alt={a.title} loading="lazy"
                   style={{ width:"100%",height:"100%",objectFit:"cover",objectPosition:"top",
                     transition:"transform 0.5s" }}
                   onMouseEnter={e=>{ e.target.style.transform="scale(1.06)"; playHoverSound(); }}
@@ -183,7 +183,7 @@ export default function Awards() {
               whileHover={{ background:"rgba(255,255,255,0.04)",borderColor:"rgba(34,211,238,0.25)" }} onHoverStart={() => playHoverSound()}>
               <div style={{ width:60,height:44,borderRadius:8,overflow:"hidden",
                 border:"1px solid rgba(255,255,255,0.08)",flexShrink:0 }}>
-                <img src={a.image} alt={a.title}
+                <img src={a.image} alt={a.title} loading="lazy"
                   style={{ width:"100%",height:"100%",objectFit:"cover",objectPosition:"top" }}/>
               </div>
               <div style={{ minWidth:0 }}>

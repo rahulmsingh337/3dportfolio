@@ -10,11 +10,10 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('gsap'))           return 'gsap';
-          if (id.includes('framer-motion') || id.includes('motion/react')) return 'motion';
-          if (id.includes('three') || id.includes('@react-three') || id.includes('@splinetool')) return 'three';
-          if (id.includes('lucide'))         return 'icons';
-          if (id.includes('node_modules'))   return 'vendor';
+          if (id.includes('gsap'))   return 'gsap';
+          if (id.includes('motion')) return 'motion';
+          if (id.includes('lucide')) return 'icons';
+          if (id.includes('node_modules')) return 'vendor';
         }
       }
     }
