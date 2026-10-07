@@ -97,7 +97,7 @@ export default function Awards() {
         <motion.div initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}
           viewport={{ once:true }} style={{ marginBottom:80 }}>
           <p style={lbl}>Recognition & Achievements</p>
-          <h2 style={hdg}>Awards & <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.3)" }}>Skill Tags</em></h2>
+          <h2 style={hdg}><span className="sr-only">SAP Certifications, </span>Awards & <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.3)" }}>Skill Tags</em></h2>
           <p style={{ fontFamily:"'Inter',sans-serif",fontSize:15,color:"rgba(255,255,255,0.35)",
             maxWidth:520,lineHeight:1.7,marginTop:16 }}>
             Recognitions from Infosys EAS SAP spanning skill certifications, peer nominations, and quarterly RISE awards.
@@ -130,8 +130,8 @@ export default function Awards() {
                     letterSpacing:"0.2em",textTransform:"uppercase",color:"#6366F1",marginBottom:6 }}>
                     {t.issuer}
                   </div>
-                  <h4 style={{ fontFamily:"'Outfit',sans-serif",fontSize:14,fontWeight:600,
-                    color:"rgba(255,255,255,0.85)",lineHeight:1.35 }}>{t.title}</h4>
+                  <h3 style={{ fontFamily:"'Outfit',sans-serif",fontSize:14,fontWeight:600,
+                    color:"rgba(255,255,255,0.85)",lineHeight:1.35 }}>{t.title}</h3>
                 </div>
               </div>
             </motion.div>
@@ -161,8 +161,8 @@ export default function Awards() {
               <div style={{ padding:16 }}>
                 <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
                   color:"rgba(255,255,255,0.25)",letterSpacing:"0.15em",marginBottom:4 }}>{a.period}</div>
-                <h4 style={{ fontFamily:"'Outfit',sans-serif",fontSize:15,fontWeight:700,
-                  color:"rgba(255,255,255,0.85)",marginBottom:2 }}>{a.title}</h4>
+                <h3 style={{ fontFamily:"'Outfit',sans-serif",fontSize:15,fontWeight:700,
+                  color:"rgba(255,255,255,0.85)",marginBottom:2 }}>{a.title}</h3>
                 <p style={{ fontFamily:"'Inter',sans-serif",fontSize:12,
                   color:"rgba(255,255,255,0.3)" }}>{a.category}</p>
               </div>
@@ -189,8 +189,8 @@ export default function Awards() {
               <div style={{ minWidth:0 }}>
                 <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
                   color:"rgba(34,211,238,0.6)",letterSpacing:"0.15em",marginBottom:4 }}>{a.date}</div>
-                <h5 style={{ fontFamily:"'Outfit',sans-serif",fontSize:14,fontWeight:700,
-                  color:"rgba(255,255,255,0.8)",marginBottom:4,lineHeight:1.2 }}>{a.title}</h5>
+                <h3 style={{ fontFamily:"'Outfit',sans-serif",fontSize:14,fontWeight:700,
+                  color:"rgba(255,255,255,0.8)",marginBottom:4,lineHeight:1.2 }}>{a.title}</h3>
                 <p style={{ fontFamily:"'Inter',sans-serif",fontSize:12,lineHeight:1.5,
                   color:"rgba(255,255,255,0.3)",
                   overflow:"hidden",display:"-webkit-box",

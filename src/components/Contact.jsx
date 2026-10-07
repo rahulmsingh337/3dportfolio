@@ -100,7 +100,7 @@ export default function Contact() {
           <h2 className="contact-heading" style={{ fontFamily:"'Outfit',sans-serif",
             fontSize:"clamp(48px,9vw,110px)",fontWeight:800,
             lineHeight:0.93,letterSpacing:"-4px",color:"#fff",marginBottom:52 }}>
-            Let's build<br/>something.
+            <span className="sr-only">Contact Rahul Singh, SAP ABAP Lead: </span>Let's build<br/>something.
           </h2>
         </motion.div>
 

@@ -295,7 +295,7 @@ export default function Hero() {
                       backgroundSize:"300% 300%",
                       animation:"gradient-shift 4s ease infinite",
                     }}/>
-                    <img src={asset("/rahul.jpg")} alt="Rahul Singh"
+                    <img src={asset("/rahul.jpg")} alt="Rahul Singh" width={900} height={1350} decoding="async" fetchPriority="high"
                       style={{ width:"100%", height:"100%",
                         objectFit:"cover", objectPosition:"center 15%",
                         borderRadius:24, display:"block" }}
@@ -334,7 +334,7 @@ export default function Hero() {
                       backgroundSize:"300% 300%",
                       animation:"gradient-shift 4s ease infinite",
                     }}/>
-                    <img src={asset("/rahul-award.webp")} alt="Rahul Singh — Rise Award"
+                    <img src={asset("/rahul-award.webp")} alt="Rahul Singh — Rise Award" width={1024} height={1536} decoding="async"
                       style={{ width:"100%", height:"100%",
                         objectFit:"cover", objectPosition:"center top",
                         borderRadius:24, display:"block" }}

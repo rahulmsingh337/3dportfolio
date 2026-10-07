@@ -38,7 +38,7 @@ export default function Experience() {
       <motion.div initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}
         viewport={{ once:true }} style={{ marginBottom:80 }}>
         <p style={label}>Professional Path</p>
-        <h2 style={heading}>The <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.3)" }}>Journey</em></h2>
+        <h2 style={heading}><span className="sr-only">SAP Professional Experience: </span>The <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.3)" }}>Journey</em></h2>
       </motion.div>
 
       <div style={{ position:"relative" }}>

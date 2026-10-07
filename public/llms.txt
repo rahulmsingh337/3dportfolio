@@ -1,0 +1,21 @@
+# Rahul Singh
+
+> SAP ABAP Lead at Accenture (Noida, India). Works on SAP S/4HANA transformation, ABAP Cloud, Clean Core, RAP, CDS Views, OData V4, SAP EAM and custom code remediation.
+
+## Profile
+- [Portfolio](https://rahulsinghsap.vercel.app/): experience, skills, certifications, projects
+- [LinkedIn](https://www.linkedin.com/in/rahul-singh-sap-abap/)
+- [GitHub](https://github.com/rahulmsingh337)
+- [Resume (PDF)](https://rahulsinghsap.vercel.app/resume.pdf)
+
+## Projects
+- [ABAP Cloud RAP Reference Project](https://github.com/rahulmsingh337/abap-cloud-rap-reference-project)
+- [S/4HANA Migration Code Cookbook](https://github.com/rahulmsingh337/s4hana_migration-code-cookbook)
+- [Prompify](https://prompifytech.vercel.app): AI prompt optimizer
+
+## Certifications
+- SAP Certified Back-End Developer, ABAP Cloud (C_ABAPD_2601)
+- SAP Certified, SAP Generative AI Developer
+- SAP Certified, SAP S/4HANA Conversion and SAP System Upgrade
+- SAP Certified, Positioning SAP Business AI Platform
+- SAP Certified, Positioning the Autonomous Enterprise

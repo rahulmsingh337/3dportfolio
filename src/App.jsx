@@ -47,7 +47,9 @@ export default function App() {
               {!IS_MOBILE && <Cursor />}
             </Suspense>
 
+            <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[10000] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black">Skip to content</a>
             <Navbar />
+            <main id="main">
             <Hero />
 
             <Suspense fallback={<Fallback />}>
@@ -61,6 +63,7 @@ export default function App() {
             </Suspense>
 
             <Contact />
+            </main>
           </>
       }
     </>

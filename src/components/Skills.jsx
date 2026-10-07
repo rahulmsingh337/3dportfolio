@@ -106,8 +106,8 @@ function SkillCard({ sk, index }) {
             background:`${sk.color}12`, border:`1px solid ${sk.color}25` }}>
             {sk.icon}
           </div>
-          <h4 style={{ fontFamily:"'Outfit',sans-serif", fontSize:19, fontWeight:700,
-            color:"#fff", marginBottom:10, letterSpacing:"-0.3px" }}>{sk.title}</h4>
+          <h3 style={{ fontFamily:"'Outfit',sans-serif", fontSize:19, fontWeight:700,
+            color:"#fff", marginBottom:10, letterSpacing:"-0.3px" }}>{sk.title}</h3>
           <p style={{ fontFamily:"'Inter',sans-serif", fontSize:12.5, lineHeight:1.65,
             color:"rgba(255,255,255,0.4)", marginBottom:16 }}>{sk.desc}</p>
           {/* Progress bar */}
@@ -165,7 +165,7 @@ export default function Skills() {
         viewport={{ once:true }} style={{ marginBottom:72 }}>
         <p style={lbl}>Technical Arsenal</p>
         <h2 style={hdg} className="glitch" data-text="Core Competencies">
-          Core <em style={{ fontStyle:"normal", color:"rgba(255,255,255,0.25)" }}>Competencies</em>
+          <span className="sr-only">SAP ABAP Skills: </span>Core <em style={{ fontStyle:"normal", color:"rgba(255,255,255,0.25)" }}>Competencies</em>
         </h2>
         <p style={{ fontFamily:"'Inter',sans-serif", fontSize:14,
           color:"rgba(255,255,255,0.3)", marginTop:12 }}>

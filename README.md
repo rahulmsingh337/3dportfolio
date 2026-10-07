@@ -43,10 +43,14 @@ Personal portfolio of Rahul Singh, SAP ABAP Lead at Accenture (Noida, India). It
 
 ## SEO
 
-- Valid JSON-LD (`Person`, `WebSite`, `ProfilePage`) in `index.html`
-- Static fallback content inside `#root` plus `<noscript>` text, so crawlers and link previews see content before JavaScript runs (React replaces it on mount)
-- 1200×630 social card at `public/og-image.jpg`
-- `robots.txt`, `sitemap.xml`, web manifest, and favicon / touch icons in `public/`
+- Valid JSON-LD in `index.html`: `Person` (with credential verification links), `WebSite`, `ProfilePage`, and an `ItemList` of projects
+- Static fallback content inside `#root` (experience, skills, certifications, projects, contact) plus real `<h1>`/`<h2>` structure, so crawlers, link previews and no-JS visitors get content before JavaScript runs. React replaces it on mount, so keep it in sync with the visible sections.
+- Semantic landmarks (`<nav>`, `<main>`), skip link, descriptive section headings, and a single `<h1>`
+- 1200×630 social card (`public/og-image.jpg`), consistent title / Open Graph / Twitter tags, and canonical URL
+- `robots.txt`, `sitemap.xml`, `llms.txt`, web manifest, and favicon / touch icons in `public/`
+- Real 404: unknown URLs return HTTP 404 with `public/404.html` (noindex). There is no catch-all rewrite, so no soft-404s.
+- Fonts load without blocking render; image dimensions are declared to avoid layout shift
+- Security and cache headers set in `vercel.json`
 - This is still a client-rendered SPA. For full prerendering, move to `vite-react-ssg`, Astro, or Next.js.
 
 ## Tech stack

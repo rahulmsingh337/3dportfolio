@@ -121,7 +121,7 @@ export default function Projects() {
         <motion.div initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}
           viewport={{ once:true }} style={{ marginBottom:80 }}>
           <p style={lbl}>Core Initiatives</p>
-          <h2 style={hdg}>Impact & <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.3)" }}>Innovation</em></h2>
+          <h2 style={hdg}><span className="sr-only">SAP Projects: </span>Impact & <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.3)" }}>Innovation</em></h2>
         </motion.div>
 
         <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(340px,1fr))",gap:20 }}>
@@ -143,8 +143,8 @@ export default function Projects() {
                 color:"rgba(255,255,255,0.4)",marginBottom:24,transition:"all 0.3s" }}>
                 {p.icon}
               </div>
-              <h4 style={{ fontFamily:"'Outfit',sans-serif",fontSize:22,fontWeight:700,
-                color:"#fff",letterSpacing:"-0.5px",marginBottom:12,lineHeight:1.2 }}>{p.title}</h4>
+              <h3 style={{ fontFamily:"'Outfit',sans-serif",fontSize:22,fontWeight:700,
+                color:"#fff",letterSpacing:"-0.5px",marginBottom:12,lineHeight:1.2 }}>{p.title}</h3>
               <p style={{ fontFamily:"'Inter',sans-serif",fontSize:13,lineHeight:1.7,
                 color:"rgba(255,255,255,0.4)",marginBottom:24 }}>{p.desc}</p>
               <div style={{ display:"flex",flexWrap:"wrap",gap:6 }}>
