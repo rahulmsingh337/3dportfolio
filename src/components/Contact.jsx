@@ -36,10 +36,25 @@ const SvgInstagram = () => (
 );
 
 
+const SvgPrompify = () => (
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="pfy-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#6366F1"/>
+        <stop offset="100%" stopColor="#22D3EE"/>
+      </linearGradient>
+    </defs>
+    <rect width="24" height="24" rx="6" fill="url(#pfy-grad)"/>
+    <path d="M12 4.5l1.6 4.4 4.4 1.6-4.4 1.6L12 16.5l-1.6-4.4L6 10.5l4.4-1.6L12 4.5z" fill="white"/>
+    <path d="M18 15l.7 1.8 1.8.7-1.8.7L18 20l-.7-1.8-1.8-.7 1.8-.7L18 15z" fill="white" opacity=".85"/>
+  </svg>
+);
+
 const SOCIALS = [
   { label:"LinkedIn", href:"https://www.linkedin.com/in/rahul-singh-sap-abap/", icon:<SvgLinkedIn/> },
   { label:"GitHub",   href:"https://github.com/rahulmsingh337",           icon:<SvgGitHub/>   },
   { label:"Instagram", href:"https://www.instagram.com/squatile3375/",    icon:<SvgInstagram/> },
+  { label:"Prompify", href:"https://prompifytech.vercel.app",             icon:<SvgPrompify/> },
   { label:"WhatsApp", href:"https://wa.me/918989805836",                  icon:<Phone size={17}/> },
 ];
 
