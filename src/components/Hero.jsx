@@ -151,9 +151,9 @@ export default function Hero() {
 
             {/* Role */}
             <motion.p initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ delay:1 }}
-              style={{ fontSize:"clamp(14px,1.8vw,18px)", color:"rgba(255,255,255,0.35)", marginBottom:10 }}>
+              style={{ fontSize:"clamp(14px,1.8vw,18px)", color:"rgba(255,255,255,0.62)", marginBottom:10 }}>
               <span key={roleIdx} className="animate-role-fade-in"
-                style={{ color:"#6366F1", fontFamily:"'Fraunces',serif",
+                style={{ color:"#A5B4FC", fontFamily:"'Fraunces',serif",
                   fontStyle:"italic", display:"inline-block" }}>
                 {ROLES[roleIdx]}
               </span>
@@ -170,7 +170,7 @@ export default function Hero() {
               <MapPin size={11} color="#6366F1"/>
               <span style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:10,
                 letterSpacing:"0.2em", textTransform:"uppercase",
-                color:"rgba(255,255,255,0.3)" }}>
+                color:"rgba(255,255,255,0.62)" }}>
                 Noida, Uttar Pradesh, India
               </span>
             </motion.div>
@@ -178,7 +178,7 @@ export default function Hero() {
             {/* Description */}
             <motion.p initial={{ opacity:0, y:20 }} animate={{ opacity:1, y:0 }}
               transition={{ delay:1.2 }}
-              style={{ fontSize:15, lineHeight:1.75, color:"rgba(255,255,255,0.4)",
+              style={{ fontSize:15, lineHeight:1.75, color:"rgba(255,255,255,0.74)",
                 maxWidth:440, marginBottom:36 }}>
               5+ years delivering SAP S/4HANA transformation, ABAP Cloud & Clean Core modernization at Accenture & Infosys. EAM · RAP · CDS · OData V4 · Fiori · Custom Code Remediation.
             </motion.p>
@@ -215,9 +215,9 @@ export default function Hero() {
                   rel="noreferrer" data-hover title={s.label}
                   whileHover={{ scale:1.25, rotate: 5 }} onHoverStart={() => playHoverSound()}
                   whileTap={{ scale:0.9 }}
-                  style={{ color:"rgba(255,255,255,0.25)", transition:"color 0.2s", cursor:"none" }}
+                  style={{ color:"rgba(255,255,255,0.62)", transition:"color 0.2s", cursor:"none" }}
                   onMouseEnter={e=>e.currentTarget.style.color="#6366F1"}
-                  onMouseLeave={e=>e.currentTarget.style.color="rgba(255,255,255,0.25)"}>
+                  onMouseLeave={e=>e.currentTarget.style.color="rgba(255,255,255,0.62)"}>
                   {s.icon}
                 </motion.a>
               ))}
@@ -311,7 +311,7 @@ export default function Hero() {
                       transform:"translateX(-50%)",
                       fontFamily:"'JetBrains Mono',monospace",
                       fontSize:10, letterSpacing:"0.15em",
-                      color:"rgba(255,255,255,0.5)",
+                      color:"rgba(255,255,255,0.74)",
                       background:"rgba(2,6,23,0.7)",
                       backdropFilter:"blur(8px)",
                       padding:"4px 12px", borderRadius:100,
@@ -372,7 +372,7 @@ export default function Hero() {
             animate={{ opacity:[0.3,0.7,0.3] }}
             transition={{ duration:2, repeat:Infinity }}
             style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:10,
-              letterSpacing:"0.25em", color:"rgba(255,255,255,0.3)",
+              letterSpacing:"0.25em", color:"rgba(255,255,255,0.62)",
               textTransform:"uppercase" }}>
             Scroll
           </motion.span>
@@ -438,5 +438,5 @@ const base={display:"inline-flex",alignItems:"center",gap:8,fontFamily:"'Inter',
   cursor:"none",transition:"all 0.3s",letterSpacing:"0.02em"};
 const btnSolid   ={...base,background:"#fff",color:"#020617",border:"1px solid transparent"};
 const btnSolidH  ={...btnSolid,background:"linear-gradient(135deg,#6366F1,#22D3EE)",color:"#fff",transform:"scale(1.05)"};
-const btnOutline ={...base,background:"transparent",color:"rgba(255,255,255,0.7)",border:"1px solid rgba(255,255,255,0.12)"};
-const btnOutlineH={...btnOutline,borderColor:"#6366F1",color:"#6366F1",transform:"scale(1.05)"};
+const btnOutline ={...base,background:"transparent",color:"rgba(255,255,255,0.84)",border:"1px solid rgba(255,255,255,0.12)"};
+const btnOutlineH={...btnOutline,borderColor:"#6366F1",color:"#A5B4FC",transform:"scale(1.05)"};

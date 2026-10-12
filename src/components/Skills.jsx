@@ -4,10 +4,11 @@ import { playHoverSound } from "../utils/hoverSound";
 import { IS_MOBILE } from "../utils/motion";
 import { motion } from "motion/react";
 import { Terminal, Layers, Cpu, Database, Layout, Shield, Bot } from "lucide-react";
+import { GLASS } from "../utils/glass";
 
 const SKILL_CARDS = [
   {
-    icon:<Terminal size={28}/>, title:"S/4HANA Transformation & EAM", color:"#6366F1",
+    icon:<Terminal size={28}/>, title:"S/4HANA Transformation & EAM", color:"#A5B4FC",
     desc:"SAP S/4HANA transformation, custom code remediation, HANA optimization, SAP EAM — F2173/F2175 Fiori apps, Maintenance Cutover & Hypercare.",
     tags:["S/4HANA","SAP EAM","F2173 / F2175","Maintenance Management","Asset Management","Custom Code Remediation","Migration Assessment","AMDP","ATC Compliance"],
     back:"60+ ABAP objects remediated. F2173 & F2175 EAM Fiori enhancements. Maintenance Phase 9 Cutover & Hypercare. Zero critical post-go-live defects.",
@@ -91,9 +92,8 @@ function SkillCard({ sk, index }) {
           position:"absolute", inset:0,
           backfaceVisibility:"hidden", WebkitBackfaceVisibility:"hidden",
           borderRadius:28, padding:32,
-          background:"rgba(15,23,42,0.6)",
-          border:`1px solid ${sk.color}25`,
-          backdropFilter:"blur(12px)",
+          ...GLASS,
+          border:`1px solid ${sk.color}38`,
           overflow:"hidden",
         }}>
           {/* Glow blob */}
@@ -109,7 +109,7 @@ function SkillCard({ sk, index }) {
           <h3 style={{ fontFamily:"'Outfit',sans-serif", fontSize:19, fontWeight:700,
             color:"#fff", marginBottom:10, letterSpacing:"-0.3px" }}>{sk.title}</h3>
           <p style={{ fontFamily:"'Inter',sans-serif", fontSize:12.5, lineHeight:1.65,
-            color:"rgba(255,255,255,0.4)", marginBottom:16 }}>{sk.desc}</p>
+            color:"rgba(255,255,255,0.74)", marginBottom:16 }}>{sk.desc}</p>
           {/* Progress bar */}
           <div style={{ height:2, background:"rgba(255,255,255,0.06)", borderRadius:2 }}>
             <motion.div
@@ -123,7 +123,7 @@ function SkillCard({ sk, index }) {
             />
           </div>
           <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:10,
-            color:"rgba(255,255,255,0.2)", marginTop:6, textAlign:"right" }}>
+            color:"rgba(255,255,255,0.5)", marginTop:6, textAlign:"right" }}>
             {sk.pct}% · tap to flip
           </div>
         </div>
@@ -165,10 +165,10 @@ export default function Skills() {
         viewport={{ once:true }} style={{ marginBottom:72 }}>
         <p style={lbl}>Technical Arsenal</p>
         <h2 style={hdg} className="glitch" data-text="Core Competencies">
-          <span className="sr-only">SAP ABAP Skills: </span>Core <em style={{ fontStyle:"normal", color:"rgba(255,255,255,0.25)" }}>Competencies</em>
+          <span className="sr-only">SAP ABAP Skills: </span>Core <em style={{ fontStyle:"normal", color:"rgba(255,255,255,0.62)" }}>Competencies</em>
         </h2>
         <p style={{ fontFamily:"'Inter',sans-serif", fontSize:14,
-          color:"rgba(255,255,255,0.3)", marginTop:12 }}>
+          color:"rgba(255,255,255,0.62)", marginTop:12 }}>
           Tap any card to reveal impact metrics →
         </p>
       </motion.div>
@@ -181,5 +181,5 @@ export default function Skills() {
   );
 }
 
-const lbl={fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.4em",textTransform:"uppercase",color:"#6366F1",marginBottom:16};
+const lbl={fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.4em",textTransform:"uppercase",color:"#A5B4FC",marginBottom:16};
 const hdg={fontFamily:"'Outfit',sans-serif",fontSize:"clamp(36px,5vw,64px)",fontWeight:700,color:"#fff",letterSpacing:"-2px",lineHeight:1.05};

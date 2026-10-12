@@ -144,7 +144,7 @@ function WorkCard({ work }) {
             }}>{work.title}</div>
             <div style={{
               fontFamily: "'Inter',sans-serif", fontSize: 12,
-              color: "rgba(255,255,255,0.35)",
+              color: "rgba(255,255,255,0.62)",
             }}>{work.sub}</div>
           </div>
           <div style={{
@@ -190,7 +190,7 @@ export default function SelectedWorks() {
               <span style={{
                 fontFamily: "'JetBrains Mono',monospace", fontSize: 11,
                 letterSpacing: "0.35em", textTransform: "uppercase",
-                color: "rgba(255,255,255,0.3)",
+                color: "rgba(255,255,255,0.62)",
               }}>Selected Work</span>
             </div>
             <h2 style={{
@@ -206,7 +206,7 @@ export default function SelectedWorks() {
             </h2>
             <p style={{
               fontFamily: "'Inter',sans-serif", fontSize: 15,
-              color: "rgba(255,255,255,0.35)", maxWidth: 480,
+              color: "rgba(255,255,255,0.62)", maxWidth: 480,
               lineHeight: 1.7, marginTop: 14,
             }}>
               A selection of SAP initiatives I've led or built — from open-source references to enterprise automation.
@@ -218,7 +218,7 @@ export default function SelectedWorks() {
             fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 700,
             padding: "12px 24px", borderRadius: 100,
             border: "1px solid rgba(255,255,255,0.1)",
-            color: "rgba(255,255,255,0.6)",
+            color: "rgba(255,255,255,0.84)",
             textDecoration: "none", cursor: "none",
             transition: "all 0.3s",
             position: "relative", overflow: "hidden",
@@ -229,7 +229,7 @@ export default function SelectedWorks() {
           }}
           onMouseLeave={e => {
             e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
-            e.currentTarget.style.color = "rgba(255,255,255,0.6)";
+            e.currentTarget.style.color = "rgba(255,255,255,0.84)";
           }}>
             View all work →
           </a>

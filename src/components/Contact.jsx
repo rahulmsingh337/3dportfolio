@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { gsap } from "gsap";
 import { Mail, Phone, ExternalLink } from "lucide-react";
 import { playLinkSound } from "../utils/linkSound";
+import { GLASS } from "../utils/glass";
 
 const SvgLinkedIn = () => (
   <svg width="17" height="17" viewBox="0 0 24 24" fill="none">
@@ -77,7 +78,7 @@ export default function Contact() {
             <span key={i} style={{ fontFamily:"'Fraunces',serif",fontStyle:"italic",
               fontSize:"clamp(32px,5vw,60px)",fontWeight:300,color:"#fff",opacity:0.04,
               padding:"0 40px",whiteSpace:"nowrap" }}>
-              BUILDING THE FUTURE <span style={{ color:"#6366F1",opacity:0.6 }}>·</span>
+              BUILDING THE FUTURE <span style={{ color:"#A5B4FC",opacity:0.6 }}>·</span>
             </span>
           ))}
         </div>
@@ -95,7 +96,7 @@ export default function Contact() {
           viewport={{ once:true }}>
           <p style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:11,
             letterSpacing:"0.35em",textTransform:"uppercase",
-            color:"rgba(255,255,255,0.25)",marginBottom:32 }}>Let's Connect</p>
+            color:"rgba(255,255,255,0.62)",marginBottom:32 }}>Let's Connect</p>
 
           <h2 className="contact-heading" style={{ fontFamily:"'Outfit',sans-serif",
             fontSize:"clamp(48px,9vw,110px)",fontWeight:800,
@@ -127,7 +128,7 @@ export default function Contact() {
               }}
               onMouseLeave={e=>{
                 e.currentTarget.style.borderColor=isWA?"rgba(37,211,102,0.3)":"rgba(255,255,255,0.08)";
-                e.currentTarget.style.color="rgba(255,255,255,0.4)";
+                e.currentTarget.style.color="rgba(255,255,255,0.74)";
                 e.currentTarget.style.background="transparent";
               }}>
               {s.icon}{s.label}
@@ -138,7 +139,7 @@ export default function Contact() {
         {/* Footer bar */}
         <div className="footer-bar" style={{ display:"flex",justifyContent:"space-between",alignItems:"center",
           paddingTop:32,borderTop:"1px solid rgba(255,255,255,0.05)",
-          fontSize:12,color:"rgba(255,255,255,0.25)",flexWrap:"wrap",gap:16,
+          fontSize:12,color:"rgba(255,255,255,0.62)",flexWrap:"wrap",gap:16,
           fontFamily:"'JetBrains Mono',monospace",letterSpacing:"0.08em" }}>
           <div>Rahul Singh — SAP ABAP Lead · Noida, India</div>
           <div style={{ display:"flex",alignItems:"center",gap:8 }}>
@@ -158,5 +159,5 @@ const base2 = { display:"inline-flex",alignItems:"center",gap:8,fontFamily:"'Int
   textDecoration:"none",cursor:"none",transition:"all 0.3s",
   letterSpacing:"0.05em",textTransform:"uppercase" };
 const btnPrimary = { ...base2, background:"#fff",color:"#020617",border:"1px solid transparent" };
-const btnGhost   = { ...base2, background:"transparent",color:"rgba(255,255,255,0.4)",
-  border:"1px solid rgba(255,255,255,0.08)" };
+const btnGhost   = { ...base2, ...GLASS, color:"rgba(255,255,255,0.86)",
+  boxShadow:"inset 0 1px 0 rgba(255,255,255,0.16), 0 8px 24px -10px rgba(0,0,0,0.5)" };

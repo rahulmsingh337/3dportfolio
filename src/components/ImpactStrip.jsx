@@ -3,6 +3,7 @@ import { IS_MOBILE } from "../utils/motion";
 import { playHoverSound } from "../utils/hoverSound";
 import { motion } from "motion/react";
 import { Award, Shield, Briefcase, TrendingUp } from "lucide-react";
+import { GLASS } from "../utils/glass";
 
 function AnimatedNumber({ value, suffix = "", prefix = "" }) {
   const [display, setDisplay] = useState(0);
@@ -38,7 +39,7 @@ function AnimatedNumber({ value, suffix = "", prefix = "" }) {
 }
 
 const STATS = [
-  { value:"5",  suffix:"+", prefix:"",  label:"Years SAP ABAP",     icon:<Briefcase size={22}/>,  color:"#6366F1" },
+  { value:"5",  suffix:"+", prefix:"",  label:"Years SAP ABAP",     icon:<Briefcase size={22}/>,  color:"#A5B4FC" },
   { value:"60", suffix:"+", prefix:"",  label:"ABAP Objects Remediated",       icon:<Shield size={22}/>,     color:"#22D3EE" },
   { value:"50", suffix:"K+",prefix:"€", label:"Client Cost Avoided",           icon:<TrendingUp size={22}/>, color:"#D8B4FE" },
   { value:"16", suffix:"×", prefix:"",  label:"Consecutive INSTA Awards",      icon:<Award size={22}/>,      color:"#3dd68c" },
@@ -52,9 +53,7 @@ export default function ImpactStrip() {
       <div className="impact-wrap" style={{
         position:"relative", overflow:"hidden",
         borderRadius:32, padding:"60px 40px",
-        background:"rgba(255,255,255,0.015)",
-        border:"1px solid rgba(255,255,255,0.06)",
-        backdropFilter:"blur(24px)",
+        ...GLASS,
       }}>
         {/* Animated gradient border top */}
         <div style={{
@@ -93,7 +92,7 @@ export default function ImpactStrip() {
               </div>
               <div style={{ fontFamily:"'JetBrains Mono',monospace", fontSize:10,
                 letterSpacing:"0.3em", textTransform:"uppercase",
-                color:"rgba(255,255,255,0.3)", marginTop:10 }}>
+                color:"rgba(255,255,255,0.62)", marginTop:10 }}>
                 {s.label}
               </div>
             </motion.div>

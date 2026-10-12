@@ -38,7 +38,7 @@ export default function Experience() {
       <motion.div initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}
         viewport={{ once:true }} style={{ marginBottom:80 }}>
         <p style={label}>Professional Path</p>
-        <h2 style={heading}><span className="sr-only">SAP Professional Experience: </span>The <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.3)" }}>Journey</em></h2>
+        <h2 style={heading}><span className="sr-only">SAP Professional Experience: </span>The <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.62)" }}>Journey</em></h2>
       </motion.div>
 
       <div style={{ position:"relative" }}>
@@ -72,7 +72,7 @@ export default function Experience() {
               </div>
               <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
                 letterSpacing:"0.2em",textTransform:"uppercase",
-                color:"rgba(255,255,255,0.25)",textAlign:"right" }}>
+                color:"rgba(255,255,255,0.62)",textAlign:"right" }}>
                 <div style={{ display:"flex",alignItems:"center",gap:6,marginBottom:4,justifyContent:"flex-end" }}>
                   <Calendar size={11} color="#6366F1"/>{job.period}
                 </div>
@@ -90,7 +90,7 @@ export default function Experience() {
                   <CheckCircle2 size={15} style={{ marginTop:2,flexShrink:0,
                     color:"rgba(255,255,255,0.08)" }}/>
                   <span style={{ fontFamily:"'Inter',sans-serif",fontSize:14,lineHeight:1.65,
-                    color:"rgba(255,255,255,0.45)" }}>{pt}</span>
+                    color:"rgba(255,255,255,0.74)" }}>{pt}</span>
                 </li>
               ))}
             </ul>
@@ -100,12 +100,12 @@ export default function Experience() {
                 <span key={t} style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
                   fontWeight:500,padding:"5px 12px",borderRadius:8,
                   background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.06)",
-                  color:"rgba(255,255,255,0.4)",letterSpacing:"0.05em",textTransform:"uppercase",
+                  color:"rgba(255,255,255,0.74)",letterSpacing:"0.05em",textTransform:"uppercase",
                   transition:"all 0.2s",cursor:"default" }}
                   onMouseEnter={e=>{ e.currentTarget.style.borderColor="rgba(99,102,241,0.4)";
                     e.currentTarget.style.color="#fff"; }}
                   onMouseLeave={e=>{ e.currentTarget.style.borderColor="rgba(255,255,255,0.06)";
-                    e.currentTarget.style.color="rgba(255,255,255,0.4)"; }}>
+                    e.currentTarget.style.color="rgba(255,255,255,0.74)"; }}>
                   {t}
                 </span>
               ))}
@@ -118,6 +118,6 @@ export default function Experience() {
 }
 
 const label = { fontFamily:"'JetBrains Mono',monospace",fontSize:11,
-  letterSpacing:"0.4em",textTransform:"uppercase",color:"#6366F1",marginBottom:16 };
+  letterSpacing:"0.4em",textTransform:"uppercase",color:"#A5B4FC",marginBottom:16 };
 const heading = { fontFamily:"'Outfit',sans-serif",fontSize:"clamp(36px,5vw,64px)",
   fontWeight:700,color:"#fff",letterSpacing:"-2px",lineHeight:1.05 };

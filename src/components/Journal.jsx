@@ -1,5 +1,6 @@
 import { IS_MOBILE } from "../utils/motion";
 import { motion } from "motion/react";
+import { GLASS } from "../utils/glass";
 
 const ENTRIES = [
   {
@@ -122,7 +123,7 @@ export default function Journal() {
               <span style={{
                 fontFamily: "'JetBrains Mono',monospace", fontSize: 11,
                 letterSpacing: "0.35em", textTransform: "uppercase",
-                color: "rgba(255,255,255,0.3)",
+                color: "rgba(255,255,255,0.62)",
               }}>Recent Thoughts</span>
             </div>
             <h2 style={{
@@ -137,7 +138,7 @@ export default function Journal() {
             </h2>
             <p style={{
               fontFamily: "'Inter',sans-serif", fontSize: 15,
-              color: "rgba(255,255,255,0.35)", maxWidth: 480,
+              color: "rgba(255,255,255,0.62)", maxWidth: 480,
               lineHeight: 1.7, marginTop: 14,
             }}>
               Technical deep-dives, migration patterns, and learnings from 5+ years in the SAP trenches.
@@ -150,7 +151,7 @@ export default function Journal() {
               fontFamily: "'Inter',sans-serif", fontSize: 13, fontWeight: 700,
               padding: "12px 24px", borderRadius: 100,
               border: "1px solid rgba(255,255,255,0.1)",
-              color: "rgba(255,255,255,0.6)",
+              color: "rgba(255,255,255,0.84)",
               textDecoration: "none", cursor: "none", transition: "all 0.3s",
             }}
             onMouseEnter={e => {
@@ -159,7 +160,7 @@ export default function Journal() {
             }}
             onMouseLeave={e => {
               e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)";
-              e.currentTarget.style.color = "rgba(255,255,255,0.6)";
+              e.currentTarget.style.color = "rgba(255,255,255,0.84)";
             }}>
             View all on LinkedIn →
           </a>
@@ -183,8 +184,7 @@ export default function Journal() {
                 display: "flex", alignItems: "center",
                 gap: 24, padding: "20px 28px",
                 borderRadius: 100,
-                border: "1px solid rgba(255,255,255,0.06)",
-                background: "rgba(255,255,255,0.02)",
+                ...GLASS,
                 textDecoration: "none", cursor: "none",
                 transition: "background 0.3s, border-color 0.3s",
                 flexWrap: "wrap",
@@ -194,8 +194,8 @@ export default function Journal() {
                 e.currentTarget.style.borderColor = "rgba(99,102,241,0.3)";
               }}
               onMouseLeave={e => {
-                e.currentTarget.style.background = "rgba(255,255,255,0.02)";
-                e.currentTarget.style.borderColor = "rgba(255,255,255,0.06)";
+                e.currentTarget.style.background = GLASS.background;
+                e.currentTarget.style.borderColor = "rgba(255,255,255,0.13)";
               }}
             >
               {/* icon */}
@@ -237,18 +237,18 @@ export default function Journal() {
                 </span>
                 <span style={{
                   fontFamily: "'JetBrains Mono',monospace", fontSize: 10,
-                  color: "rgba(255,255,255,0.25)", whiteSpace: "nowrap",
+                  color: "rgba(255,255,255,0.62)", whiteSpace: "nowrap",
                 }}>
                   {entry.readTime}
                 </span>
                 <span style={{
                   fontFamily: "'JetBrains Mono',monospace", fontSize: 10,
-                  color: "rgba(255,255,255,0.2)", whiteSpace: "nowrap",
+                  color: "rgba(255,255,255,0.52)", whiteSpace: "nowrap",
                 }}>
                   {entry.date}
                 </span>
                 <span style={{
-                  fontSize: 16, color: "rgba(255,255,255,0.2)",
+                  fontSize: 16, color: "rgba(255,255,255,0.52)",
                   transition: "color 0.2s",
                 }}>↗</span>
               </div>

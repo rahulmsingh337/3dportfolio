@@ -8,7 +8,7 @@
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![WebGL](https://img.shields.io/badge/WebGL-GLSL%20Shader-990000?style=for-the-badge&logo=webgl&logoColor=white)
+![UI](https://img.shields.io/badge/UI-Spatial%20Glass-6366F1?style=for-the-badge)
 
 [Live site](https://rahulsinghsap.vercel.app) · [LinkedIn](https://www.linkedin.com/in/rahul-singh-sap-abap/) · [GitHub](https://github.com/rahulmsingh337)
 
@@ -23,7 +23,8 @@ Personal portfolio of Rahul Singh, SAP ABAP Lead at Accenture (Noida, India). It
 ## Features
 
 **Visual and motion**
-- WebGL GLSL shader background: cursor-reactive glow over domain-warped fractal noise
+- Spatial background: layered colour orbs with mouse and scroll parallax, a perspective floor grid, and static low grain (no WebGL, no overlays on text)
+- Frosted-glass surfaces (`src/utils/glass.js`): blurred, translucent cards with a top-edge highlight, so the background light shows through
 - Custom dual cursor (dot and lagging ring), desktop only
 - Split-character name animation and 3D photo tilt that follows the mouse
 - Orbiting tech tags around the profile photo
@@ -60,7 +61,7 @@ Personal portfolio of Rahul Singh, SAP ABAP Lead at Accenture (Noida, India). It
 | Framework | React 19 + Vite 8 |
 | Styling | Tailwind CSS v4 (`@tailwindcss/vite`) plus custom CSS |
 | Animation | Motion (`motion/react`) + GSAP |
-| Background | Custom WebGL (GLSL fragment shader), no 3D library |
+| Background | CSS spatial background (parallax orbs + perspective grid) and frosted-glass surfaces; no WebGL or 3D library |
 | Icons | Lucide React |
 | Fonts | Outfit, Inter, JetBrains Mono, Fraunces |
 | Hosting | Vercel (auto-deploy on push to `main`) |
@@ -84,7 +85,7 @@ Personal portfolio of Rahul Singh, SAP ABAP Lead at Accenture (Noida, India). It
 │   └── sitemap.xml
 ├── src/
 │   ├── components/
-│   │   ├── AnimatedBackground.jsx # WebGL GLSL shader
+│   │   ├── AnimatedBackground.jsx # Spatial background (parallax light orbs, floor grid)
 │   │   ├── Cursor.jsx             # Dual cursor
 │   │   ├── LoadingScreen.jsx      # 1.5 s loader with Skip
 │   │   ├── Navbar.jsx
@@ -97,7 +98,7 @@ Personal portfolio of Rahul Singh, SAP ABAP Lead at Accenture (Noida, India). It
 │   │   ├── Journal.jsx
 │   │   ├── Awards.jsx             # Certificates, awards, lightbox
 │   │   └── Contact.jsx
-│   ├── utils/                     # asset path, motion and sound helpers
+│   ├── utils/                     # asset path, motion, sound helpers, glass.js (shared glass surface)
 │   ├── App.jsx
 │   ├── main.jsx
 │   ├── index.css

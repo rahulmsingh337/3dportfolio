@@ -4,6 +4,7 @@ import { useState } from "react";
 import { IS_MOBILE } from "../utils/motion";
 import { motion, AnimatePresence } from "motion/react";
 import { Trophy, Medal, Star, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { GLASS } from "../utils/glass";
 
 const SKILL_TAGS = [
   { id:"func", title:"SAP S/4HANA Functional Professional",        issuer:"Infosys", image:asset("/cert-sap-func.webp") },
@@ -97,8 +98,8 @@ export default function Awards() {
         <motion.div initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}
           viewport={{ once:true }} style={{ marginBottom:80 }}>
           <p style={lbl}>Recognition & Achievements</p>
-          <h2 style={hdg}><span className="sr-only">SAP Certifications, </span>Awards & <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.3)" }}>Skill Tags</em></h2>
-          <p style={{ fontFamily:"'Inter',sans-serif",fontSize:15,color:"rgba(255,255,255,0.35)",
+          <h2 style={hdg}><span className="sr-only">SAP Certifications, </span>Awards & <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.62)" }}>Skill Tags</em></h2>
+          <p style={{ fontFamily:"'Inter',sans-serif",fontSize:15,color:"rgba(255,255,255,0.62)",
             maxWidth:520,lineHeight:1.7,marginTop:16 }}>
             Recognitions from Infosys EAS SAP spanning skill certifications, peer nominations, and quarterly RISE awards.
           </p>
@@ -113,10 +114,9 @@ export default function Awards() {
               initial={{ opacity:0,y:24 }} whileInView={{ opacity:1,y:0 }}
               viewport={{ once:true,margin:"-40px" }} transition={{ delay:i*0.15,duration:0.7 }}
               onClick={()=>setLb({ images:[t.image],i:0 })} data-hover
-              style={{ position:"relative",borderRadius:20,border:"1px solid rgba(255,255,255,0.06)",
-                background:"rgba(255,255,255,0.02)",padding:20,cursor:"none",overflow:"hidden",
+              style={{ ...GLASS,position:"relative",borderRadius:20,padding:20,cursor:"none",overflow:"hidden",
                 transition:"all 0.3s" }}
-              whileHover={{ background:"rgba(255,255,255,0.04)",borderColor:"rgba(99,102,241,0.3)" }} onHoverStart={() => playHoverSound()}>
+              whileHover={{ borderColor:"rgba(99,102,241,0.5)" }} onHoverStart={() => playHoverSound()}>
               <div style={{ position:"absolute",top:0,left:0,right:0,height:1,
                 background:"linear-gradient(90deg,#6366F1,#22D3EE)" }}/>
               <div style={{ display:"flex",alignItems:"center",gap:16 }}>
@@ -127,7 +127,7 @@ export default function Awards() {
                 </div>
                 <div>
                   <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
-                    letterSpacing:"0.2em",textTransform:"uppercase",color:"#6366F1",marginBottom:6 }}>
+                    letterSpacing:"0.2em",textTransform:"uppercase",color:"#A5B4FC",marginBottom:6 }}>
                     {t.issuer}
                   </div>
                   <h3 style={{ fontFamily:"'Outfit',sans-serif",fontSize:14,fontWeight:600,
@@ -147,8 +147,7 @@ export default function Awards() {
               initial={{ opacity:0,y:24 }} whileInView={{ opacity:1,y:0 }}
               viewport={{ once:true,margin:"-40px" }} transition={{ delay:i*0.1,duration:0.7 }}
               onClick={()=>setLb({ images:[a.image],i:0 })} data-hover
-              style={{ borderRadius:20,border:"1px solid rgba(255,255,255,0.06)",
-                background:"rgba(255,255,255,0.02)",overflow:"hidden",cursor:"none",
+              style={{ ...GLASS,borderRadius:20,overflow:"hidden",cursor:"none",
                 transition:"all 0.3s" }}
               whileHover={{ borderColor:"rgba(212,180,254,0.3)" }} onHoverStart={() => playHoverSound()}>
               <div style={{ height:120,overflow:"hidden" }}>
@@ -160,11 +159,11 @@ export default function Awards() {
               </div>
               <div style={{ padding:16 }}>
                 <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
-                  color:"rgba(255,255,255,0.25)",letterSpacing:"0.15em",marginBottom:4 }}>{a.period}</div>
+                  color:"rgba(255,255,255,0.62)",letterSpacing:"0.15em",marginBottom:4 }}>{a.period}</div>
                 <h3 style={{ fontFamily:"'Outfit',sans-serif",fontSize:15,fontWeight:700,
                   color:"rgba(255,255,255,0.85)",marginBottom:2 }}>{a.title}</h3>
                 <p style={{ fontFamily:"'Inter',sans-serif",fontSize:12,
-                  color:"rgba(255,255,255,0.3)" }}>{a.category}</p>
+                  color:"rgba(255,255,255,0.62)" }}>{a.category}</p>
               </div>
             </motion.div>
           ))}
@@ -192,7 +191,7 @@ export default function Awards() {
                 <h3 style={{ fontFamily:"'Outfit',sans-serif",fontSize:14,fontWeight:700,
                   color:"rgba(255,255,255,0.8)",marginBottom:4,lineHeight:1.2 }}>{a.title}</h3>
                 <p style={{ fontFamily:"'Inter',sans-serif",fontSize:12,lineHeight:1.5,
-                  color:"rgba(255,255,255,0.3)",
+                  color:"rgba(255,255,255,0.62)",
                   overflow:"hidden",display:"-webkit-box",
                   WebkitLineClamp:2,WebkitBoxOrient:"vertical" }}>{a.note}</p>
               </div>
@@ -209,11 +208,11 @@ function SectionHeader({ icon, color, label }) {
     <div style={{ display:"flex",alignItems:"center",gap:12,marginBottom:24 }}>
       <div style={{ padding:8,borderRadius:12,background:`${color}18`,color,display:"flex" }}>{icon}</div>
       <span style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
-        letterSpacing:"0.3em",textTransform:"uppercase",color:"rgba(255,255,255,0.35)" }}>{label}</span>
+        letterSpacing:"0.3em",textTransform:"uppercase",color:"rgba(255,255,255,0.62)" }}>{label}</span>
       <div style={{ flex:1,height:1,background:"rgba(255,255,255,0.05)" }}/>
     </div>
   );
 }
 
-const lbl={fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.4em",textTransform:"uppercase",color:"#6366F1",marginBottom:16};
+const lbl={fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.4em",textTransform:"uppercase",color:"#A5B4FC",marginBottom:16};
 const hdg={fontFamily:"'Outfit',sans-serif",fontSize:"clamp(36px,5vw,64px)",fontWeight:700,color:"#fff",letterSpacing:"-2px",lineHeight:1.05};
