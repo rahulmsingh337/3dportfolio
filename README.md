@@ -23,7 +23,7 @@ Personal portfolio of Rahul Singh, SAP ABAP Lead at Accenture (Noida, India). It
 ## Features
 
 **Visual and motion**
-- Spatial background: layered colour orbs with mouse and scroll parallax, a perspective floor grid, and static low grain (no WebGL, no overlays on text)
+- Cursor-reactive spatial background: a light that follows the pointer (fast core + slow halo, brighter with speed, flares on click), a grid that lights up around the pointer, colour orbs with strong mouse parallax, a floor plane that tilts with the mouse, and bounded scroll parallax. No WebGL, nothing bright behind text; disabled under `prefers-reduced-motion`.
 - Frosted-glass surfaces (`src/utils/glass.js`): blurred, translucent cards with a top-edge highlight, so the background light shows through
 - Custom dual cursor (dot and lagging ring), desktop only
 - Split-character name animation and 3D photo tilt that follows the mouse
