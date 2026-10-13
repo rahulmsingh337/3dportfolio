@@ -8,7 +8,7 @@
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Tailwind](https://img.shields.io/badge/Tailwind-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![UI](https://img.shields.io/badge/UI-Spatial%20Glass-6366F1?style=for-the-badge)
+![UI](https://img.shields.io/badge/Design-Ink%20%C2%B7%20Gold%20%C2%B7%20Glass-D9C49C?style=for-the-badge)
 
 [Live site](https://rahulsinghsap.vercel.app) · [LinkedIn](https://www.linkedin.com/in/rahul-singh-sap-abap/) · [GitHub](https://github.com/rahulmsingh337)
 
@@ -20,91 +20,75 @@
 
 Personal portfolio of Rahul Singh, SAP ABAP Lead at Accenture (Noida, India). It covers ECC-to-S/4HANA transformation work, ABAP Cloud and Clean Core development, certifications, and open-source SAP references.
 
+## Design system
+
+An editorial, restrained look intended for senior and enterprise audiences.
+
+- **Palette:** near-black ink (`#05070d`), warm white headings, one champagne-gold accent (`#d9c49c`) for labels, numerals and hairlines. No rainbow accents.
+- **Type:** Fraunces (light display serif, italic gold accent word) for headings, Inter for UI and body, JetBrains Mono for small labels. All fonts are self-hosted via Fontsource (no Google Fonts request).
+- **Surfaces:** frosted glass (`.card`) with a gold hairline on hover; one shared set of tokens and components in `src/index.css`.
+- **Layout:** one numbered section header pattern (`SectionHeader`), consistent 1200px grid and vertical rhythm, readable line lengths (experience bullets capped near 66 characters).
+- **Background:** cursor-reactive spatial scene (pointer light with fast core and slow halo, grid that lights up near the pointer, parallax colour orbs, floor plane that tilts), with no WebGL and nothing bright behind text.
+- **Restraint:** no sound effects, no custom cursor, no emoji icons, no fake skill percentages. Motion respects `prefers-reduced-motion`.
+
 ## Features
 
-**Visual and motion**
-- Cursor-reactive spatial background: a light that follows the pointer (fast core + slow halo, brighter with speed, flares on click), a grid that lights up around the pointer, colour orbs with strong mouse parallax, a floor plane that tilts with the mouse, and bounded scroll parallax. No WebGL, nothing bright behind text; disabled under `prefers-reduced-motion`.
-- Frosted-glass surfaces (`src/utils/glass.js`): blurred, translucent cards with a top-edge highlight, so the background light shows through
-- Custom dual cursor (dot and lagging ring), desktop only
-- Split-character name animation and 3D photo tilt that follows the mouse
-- Orbiting tech tags around the profile photo
-
-**Interactions**
-- 3D flip cards in the Skills section
-- Animated number counters that run on scroll into view
-- Project cards with modal expand
-- Awards lightbox carousel with keyboard navigation
-- GSAP marquee in the Contact section
-
-**Performance and accessibility**
-- Intro loader capped at 1.5 s, with a Skip button; skipped automatically under `prefers-reduced-motion`
-- No audio or speech on load
-- Below-the-fold sections are lazy-loaded; certificate and award images are WebP and lazy-loaded
-- Motion is reduced on mobile (framer-motion transitions disabled via CSS and a mobile class)
+- Sticky navigation with section links and active-section highlighting; mobile menu
+- Animated impact stats (count-up on scroll)
+- Evidence-backed capability cards (each capability states the delivered outcome)
+- Experience in a two-column editorial layout with the key numbers emphasised
+- Project cards with a detail modal (Esc to close)
+- Credentials: verifiable SAP certifications and recognition, with an image lightbox
+- Intro plays once per browser session and is skipped for reduced-motion users
 
 ## SEO
 
 - Valid JSON-LD in `index.html`: `Person` (with credential verification links), `WebSite`, `ProfilePage`, and an `ItemList` of projects
-- Static fallback content inside `#root` (experience, skills, certifications, projects, contact) plus real `<h1>`/`<h2>` structure, so crawlers, link previews and no-JS visitors get content before JavaScript runs. React replaces it on mount, so keep it in sync with the visible sections.
+- Static fallback content inside `#root` plus real heading structure, so crawlers, link previews and no-JS visitors get content before JavaScript runs. React replaces it on mount, so keep it in sync with the visible sections.
 - Semantic landmarks (`<nav>`, `<main>`), skip link, descriptive section headings, and a single `<h1>`
 - 1200×630 social card (`public/og-image.jpg`), consistent title / Open Graph / Twitter tags, and canonical URL
 - `robots.txt`, `sitemap.xml`, `llms.txt`, web manifest, and favicon / touch icons in `public/`
-- Real 404: unknown URLs return HTTP 404 with `public/404.html` (noindex). There is no catch-all rewrite, so no soft-404s.
-- Fonts load without blocking render; image dimensions are declared to avoid layout shift
-- Security and cache headers set in `vercel.json`
-- This is still a client-rendered SPA. For full prerendering, move to `vite-react-ssg`, Astro, or Next.js.
+- Real 404: unknown URLs return HTTP 404 with `public/404.html` (noindex); no catch-all rewrite, so no soft-404s
+- Self-hosted fonts and declared image dimensions; security and cache headers in `vercel.json`
+- Still a client-rendered SPA. For full prerendering, move to `vite-react-ssg`, Astro, or Next.js.
 
 ## Tech stack
 
 | Area | Choice |
 |------|--------|
 | Framework | React 19 + Vite 8 |
-| Styling | Tailwind CSS v4 (`@tailwindcss/vite`) plus custom CSS |
-| Animation | Motion (`motion/react`) + GSAP |
-| Background | CSS spatial background (parallax orbs + perspective grid) and frosted-glass surfaces; no WebGL or 3D library |
-| Icons | Lucide React |
-| Fonts | Outfit, Inter, JetBrains Mono, Fraunces |
+| Styling | Tailwind CSS v4 (`@tailwindcss/vite`) plus a custom design-system stylesheet |
+| Animation | Motion (`motion/react`) and CSS |
+| Fonts | Fraunces, Inter, JetBrains Mono (Fontsource, self-hosted) |
+| Icons | Lucide React plus monochrome brand icons |
 | Hosting | Vercel (auto-deploy on push to `main`) |
 
 ## Project structure
 
 ```
 3dportfolio/
-├── public/
-│   ├── rahul.jpg                  # Profile photo
-│   ├── og-image.jpg               # 1200×630 social preview card
-│   ├── resume.pdf                 # Downloadable CV
-│   ├── award-*.webp               # INSTA award certificates
-│   ├── cert-*.webp                # SAP certification images
-│   ├── ach-*.webp                 # Achievement images
-│   ├── favicon.svg / .ico         # Favicons
-│   ├── apple-touch-icon.png       # iOS icon
-│   ├── icon-192.png / icon-512.png# Manifest icons
-│   ├── site.webmanifest
-│   ├── robots.txt
-│   └── sitemap.xml
+├── public/                  # photo, og-image, icons, certificates (WebP), resume.pdf, robots/sitemap/llms.txt, 404.html
 ├── src/
 │   ├── components/
-│   │   ├── AnimatedBackground.jsx # Spatial background (parallax light orbs, floor grid)
-│   │   ├── Cursor.jsx             # Dual cursor
-│   │   ├── LoadingScreen.jsx      # 1.5 s loader with Skip
+│   │   ├── AnimatedBackground.jsx   # cursor-reactive spatial background
+│   │   ├── LoadingScreen.jsx        # minimal monogram intro (once per session)
 │   │   ├── Navbar.jsx
 │   │   ├── Hero.jsx
-│   │   ├── ImpactStrip.jsx        # Animated stats
-│   │   ├── Skills.jsx             # 6 flip cards
-│   │   ├── Experience.jsx         # Accenture + Infosys timeline
-│   │   ├── Projects.jsx           # 9 project cards
-│   │   ├── SelectedWorks.jsx
-│   │   ├── Journal.jsx
-│   │   ├── Awards.jsx             # Certificates, awards, lightbox
-│   │   └── Contact.jsx
-│   ├── utils/                     # asset path, motion, sound helpers, glass.js (shared glass surface)
+│   │   ├── ImpactStrip.jsx
+│   │   ├── SectionHeader.jsx        # shared numbered section heading
+│   │   ├── Skills.jsx               # capabilities with evidence
+│   │   ├── Experience.jsx
+│   │   ├── Projects.jsx             # 9 projects + modal
+│   │   ├── Journal.jsx              # insights list
+│   │   ├── Awards.jsx               # certifications, awards, lightbox
+│   │   ├── Contact.jsx
+│   │   └── Icons.jsx
+│   ├── utils/                       # asset path, motion flags
 │   ├── App.jsx
-│   ├── main.jsx
-│   ├── index.css
-│   └── responsive.css
-├── index.html                     # Meta tags, JSON-LD, static fallback
-├── vercel.json                    # Build config + SPA rewrite
+│   ├── main.jsx                     # font imports
+│   └── index.css                    # tokens + components
+├── index.html                       # meta, JSON-LD, static fallback
+├── vercel.json                      # build, headers, redirects (no SPA rewrite)
 └── vite.config.js
 ```
 
@@ -127,21 +111,20 @@ npm run lint
 
 ## Deployment
 
-Hosted on Vercel. Every push to `main` triggers a build (`npm run build`, output `dist/`). `vercel.json` rewrites all routes to `index.html` for the single-page app.
+Hosted on Vercel. Every push to `main` triggers a build (`npm run build`, output `dist/`). Unknown URLs return a real 404 (`public/404.html`).
 
 ## Sections
 
 | # | Section | Content |
 |---|---------|---------|
-| 1 | Hero | Name, role, photo, orbiting tags, links |
-| 2 | Impact | 5+ years SAP ABAP · 60+ objects remediated · €50K+ cost avoided · 16× INSTA awards · 40% workflow time cut · 30% custom footprint reduced |
-| 3 | Skills | Transformation and EAM, ABAP Cloud and Clean Core, SAP AI, Integration, Performance, Forms |
-| 4 | Experience | Accenture (Lead) and Infosys (Consultant) |
-| 5 | Projects | 9 projects, including the RAP reference, S/4HANA cookbook, and Prompify |
-| 6 | Selected Works | Key SAP initiatives |
-| 7 | Journal | Technical notes |
-| 8 | Awards | Certifications, RISE and INSTA awards |
-| 9 | Contact | Email, LinkedIn, GitHub, WhatsApp, Instagram |
+| – | Hero | Name, role, portrait, credentials, links |
+| – | Impact | Headline numbers (years, objects remediated, cost avoided, awards, time and footprint reductions) |
+| 01 | Capabilities | Six disciplines, each with delivered evidence |
+| 02 | Experience | Accenture (current) and Infosys |
+| 03 | Work | 9 projects, including EAM Fiori, mass-printing, FSCM, RAP reference, migration cookbook, Prompify |
+| 04 | Insights | Credentials, open-source notes and topics |
+| 05 | Credentials | SAP certifications, recognition, INSTA awards |
+| 06 | Contact | Email, LinkedIn, GitHub, Prompify, WhatsApp |
 
 ## Certifications shown on the site
 

@@ -1,123 +1,68 @@
-import { IS_MOBILE } from "../utils/motion";
 import { motion } from "motion/react";
-import { Briefcase, MapPin, Calendar, CheckCircle2 } from "lucide-react";
+import SectionHeader from "./SectionHeader";
+import { IS_MOBILE } from "../utils/motion";
 
 const JOBS = [
-  {
-    company:"Accenture", role:"SAP ABAP Lead | S/4HANA Transformation",
-    period:"Dec 2025 – Present", location:"Noida, UP", current:true,
-    points:[
+  { company: "Accenture", role: "SAP ABAP Lead | S/4HANA Transformation",
+    period: "Dec 2025 – Present", location: "Noida, UP", current: true,
+    points: [
       "Lead SAP S/4HANA transformation workstreams — HANA remediation of 60+ custom ABAP objects, eliminating ATC critical findings for Clean Core compliance.",
       "Deliver enhancements for SAP EAM Fiori apps F2173 (Manage Maintenance Orders) and F2175 (Schedule Maintenance Orders & Operations); support maintenance planning and scheduling processes.",
-      "Design and implement enterprise-scale maintenance order mass-printing solution integrated with SAP Fiori; support Maintenance Phase 9 Cutover, data validation, reconciliation, and hypercare.",
-      "Develop CDS Views, OData V4 Services, and RAP-based Fiori apps on SAP BTP, reducing custom footprint ~30% via Released API adoption and Clean Core extensibility.",
-      "Mentor developers on RAP, CDS Views, OData V4, Clean Core principles, and ABAP Cloud development; lead technical reviews across 6+ developer team.",
+      "Design and implement an enterprise-scale maintenance order mass-printing solution integrated with SAP Fiori; support Maintenance Phase 9 cutover, data validation, reconciliation, and hypercare.",
+      "Develop CDS Views, OData V4 services, and RAP-based Fiori apps on SAP BTP, reducing custom footprint ~30% via Released API adoption and Clean Core extensibility.",
+      "Mentor developers on RAP, CDS Views, OData V4, Clean Core principles, and ABAP Cloud development; lead technical reviews across an 11-person team.",
       "Contribute to ABAP Cloud adoption, FSCM field-mapping analysis, custom object impact assessment, and migration planning for S/4HANA conversion.",
       "Support go-live, hypercare, and cutover activities; deliver production support with zero critical post-go-live defects across major transformation initiatives.",
     ],
-    tech:["S/4HANA Transformation","SAP EAM","ABAP Cloud","Clean Core","RAP","CDS Views","OData V4","SAP Fiori","Fiori Elements","SAP BTP","AMDP","SmartShift","ATC","TDD","Custom Code Remediation","Migration Assessment"],
-  },
-  {
-    company:"Infosys Private Limited", role:"SAP ABAP Consultant | Infosys Certified Fiori Consultant",
-    period:"May 2021 – Dec 2025", location:"Noida, UP", current:false,
-    points:[
+    tech: ["S/4HANA Transformation", "SAP EAM", "ABAP Cloud", "Clean Core", "RAP", "CDS Views", "OData V4", "SAP Fiori", "SAP BTP", "AMDP", "SmartShift", "ATC", "TDD"] },
+  { company: "Infosys", role: "SAP ABAP Consultant | Infosys Certified Fiori Consultant",
+    period: "May 2021 – Dec 2025", location: "Noida, UP", current: false,
+    points: [
       "Progressed from ABAP Developer to AMS Track Lead within 18 months — led technical delivery for 3 concurrent application management projects for global manufacturing and logistics clients.",
-      "Developed 20+ Reports (Classical, Interactive, ALV/SALV) and interface programs (Proxies, RFC, IDocs, Web Dynpro) across SAP FICO, MM, and SD.",
+      "Developed 20+ reports (Classical, Interactive, ALV/SALV) and interface programs (Proxies, RFC, IDocs, Web Dynpro) across SAP FICO, MM, and SD.",
       "Architected SAP Workflow for multi-level approval automation — reduced manual processing time by ~40% across a 500+ user business unit.",
-      "Applied ABAP 7.5 modernisation techniques across legacy codebase — cutting average program runtime by 25–35%.",
-      "LT03 custom transaction avoided a €50K+ third-party tool cost; received formal client appreciation letter.",
+      "Applied ABAP 7.5 modernisation techniques across a legacy codebase — cutting average program runtime by 25–35%.",
+      "LT03 custom transaction avoided a €50K+ third-party tool cost; received a formal client appreciation letter.",
       "16 consecutive INSTA Rewards · 5× Unit Rise Awards · Best Performer · ACE COE Performer Award.",
     ],
-    tech:["SAP Fiori","Web Dynpro","ALE/IDocs","Adobe Forms","ABAP 7.5","BAPIs","SAP Workflow","BRF Plus","CO-PA","OOABAP"],
-  },
+    tech: ["SAP Fiori", "Web Dynpro", "ALE/IDocs", "Adobe Forms", "ABAP 7.5", "BAPIs", "SAP Workflow", "BRF+", "CO-PA", "OOABAP"] },
 ];
+
+// Bold the numbers that carry the story (60+, ~30%, 25–35%, €50K+, 500+ …)
+const NUM = /(~?\d+(?:–\d+)?[%+×]|€\d+K\+|\bzero critical post-go-live defects)/g;
+const emph = (t) => t.split(NUM).map((s, i) => (i % 2 ? <b key={i}>{s}</b> : s));
 
 export default function Experience() {
   return (
-    <section id="experience" className="section-pad" style={{ padding:"100px 40px",maxWidth:1280,margin:"0 auto" }}>
-      <motion.div initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}
-        viewport={{ once:true }} style={{ marginBottom:80 }}>
-        <p style={label}>Professional Path</p>
-        <h2 style={heading}><span className="sr-only">SAP Professional Experience: </span>The <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.62)" }}>Journey</em></h2>
-      </motion.div>
-
-      <div style={{ position:"relative" }}>
-        {/* vertical line */}
-        <div style={{ position:"absolute",left:17,top:8,bottom:0,width:1,
-          background:"rgba(255,255,255,0.05)" }}/>
-
-        {JOBS.map((job,i) => (
-          <motion.div key={job.company}
-            initial={{ opacity:0, x:-24 }}
-            whileInView={{ opacity:1, x:0 }}
-            viewport={{ once:true }}
-            transition={{ delay:i*0.1,duration:0.8,ease:"easeOut" }}
-            style={{ position:"relative",paddingLeft:56,paddingBottom:72 }}>
-
-            {/* dot */}
-            <div style={{ position:"absolute",left:0,top:2,width:36,height:36,
-              borderRadius:"50%",border:"4px solid #020617",
-              background:"#0F172A",display:"flex",alignItems:"center",justifyContent:"center",
-              ...(job.current ? { boxShadow:"0 0 0 2px #22D3EE,0 0 20px rgba(34,211,238,0.3)" } : {}) }}>
-              <Briefcase size={13} color={job.current ? "#22D3EE" : "rgba(255,255,255,0.3)"}/>
-            </div>
-
-            <div style={{ display:"flex",flexWrap:"wrap",alignItems:"flex-start",
-              justifyContent:"space-between",gap:16,marginBottom:24 }} className="exp-header">
+    <section id="experience" className="sec wrap">
+      <SectionHeader n="02" eyebrow="Professional path" srLabel="SAP Professional Experience" title="The" em="journey" />
+      <div>
+        {JOBS.map((j) => {
+          const body = (
+            <>
+              <div className="job-meta">
+                <h3 className="job-co">{j.company}</h3>
+                <p className="job-role">{j.role}</p>
+                <div className="job-when"><span>{j.period}</span><span>{j.location}</span></div>
+                {j.current && <span className="job-now"><i />Current role</span>}
+              </div>
               <div>
-                <h3 style={{ fontFamily:"'Outfit',sans-serif",fontSize:26,fontWeight:700,
-                  color:"#fff",letterSpacing:"-0.5px",marginBottom:4 }}>{job.role}</h3>
-                <p style={{ fontFamily:"'Inter',sans-serif",fontSize:16,fontWeight:600,
-                  color:"#D8B4FE" }}>{job.company}</p>
+                <ul>{j.points.map((p) => <li key={p}>{emph(p)}</li>)}</ul>
+                <div className="job-tech">{j.tech.map((t) => <span className="tag" key={t}>{t}</span>)}</div>
               </div>
-              <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
-                letterSpacing:"0.2em",textTransform:"uppercase",
-                color:"rgba(255,255,255,0.62)",textAlign:"right" }}>
-                <div style={{ display:"flex",alignItems:"center",gap:6,marginBottom:4,justifyContent:"flex-end" }}>
-                  <Calendar size={11} color="#6366F1"/>{job.period}
-                </div>
-                <div style={{ display:"flex",alignItems:"center",gap:6,justifyContent:"flex-end" }}>
-                  <MapPin size={11}/>{job.location}
-                </div>
-              </div>
-            </div>
-
-            <ul style={{ listStyle:"none",marginBottom:24 }}>
-              {job.points.map((pt,j) => (
-                <li key={j} style={{ display:"flex",gap:14,padding:"7px 0",
-                  borderBottom:"1px solid rgba(255,255,255,0.04)",
-                  ...(j === job.points.length-1 ? { borderBottom:"none" } : {}) }}>
-                  <CheckCircle2 size={15} style={{ marginTop:2,flexShrink:0,
-                    color:"rgba(255,255,255,0.08)" }}/>
-                  <span style={{ fontFamily:"'Inter',sans-serif",fontSize:14,lineHeight:1.65,
-                    color:"rgba(255,255,255,0.74)" }}>{pt}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div style={{ display:"flex",flexWrap:"wrap",gap:8 }}>
-              {job.tech.map(t=>(
-                <span key={t} style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
-                  fontWeight:500,padding:"5px 12px",borderRadius:8,
-                  background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.06)",
-                  color:"rgba(255,255,255,0.74)",letterSpacing:"0.05em",textTransform:"uppercase",
-                  transition:"all 0.2s",cursor:"default" }}
-                  onMouseEnter={e=>{ e.currentTarget.style.borderColor="rgba(99,102,241,0.4)";
-                    e.currentTarget.style.color="#fff"; }}
-                  onMouseLeave={e=>{ e.currentTarget.style.borderColor="rgba(255,255,255,0.06)";
-                    e.currentTarget.style.color="rgba(255,255,255,0.74)"; }}>
-                  {t}
-                </span>
-              ))}
-            </div>
-          </motion.div>
-        ))}
+            </>
+          );
+          return IS_MOBILE ? (
+            <article className="job" key={j.company}>{body}</article>
+          ) : (
+            <motion.article className="job" key={j.company}
+              initial={{ opacity: 0, y: 36 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}>
+              {body}
+            </motion.article>
+          );
+        })}
       </div>
     </section>
   );
 }
-
-const label = { fontFamily:"'JetBrains Mono',monospace",fontSize:11,
-  letterSpacing:"0.4em",textTransform:"uppercase",color:"#A5B4FC",marginBottom:16 };
-const heading = { fontFamily:"'Outfit',sans-serif",fontSize:"clamp(36px,5vw,64px)",
-  fontWeight:700,color:"#fff",letterSpacing:"-2px",lineHeight:1.05 };

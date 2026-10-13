@@ -28,9 +28,9 @@ export default function AnimatedBackground() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     let W = window.innerWidth, H = window.innerHeight;
-    const T = { x: W * 0.5, y: H * 0.42, mx: 0, my: 0 };   // targets
+    const T = { x: W * 0.74, y: H * 0.36, mx: 0, my: 0 };   // targets
     let gx = T.x, gy = T.y, hx = T.x, hy = T.y;            // fast glow / slow halo (px)
-    let mx = 0, my = 0, sp = 0, gs = 1, gsT = 1;           // parallax, scroll progress, intensity
+    let mx = 0, my = 0, sp = 0, gs = 1, gsT = 1, gi = 0, giT = 0;           // parallax, scroll progress, intensity
     let lx = T.x, ly = T.y, raf = 0, running = false;
 
     const write = () => {
@@ -38,7 +38,7 @@ export default function AnimatedBackground() {
       s.setProperty("--gx", gx.toFixed(1)); s.setProperty("--gy", gy.toFixed(1));
       s.setProperty("--hx", hx.toFixed(1)); s.setProperty("--hy", hy.toFixed(1));
       s.setProperty("--mx", mx.toFixed(4)); s.setProperty("--my", my.toFixed(4));
-      s.setProperty("--sp", sp.toFixed(4)); s.setProperty("--gs", gs.toFixed(3));
+      s.setProperty("--sp", sp.toFixed(4)); s.setProperty("--gs", gs.toFixed(3)); s.setProperty("--gi", gi.toFixed(3));
     };
 
     const tick = () => {
@@ -46,12 +46,13 @@ export default function AnimatedBackground() {
       hx += (T.x - hx) * 0.05;  hy += (T.y - hy) * 0.05;     // slow, trailing
       mx += (T.mx - mx) * 0.07; my += (T.my - my) * 0.07;
       gsT += (1 - gsT) * 0.07;  gs += (gsT - gs) * 0.14;     // flare decays back to 1
+      giT += (0 - giT) * 0.014; gi += (giT - gi) * 0.12;    // lit grid fades out when the pointer rests
       write();
       const busy =
         Math.abs(T.x - gx) > 0.4 || Math.abs(T.y - gy) > 0.4 ||
         Math.abs(T.x - hx) > 0.4 || Math.abs(T.y - hy) > 0.4 ||
         Math.abs(T.mx - mx) > 0.002 || Math.abs(T.my - my) > 0.002 ||
-        Math.abs(gsT - 1) > 0.002 || Math.abs(gs - 1) > 0.002;
+        Math.abs(gsT - 1) > 0.002 || Math.abs(gs - 1) > 0.002 || gi > 0.01 || giT > 0.01;
       if (busy) raf = requestAnimationFrame(tick); else running = false;
     };
     const kick = () => { if (!running) { running = true; raf = requestAnimationFrame(tick); } };
@@ -62,10 +63,11 @@ export default function AnimatedBackground() {
       const v = Math.hypot(e.clientX - lx, e.clientY - ly);   // faster movement -> brighter, larger light
       lx = e.clientX; ly = e.clientY;
       gsT = Math.max(gsT, Math.min(1.5, 1 + v / 70));
+      giT = 1;
       kick();
     };
     const onDown = () => { gsT = 1.75; kick(); };              // click flare
-    const onLeave = () => { T.x = W * 0.5; T.y = H * 0.42; T.mx = 0; T.my = 0; kick(); };
+    const onLeave = () => { T.x = W * 0.74; T.y = H * 0.36; T.mx = 0; T.my = 0; kick(); };
     const onScroll = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       sp = max > 0 ? window.scrollY / max - 0.5 : 0;           // bounded -0.5 .. +0.5
@@ -142,21 +144,21 @@ export default function AnimatedBackground() {
         /* grid that lights up around the pointer */
         .sp-gridlit{position:absolute;inset:0;
           background-image:
-            linear-gradient(rgba(170,185,255,.30) 1px,transparent 1px),
-            linear-gradient(90deg,rgba(170,185,255,.30) 1px,transparent 1px);
-          background-size:56px 56px;
-          -webkit-mask-image:radial-gradient(circle calc(210px * var(--gs,1)) at calc(var(--gx,0) * 1px) calc(var(--gy,0) * 1px),#000 0%,rgba(0,0,0,.45) 45%,transparent 100%);
-                  mask-image:radial-gradient(circle calc(210px * var(--gs,1)) at calc(var(--gx,0) * 1px) calc(var(--gy,0) * 1px),#000 0%,rgba(0,0,0,.45) 45%,transparent 100%);}
+            linear-gradient(rgba(170,185,255,.20) 1px,transparent 1px),
+            linear-gradient(90deg,rgba(170,185,255,.20) 1px,transparent 1px);
+          background-size:56px 56px;opacity:var(--gi,0);
+          -webkit-mask-image:radial-gradient(circle calc(190px * var(--gs,1)) at calc(var(--gx,0) * 1px) calc(var(--gy,0) * 1px),#000 0%,rgba(0,0,0,.45) 45%,transparent 100%);
+                  mask-image:radial-gradient(circle calc(190px * var(--gs,1)) at calc(var(--gx,0) * 1px) calc(var(--gy,0) * 1px),#000 0%,rgba(0,0,0,.45) 45%,transparent 100%);}
 
         /* light that follows the pointer: slow halo + fast core */
         .sp-halo{position:absolute;left:0;top:0;width:58vmax;height:58vmax;margin:-29vmax 0 0 -29vmax;
           transform:translate3d(calc(var(--hx,0) * 1px),calc(var(--hy,0) * 1px),0) scale(calc(0.92 + (var(--gs,1) - 1) * 0.5));
           background:radial-gradient(closest-side,rgba(129,140,248,.34),rgba(99,102,241,.14) 45%,rgba(99,102,241,0) 100%);
-          will-change:transform;}
+          opacity:calc(0.55 + var(--gi,0) * 0.45);will-change:transform;}
         .sp-glow{position:absolute;left:0;top:0;width:26vmax;height:26vmax;margin:-13vmax 0 0 -13vmax;
           transform:translate3d(calc(var(--gx,0) * 1px),calc(var(--gy,0) * 1px),0) scale(calc(0.9 + (var(--gs,1) - 1) * 0.7));
           background:radial-gradient(closest-side,rgba(103,232,249,.26),rgba(167,139,250,.12) 50%,rgba(167,139,250,0) 100%);
-          will-change:transform;}
+          opacity:calc(0.22 + var(--gi,0) * 0.78);will-change:transform;}
 
         .sp-vignette{position:absolute;inset:0;
           background:radial-gradient(ellipse at 50% 45%,transparent 38%,rgba(3,5,12,.70) 100%);}
@@ -165,7 +167,7 @@ export default function AnimatedBackground() {
         @keyframes sp-drift-b{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-6%,4%) scale(1.10)}}
         @keyframes sp-drift-c{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(5%,-5%) scale(1.06)}}
         @media (prefers-reduced-motion:reduce){.sp-orb-core{animation:none!important}}
-        @media (pointer:coarse){.sp-gridlit{opacity:.7}}
+        @media (pointer:coarse){.sp-gridlit{display:none}}
       `}</style>
     </div>
   );

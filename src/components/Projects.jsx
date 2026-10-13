@@ -1,179 +1,111 @@
-import { useState } from "react";
-import { IS_MOBILE } from "../utils/motion";
-import { playHoverSound } from "../utils/hoverSound";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Zap, BarChart3, Mail, Terminal, Database, Layers, X, ExternalLink } from "lucide-react";
-import { GLASS } from "../utils/glass";
+import { Layers, Zap, BarChart3, Mail, Terminal, Database, X, ArrowUpRight } from "lucide-react";
+import SectionHeader from "./SectionHeader";
+import { IS_MOBILE } from "../utils/motion";
 
 const PROJECTS = [
-  { id:"rap",    icon:<Layers size={26}/>,    title:"ABAP Cloud RAP Reference",
-    desc:"Reference RAP model on SAP BTP ABAP Environment — BO definition, OData V4 service, Fiori Elements UI. Adopted as internal onboarding material for 3 developers at Accenture.",
-    tags:["RAP","OData V4","SAP BTP","Fiori Elements","Clean Core"],
-    outcome:"Adopted as onboarding material for 3 Accenture developers.",
-    link:"https://github.com/rahulmsingh337/abap-cloud-rap-reference-project" },
-  { id:"s4",     icon:<Zap size={26}/>,       title:"S/4HANA Migration Cookbook",
-    desc:"Open-source SAP migration reference covering HANA remediation patterns, Clean Core best practices, and AMDP migration templates. Patterns drawn from general SAP migration practice.",
-    tags:["S/4HANA","HANA","Clean Core","AMDP","Migration"],
-    outcome:"Open-source reference for ECC-to-S/4HANA migration patterns.",
-    link:"https://github.com/rahulmsingh337/s4hana_migration-code-cookbook" },
-  { id:"lt03",   icon:<Terminal size={26}/>, title:"LT03 Custom Transaction",
-    desc:"Led end-to-end POC for a client-blocking LT03 limitation. Built a custom ABAP transaction that avoided a €50K+ third-party tool purchase. Zero post-go-live defects. Received formal client appreciation letter.",
-    tags:["ABAP","SAP WM","Custom TX","Client Delivery"],
-    outcome:"€50K+ third-party tool cost avoided. Client appreciation letter." },
-  { id:"bol",    icon:<Mail size={26}/>,      title:"US Email Automation — BOL & Packing Slip",
-    desc:"Led enhancement of email output automation for Bill of Lading and packing slips. Implemented PO/DN consolidation logic eliminating ~200 duplicate email triggers per month.",
-    tags:["Email Automation","SmartForms","SAP SD","BOL"],
-    outcome:"~200 duplicate emails/month eliminated · 30% output processing time reduction." },
-  { id:"copa",   icon:<Database size={26}/>,  title:"COPA Report Reconciliation",
-    desc:"Reconciliation report fetching frozen index data from background jobs, calculating FI, CO-PA, and Statistical values against posting dates. Replaced a 4-hour manual monthly process.",
-    tags:["FI/CO","CO-PA","Background Jobs","Financial Reporting"],
-    outcome:"~4 hours/month saved on manual reconciliation per period." },
-  { id:"prompify", icon:<Zap size={26}/>,      title:"Prompify — AI Prompt Engineering App",
-    desc:"Full-stack AI prompt optimisation app (React/TypeScript, Firebase Auth, Gemini API, Express backend). Demonstrates SAP + AI convergence and full-stack capability beyond the SAP stack.",
-    tags:["React","TypeScript","Gemini API","Firebase","AI/ML"],
-    outcome:"Live at prompifytech.vercel.app",
-    link:"https://prompifytech.vercel.app" },
-  { id:"eam",      icon:<Layers size={26}/>,    title:"SAP EAM Fiori Enhancements — F2173 & F2175",
-    desc:"Delivered enhancements for SAP EAM Fiori apps F2173 (Manage Maintenance Orders) and F2175 (Schedule Maintenance Orders & Operations) Improved maintenance planning and order execution processes.",
-    tags:["SAP EAM","F2173","F2175","SAP Fiori","S/4HANA","S/4HANA"],
-    outcome:"Supported Maintenance Phase 9 Cutover and go-live with zero critical defects." },
-  { id:"massprint", icon:<BarChart3 size={26}/>, title:"Maintenance Order Mass-Printing Solution",
-    desc:"Designed and implemented enterprise-scale mass-printing capability for maintenance orders integrated with SAP Fiori applications. Streamlined operational execution and reduced manual effort for maintenance teams.",
-    tags:["SAP EAM","Mass Printing","SAP Fiori","ABAP","Clean Core"],
-    outcome:"Eliminated manual print effort for maintenance operations teams." },
-  { id:"fscm",     icon:<Database size={26}/>,  title:"FSCM Impact Assessment & S/4HANA Conversion Analysis",
-    desc:"Performed FSCM field-mapping analysis during SAP S/4HANA migration. Identified custom object impacts and remediation requirements. Collaborated with solution architects during design and testing cycles.",
-    tags:["FSCM","S/4HANA","Migration Assessment","Custom Code","Impact Analysis"],
-    outcome:"Comprehensive migration readiness assessment supporting business go-live planning." },
+  { id: "eam", icon: Layers, title: "SAP EAM Fiori Enhancements — F2173 & F2175",
+    desc: "Delivered enhancements for SAP EAM Fiori apps F2173 (Manage Maintenance Orders) and F2175 (Schedule Maintenance Orders & Operations). Improved maintenance planning and order execution processes.",
+    tags: ["SAP EAM", "F2173", "F2175", "SAP Fiori", "S/4HANA"],
+    outcome: "Supported Maintenance Phase 9 cutover and go-live with zero critical defects." },
+  { id: "massprint", icon: BarChart3, title: "Maintenance Order Mass-Printing Solution",
+    desc: "Designed and implemented enterprise-scale mass-printing capability for maintenance orders integrated with SAP Fiori applications. Streamlined operational execution and reduced manual effort for maintenance teams.",
+    tags: ["SAP EAM", "Mass Printing", "SAP Fiori", "ABAP", "Clean Core"],
+    outcome: "Eliminated manual print effort for maintenance operations teams." },
+  { id: "fscm", icon: Database, title: "FSCM Impact Assessment & S/4HANA Conversion Analysis",
+    desc: "Performed FSCM field-mapping analysis during SAP S/4HANA migration. Identified custom object impacts and remediation requirements. Collaborated with solution architects during design and testing cycles.",
+    tags: ["FSCM", "S/4HANA", "Migration Assessment", "Custom Code", "Impact Analysis"],
+    outcome: "Comprehensive migration readiness assessment supporting business go-live planning." },
+  { id: "lt03", icon: Terminal, title: "LT03 Custom Transaction",
+    desc: "Led end-to-end POC for a client-blocking LT03 limitation. Built a custom ABAP transaction that avoided a €50K+ third-party tool purchase. Zero post-go-live defects. Received formal client appreciation letter.",
+    tags: ["ABAP", "SAP WM", "Custom TX", "Client Delivery"],
+    outcome: "€50K+ third-party tool cost avoided. Client appreciation letter." },
+  { id: "bol", icon: Mail, title: "US Email Automation — BOL & Packing Slip",
+    desc: "Led enhancement of email output automation for Bill of Lading and packing slips. Implemented PO/DN consolidation logic eliminating ~200 duplicate email triggers per month.",
+    tags: ["Email Automation", "SmartForms", "SAP SD", "BOL"],
+    outcome: "~200 duplicate emails/month eliminated · 30% output processing time reduction." },
+  { id: "copa", icon: Database, title: "COPA Report Reconciliation",
+    desc: "Reconciliation report fetching frozen index data from background jobs, calculating FI, CO-PA, and Statistical values against posting dates. Replaced a 4-hour manual monthly process.",
+    tags: ["FI/CO", "CO-PA", "Background Jobs", "Financial Reporting"],
+    outcome: "~4 hours/month saved on manual reconciliation per period." },
+  { id: "rap", icon: Layers, title: "ABAP Cloud RAP Reference",
+    desc: "Reference RAP model on SAP BTP ABAP Environment — BO definition, OData V4 service, Fiori Elements UI. Adopted as internal onboarding material for 3 developers at Accenture.",
+    tags: ["RAP", "OData V4", "SAP BTP", "Fiori Elements", "Clean Core"],
+    outcome: "Adopted as onboarding material for 3 Accenture developers.",
+    link: "https://github.com/rahulmsingh337/abap-cloud-rap-reference-project" },
+  { id: "s4", icon: Zap, title: "S/4HANA Migration Cookbook",
+    desc: "Open-source SAP migration reference covering HANA remediation patterns, Clean Core best practices, and AMDP migration templates. Patterns drawn from general SAP migration practice.",
+    tags: ["S/4HANA", "HANA", "Clean Core", "AMDP", "Migration"],
+    outcome: "Open-source reference for ECC-to-S/4HANA migration patterns.",
+    link: "https://github.com/rahulmsingh337/s4hana_migration-code-cookbook" },
+  { id: "prompify", icon: Zap, title: "Prompify — AI Prompt Engineering App",
+    desc: "Full-stack AI prompt optimisation app (React/TypeScript, Firebase Auth, Gemini API, Express backend). Demonstrates SAP + AI convergence and full-stack capability beyond the SAP stack.",
+    tags: ["React", "TypeScript", "Gemini API", "Firebase", "AI/ML"],
+    outcome: "Live at prompifytech.vercel.app",
+    link: "https://prompifytech.vercel.app" },
 ];
 
-function Modal({ project, onClose }) {
+function Modal({ p, onClose }) {
+  useEffect(() => {
+    const k = (e) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", k);
+    const prev = document.body.style.overflow; document.body.style.overflow = "hidden";
+    return () => { document.removeEventListener("keydown", k); document.body.style.overflow = prev; };
+  }, [onClose]);
+  const Icon = p.icon;
   return (
-    <motion.div
-      initial={{ opacity:0 }} animate={{ opacity:1 }} exit={{ opacity:0 }}
-      onClick={onClose}
-      style={{ position:"fixed",inset:0,zIndex:200,display:"flex",
-        alignItems:"center",justifyContent:"center",padding:24,
-        background:"rgba(0,0,0,0.7)",backdropFilter:"blur(8px)" }}>
-      <motion.div
-        initial={{ scale:0.9,opacity:0 }} animate={{ scale:1,opacity:1 }}
-        exit={{ scale:0.9,opacity:0 }}
-        onClick={e=>e.stopPropagation()}
-        className="modal-inner" style={{ width:"100%",maxWidth:600,background:"#0F172A",
-          border:"1px solid rgba(255,255,255,0.1)",borderRadius:40,
-          padding:48,position:"relative",overflow:"hidden" }}>
-        <div style={{ position:"absolute",inset:"0 0 auto 0",height:1,
-          background:"linear-gradient(90deg,transparent,#6366F1,transparent)" }}/>
-        <button data-hover onClick={onClose}
-          style={{ position:"absolute",top:20,right:20,padding:8,borderRadius:"50%",
-            background:"rgba(255,255,255,0.06)",border:"none",color:"#fff",cursor:"none" }}>
-          <X size={18}/>
-        </button>
-        <div style={{ marginBottom:24,padding:16,borderRadius:16,display:"inline-block",
-          background:"rgba(99,102,241,0.1)",border:"1px solid rgba(99,102,241,0.2)",color:"#A5B4FC" }}>
-          {project.icon}
-        </div>
-        <h3 style={{ fontFamily:"'Outfit',sans-serif",fontSize:30,fontWeight:700,
-          color:"#fff",letterSpacing:"-1px",marginBottom:16 }}>{project.title}</h3>
-        <p style={{ fontFamily:"'Inter',sans-serif",fontSize:15,lineHeight:1.75,
-          color:"rgba(255,255,255,0.74)",marginBottom:28 }}>{project.desc}</p>
-        <div style={{ display:"flex",flexWrap:"wrap",gap:8,marginBottom:28 }}>
-          {project.tags.map(t=>(
-            <span key={t} style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
-              padding:"5px 12px",borderRadius:100,
-              background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.08)",
-              color:"rgba(255,255,255,0.74)",letterSpacing:"0.08em",textTransform:"uppercase" }}>{t}</span>
-          ))}
-        </div>
-        {project.outcome && (
-          <div style={{ padding:20,borderRadius:16,
-            background:"rgba(99,102,241,0.08)",border:"1px solid rgba(99,102,241,0.2)" }}>
-            <div style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
-              letterSpacing:"0.2em",textTransform:"uppercase",color:"#A5B4FC",marginBottom:8 }}>
-              Outcome
-            </div>
-            <p style={{ fontFamily:"'Inter',sans-serif",fontSize:15,color:"#fff" }}>
-              {project.outcome}
-            </p>
-          </div>
-        )}
-        {project.link && (
-          <a href={project.link} target="_blank" rel="noreferrer" data-hover
-            style={{ display:"inline-flex",alignItems:"center",gap:8,marginTop:24,
-              fontFamily:"'JetBrains Mono',monospace",fontSize:11,fontWeight:700,
-              color:"#22D3EE",textDecoration:"none",letterSpacing:"0.1em",
-              textTransform:"uppercase",cursor:"none" }}>
-            <ExternalLink size={14}/> View on GitHub
-          </a>
-        )}
+    <motion.div className="modal-bg" role="dialog" aria-modal="true" aria-label={p.title}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} onClick={onClose}>
+      <motion.div className="modal" onClick={(e) => e.stopPropagation()}
+        initial={{ opacity: 0, y: 24, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 12 }}
+        transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}>
+        <button className="modal-x" onClick={onClose} aria-label="Close"><X size={16} /></button>
+        <span className="cap-ic"><Icon size={20} strokeWidth={1.5} /></span>
+        <h3>{p.title}</h3>
+        <p>{p.desc}</p>
+        <div className="proj-tags">{p.tags.map((t) => <span className="tag" key={t}>{t}</span>)}</div>
+        <div className="modal-out"><b>Outcome</b><span>{p.outcome}</span></div>
+        {p.link && <a className="textlink" href={p.link} target="_blank" rel="noreferrer">View project <ArrowUpRight size={14} /></a>}
       </motion.div>
     </motion.div>
   );
 }
 
 export default function Projects() {
-  const [selected, setSelected] = useState(null);
-
+  const [open, setOpen] = useState(null);
   return (
-    <>
-      <AnimatePresence>{selected && <Modal project={selected} onClose={()=>setSelected(null)}/>}</AnimatePresence>
-
-      <section id="projects" style={{ padding:"100px 40px",maxWidth:1280,margin:"0 auto" }}>
-        <motion.div initial={{ opacity:0,y:20 }} whileInView={{ opacity:1,y:0 }}
-          viewport={{ once:true }} style={{ marginBottom:80 }}>
-          <p style={lbl}>Core Initiatives</p>
-          <h2 style={hdg}><span className="sr-only">SAP Projects: </span>Impact & <em style={{ fontStyle:"normal",color:"rgba(255,255,255,0.62)" }}>Innovation</em></h2>
-        </motion.div>
-
-        <div style={{ display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(340px,1fr))",gap:20 }}>
-          {PROJECTS.map((p,i)=>(
-            <motion.div key={p.id}
-              initial={{ opacity:0,y:40 }} whileInView={{ opacity:1,y:0 }}
-              viewport={{ once:true }} transition={{ delay:i*0.08,duration:0.7 }}
-              whileHover={{ scale:1.015,borderColor:"rgba(99,102,241,0.4)" }} onHoverStart={() => playHoverSound()}
-              onClick={()=>setSelected(p)} data-hover
-              style={{ ...GLASS,position:"relative",borderRadius:40,padding:40,cursor:"none",overflow:"hidden",transition:"border-color 0.3s" }}>
-              {/* top line */}
-              <div style={{ position:"absolute",top:0,left:0,right:0,height:1,
-                background:"linear-gradient(90deg,transparent,rgba(99,102,241,0.6),transparent)",
-                opacity:0,transition:"opacity 0.3s" }} className="card-topline"/>
-              <div style={{ padding:18,borderRadius:20,display:"inline-block",
-                background:"rgba(2,6,23,0.6)",border:"1px solid rgba(255,255,255,0.08)",
-                color:"rgba(255,255,255,0.74)",marginBottom:24,transition:"all 0.3s" }}>
-                {p.icon}
+    <section id="projects" className="sec wrap">
+      <SectionHeader n="03" eyebrow="Selected work" srLabel="SAP Projects" title="Impact &" em="innovation"
+        lede="Delivery from live S/4HANA programmes, plus open-source references and tools built in my own time." />
+      <div className="grid-3">
+        {PROJECTS.map((p, i) => {
+          const Icon = p.icon;
+          const body = (
+            <>
+              <div className="proj-top">
+                <span className="proj-n">{String(i + 1).padStart(2, "0")}</span>
+                <Icon size={20} strokeWidth={1.5} />
               </div>
-              <h3 style={{ fontFamily:"'Outfit',sans-serif",fontSize:22,fontWeight:700,
-                color:"#fff",letterSpacing:"-0.5px",marginBottom:12,lineHeight:1.2 }}>{p.title}</h3>
-              <p style={{ fontFamily:"'Inter',sans-serif",fontSize:13,lineHeight:1.7,
-                color:"rgba(255,255,255,0.74)",marginBottom:24 }}>{p.desc}</p>
-              <div style={{ display:"flex",flexWrap:"wrap",gap:6 }}>
-                {p.tags.map(t=>(
-                  <span key={t} style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
-                    padding:"4px 10px",borderRadius:100,
-                    background:"rgba(255,255,255,0.04)",border:"1px solid rgba(255,255,255,0.07)",
-                    color:"rgba(255,255,255,0.62)",letterSpacing:"0.08em",textTransform:"uppercase" }}>{t}</span>
-                ))}
-              </div>
-              {p.outcome && (
-                <div style={{ marginTop:24,paddingTop:20,borderTop:"1px solid rgba(255,255,255,0.05)",
-                  display:"flex",alignItems:"center",gap:8 }}>
-                  <div style={{ width:6,height:6,borderRadius:"50%",flexShrink:0,
-                    background:"#22D3EE",boxShadow:"0 0 10px rgba(34,211,238,0.8)" }}/>
-                  <span style={{ fontFamily:"'JetBrains Mono',monospace",fontSize:10,
-                    fontWeight:700,color:"rgba(255,255,255,0.84)",
-                    letterSpacing:"0.06em",textTransform:"uppercase" }}>{p.outcome}</span>
-                </div>
-              )}
-              <div style={{ position:"absolute",top:0,right:0,width:80,height:80,
-                background:"rgba(99,102,241,0.05)",filter:"blur(24px)",borderRadius:"50%",
-                transform:"translate(30%,-30%)" }}/>
-            </motion.div>
-          ))}
-        </div>
-        <style>{`.card-topline{opacity:0!important;}[data-hover]:hover .card-topline{opacity:1!important;}`}</style>
-      </section>
-    </>
+              <h3>{p.title}</h3>
+              <p style={{ display: "-webkit-box", WebkitLineClamp: 4, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{p.desc}</p>
+              <div className="proj-tags">{p.tags.slice(0, 3).map((t) => <span className="tag" key={t}>{t}</span>)}</div>
+              <div className="proj-out"><div><b>Outcome</b>{p.outcome}</div></div>
+            </>
+          );
+          return IS_MOBILE ? (
+            <button key={p.id} className="card proj" onClick={() => setOpen(p)}>{body}</button>
+          ) : (
+            <motion.button key={p.id} className="card proj" onClick={() => setOpen(p)}
+              initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.9, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}>
+              {body}
+            </motion.button>
+          );
+        })}
+      </div>
+      <AnimatePresence>{open && <Modal p={open} onClose={() => setOpen(null)} />}</AnimatePresence>
+    </section>
   );
 }
-const lbl={fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.4em",textTransform:"uppercase",color:"#A5B4FC",marginBottom:16};
-const hdg={fontFamily:"'Outfit',sans-serif",fontSize:"clamp(36px,5vw,64px)",fontWeight:700,color:"#fff",letterSpacing:"-2px",lineHeight:1.05};
