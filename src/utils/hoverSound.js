@@ -1,10 +1,12 @@
 import { asset } from "./assetPath";
+import { isMuted } from "./soundPrefs";
 
 let audio = null;
 let lastPlayed = 0;
 const DEBOUNCE = 300; // ms between plays to avoid spam
 
 export function playHoverSound() {
+  if (isMuted()) return;
   const now = Date.now();
   if (now - lastPlayed < DEBOUNCE) return;
   lastPlayed = now;

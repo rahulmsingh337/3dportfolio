@@ -73,9 +73,14 @@ export default function Hero() {
             <span>Accenture</span><span className="rule" /><span>Noida, India</span>
           </motion.div>
 
-          <motion.h1 className="hero-name" aria-label="Rahul Singh, SAP ABAP Lead" {...rise(0.15)}>
-            Rahul<br />Singh
-          </motion.h1>
+          <h1 className="hero-name" aria-label="Rahul Singh, SAP ABAP Lead">
+            {["Rahul", "Singh"].map((w, i) => (
+              <span className="mask line" key={w} aria-hidden="true">
+                <motion.span style={{ display: "block" }} initial={{ y: "112%" }} animate={{ y: 0 }}
+                  transition={{ duration: 1.1, delay: 0.15 + i * 0.12, ease: EASE }}>{w}</motion.span>
+              </span>
+            ))}
+          </h1>
 
           <motion.p className="hero-role" aria-live="polite" {...rise(0.3)}>
             <AnimatePresence mode="wait">

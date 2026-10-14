@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import LoadingScreen from "./components/LoadingScreen";
 import "./index.css";
 
@@ -13,6 +13,10 @@ if (IS_MOBILE && typeof document !== "undefined") {
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Contact from "./components/Contact";
+import Toast from "./components/Toast";
+import ScrollUI from "./components/ScrollUI";
+import CommandPalette from "./components/CommandPalette";
+import { initFx } from "./utils/fx";
 
 const AnimatedBackground = lazy(() => import("./components/AnimatedBackground"));
 const ImpactStrip = lazy(() => import("./components/ImpactStrip"));
@@ -30,6 +34,7 @@ export default function App() {
   // Intro plays once per browser session; returning navigations skip straight to content.
   const [loading, setLoading] = useState(() => !seen());
   const done = () => { markSeen(); setLoading(false); };
+  useEffect(() => { if (loading) return; return initFx(); }, [loading]);
 
   return (
     <>
@@ -38,6 +43,9 @@ export default function App() {
           <Suspense fallback={null}><AnimatedBackground /></Suspense>
           <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[10000] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black">Skip to content</a>
           <Navbar />
+          <ScrollUI />
+          <Toast />
+          <CommandPalette />
           <main id="main">
             <Hero />
             <Suspense fallback={<Fallback />}>

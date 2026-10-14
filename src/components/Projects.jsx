@@ -4,43 +4,44 @@ import { Layers, Zap, BarChart3, Mail, Terminal, Database, X, ArrowUpRight } fro
 import SectionHeader from "./SectionHeader";
 import { IS_MOBILE } from "../utils/motion";
 import { playHoverSound } from "../utils/hoverSound";
+import { playFlipSound } from "../utils/flipSound";
 
 const PROJECTS = [
-  { id: "eam", icon: Layers, title: "SAP EAM Fiori Enhancements — F2173 & F2175",
+  { id: "eam", cat: "s4", icon: Layers, title: "SAP EAM Fiori Enhancements — F2173 & F2175",
     desc: "Delivered enhancements for SAP EAM Fiori apps F2173 (Manage Maintenance Orders) and F2175 (Schedule Maintenance Orders & Operations). Improved maintenance planning and order execution processes.",
     tags: ["SAP EAM", "F2173", "F2175", "SAP Fiori", "S/4HANA"],
     outcome: "Supported Maintenance Phase 9 cutover and go-live with zero critical defects." },
-  { id: "massprint", icon: BarChart3, title: "Maintenance Order Mass-Printing Solution",
+  { id: "massprint", cat: "s4", icon: BarChart3, title: "Maintenance Order Mass-Printing Solution",
     desc: "Designed and implemented enterprise-scale mass-printing capability for maintenance orders integrated with SAP Fiori applications. Streamlined operational execution and reduced manual effort for maintenance teams.",
     tags: ["SAP EAM", "Mass Printing", "SAP Fiori", "ABAP", "Clean Core"],
     outcome: "Eliminated manual print effort for maintenance operations teams." },
-  { id: "fscm", icon: Database, title: "FSCM Impact Assessment & S/4HANA Conversion Analysis",
+  { id: "fscm", cat: "s4", icon: Database, title: "FSCM Impact Assessment & S/4HANA Conversion Analysis",
     desc: "Performed FSCM field-mapping analysis during SAP S/4HANA migration. Identified custom object impacts and remediation requirements. Collaborated with solution architects during design and testing cycles.",
     tags: ["FSCM", "S/4HANA", "Migration Assessment", "Custom Code", "Impact Analysis"],
     outcome: "Comprehensive migration readiness assessment supporting business go-live planning." },
-  { id: "lt03", icon: Terminal, title: "LT03 Custom Transaction",
+  { id: "lt03", cat: "custom", icon: Terminal, title: "LT03 Custom Transaction",
     desc: "Led end-to-end POC for a client-blocking LT03 limitation. Built a custom ABAP transaction that avoided a €50K+ third-party tool purchase. Zero post-go-live defects. Received formal client appreciation letter.",
     tags: ["ABAP", "SAP WM", "Custom TX", "Client Delivery"],
     outcome: "€50K+ third-party tool cost avoided. Client appreciation letter." },
-  { id: "bol", icon: Mail, title: "US Email Automation — BOL & Packing Slip",
+  { id: "bol", cat: "custom", icon: Mail, title: "US Email Automation — BOL & Packing Slip",
     desc: "Led enhancement of email output automation for Bill of Lading and packing slips. Implemented PO/DN consolidation logic eliminating ~200 duplicate email triggers per month.",
     tags: ["Email Automation", "SmartForms", "SAP SD", "BOL"],
     outcome: "~200 duplicate emails/month eliminated · 30% output processing time reduction." },
-  { id: "copa", icon: Database, title: "COPA Report Reconciliation",
+  { id: "copa", cat: "custom", icon: Database, title: "COPA Report Reconciliation",
     desc: "Reconciliation report fetching frozen index data from background jobs, calculating FI, CO-PA, and Statistical values against posting dates. Replaced a 4-hour manual monthly process.",
     tags: ["FI/CO", "CO-PA", "Background Jobs", "Financial Reporting"],
     outcome: "~4 hours/month saved on manual reconciliation per period." },
-  { id: "rap", icon: Layers, title: "ABAP Cloud RAP Reference",
+  { id: "rap", cat: "oss", icon: Layers, title: "ABAP Cloud RAP Reference",
     desc: "Reference RAP model on SAP BTP ABAP Environment — BO definition, OData V4 service, Fiori Elements UI. Adopted as internal onboarding material for 3 developers at Accenture.",
     tags: ["RAP", "OData V4", "SAP BTP", "Fiori Elements", "Clean Core"],
     outcome: "Adopted as onboarding material for 3 Accenture developers.",
     link: "https://github.com/rahulmsingh337/abap-cloud-rap-reference-project" },
-  { id: "s4", icon: Zap, title: "S/4HANA Migration Cookbook",
+  { id: "s4", cat: "oss", icon: Zap, title: "S/4HANA Migration Cookbook",
     desc: "Open-source SAP migration reference covering HANA remediation patterns, Clean Core best practices, and AMDP migration templates. Patterns drawn from general SAP migration practice.",
     tags: ["S/4HANA", "HANA", "Clean Core", "AMDP", "Migration"],
     outcome: "Open-source reference for ECC-to-S/4HANA migration patterns.",
     link: "https://github.com/rahulmsingh337/s4hana_migration-code-cookbook" },
-  { id: "prompify", icon: Zap, title: "Prompify — AI Prompt Engineering App",
+  { id: "prompify", cat: "oss", icon: Zap, title: "Prompify — AI Prompt Engineering App",
     desc: "Full-stack AI prompt optimisation app (React/TypeScript, Firebase Auth, Gemini API, Express backend). Demonstrates SAP + AI convergence and full-stack capability beyond the SAP stack.",
     tags: ["React", "TypeScript", "Gemini API", "Firebase", "AI/ML"],
     outcome: "Live at prompifytech.vercel.app",
@@ -73,39 +74,63 @@ function Modal({ p, onClose }) {
   );
 }
 
+const FILTERS = [
+  { id: "all", label: "All" },
+  { id: "s4", label: "S/4HANA & EAM" },
+  { id: "custom", label: "Custom development" },
+  { id: "oss", label: "Open source & AI" },
+];
+const EASE = [0.22, 1, 0.36, 1];
+
 export default function Projects() {
   const [open, setOpen] = useState(null);
+  const [filter, setFilter] = useState("all");
+  const shown = filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.cat === filter);
+  const count = (id) => (id === "all" ? PROJECTS.length : PROJECTS.filter((p) => p.cat === id).length);
+
   return (
     <section id="projects" className="sec wrap">
       <SectionHeader n="03" eyebrow="Selected work" srLabel="SAP Projects" title="Impact &" em="innovation"
         lede="Delivery from live S/4HANA programmes, plus open-source references and tools built in my own time." />
-      <div className="grid-3">
-        {PROJECTS.map((p, i) => {
-          const Icon = p.icon;
-          const body = (
-            <>
-              <div className="proj-top">
-                <span className="proj-n">{String(i + 1).padStart(2, "0")}</span>
-                <Icon size={20} strokeWidth={1.5} />
-              </div>
-              <h3>{p.title}</h3>
-              <p style={{ display: "-webkit-box", WebkitLineClamp: 4, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{p.desc}</p>
-              <div className="proj-tags">{p.tags.slice(0, 3).map((t) => <span className="tag" key={t}>{t}</span>)}</div>
-              <div className="proj-out"><div><b>Outcome</b>{p.outcome}</div></div>
-            </>
-          );
-          return IS_MOBILE ? (
-            <button key={p.id} className="card proj" onClick={() => setOpen(p)} onMouseEnter={playHoverSound}>{body}</button>
-          ) : (
-            <motion.button key={p.id} className="card proj" onClick={() => setOpen(p)} onMouseEnter={playHoverSound}
-              initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.9, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}>
-              {body}
-            </motion.button>
-          );
-        })}
+
+      <div className="filters" role="tablist" aria-label="Filter projects">
+        {FILTERS.map((f) => (
+          <button key={f.id} role="tab" aria-selected={filter === f.id} className={`chip${filter === f.id ? " on" : ""}`}
+            onMouseEnter={playHoverSound} onClick={() => { setFilter(f.id); playFlipSound(); }}>
+            {f.label} <small>{count(f.id)}</small>
+          </button>
+        ))}
       </div>
+
+      <motion.div layout={!IS_MOBILE} className="grid-3" transition={{ layout: { duration: 0.5, ease: EASE } }}>
+        <AnimatePresence mode="popLayout" initial={false}>
+          {shown.map((p, i) => {
+            const Icon = p.icon;
+            const body = (
+              <>
+                <div className="proj-top">
+                  <span className="proj-n">{String(i + 1).padStart(2, "0")}</span>
+                  <Icon size={20} strokeWidth={1.5} />
+                </div>
+                <h3>{p.title}</h3>
+                <p style={{ display: "-webkit-box", WebkitLineClamp: 4, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{p.desc}</p>
+                <div className="proj-tags">{p.tags.slice(0, 3).map((t) => <span className="tag" key={t}>{t}</span>)}</div>
+                <div className="proj-out"><div><b>Outcome</b>{p.outcome}</div></div>
+              </>
+            );
+            return IS_MOBILE ? (
+              <button key={p.id} className="card proj" onClick={() => setOpen(p)} onMouseEnter={playHoverSound}>{body}</button>
+            ) : (
+              <motion.button key={p.id} layout className="card proj" onClick={() => setOpen(p)} onMouseEnter={playHoverSound}
+                initial={{ opacity: 0, y: 28 }} whileInView={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.96 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.7, delay: (i % 3) * 0.06, ease: EASE, layout: { duration: 0.5, ease: EASE } }}>
+                {body}
+              </motion.button>
+            );
+          })}
+        </AnimatePresence>
+      </motion.div>
       <AnimatePresence>{open && <Modal p={open} onClose={() => setOpen(null)} />}</AnimatePresence>
     </section>
   );

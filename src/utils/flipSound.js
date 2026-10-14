@@ -1,8 +1,10 @@
 import { asset } from "./assetPath";
+import { isMuted } from "./soundPrefs";
 
 let audio = null;
 
 export function playFlipSound() {
+  if (isMuted()) return;
   try {
     if (!audio) {
       audio = new Audio(asset("/flip.mp3"));
