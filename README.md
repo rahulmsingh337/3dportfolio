@@ -36,6 +36,7 @@ An editorial, restrained look intended for senior and enterprise audiences.
 
 - Sticky navigation with section links and active-section highlighting; mobile menu
 - Animated impact stats (count-up on scroll)
+- Orbiting tech chips (BTP, OData, GenAI, CDS, RAP, S/4HANA) circle the hero photo, passing behind and in front of it
 - Flip cards: each capability states the delivered outcome on the back; hero photo flips to the award photo
 - Experience in a two-column editorial layout with the key numbers emphasised
 - Project cards with a detail modal (Esc to close)

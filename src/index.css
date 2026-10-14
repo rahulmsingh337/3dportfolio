@@ -162,7 +162,7 @@
 @media(max-width:899px){
   .hero{padding-top:112px}
   .hero-grid{grid-template-columns:1fr}
-  .portrait-wrap{order:-1;justify-self:start;max-width:300px}
+  .portrait-wrap{order:-1;justify-self:center;max-width:262px;margin-bottom:8px}
   .cue{display:none}
 }
 
@@ -306,3 +306,11 @@ html.is-mobile .sp-orb-core{animation:none!important}
   font:500 10px/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--fg-2);
   padding:8px 14px;border-radius:100px;background:rgba(8,11,22,.62);border:1px solid var(--line);
   -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+
+/* orbiting tech chips around the hero portrait */
+.tilt{position:relative;z-index:1}
+.orbit-chip{position:absolute;left:50%;top:50%;z-index:0;pointer-events:none;white-space:nowrap;will-change:transform,opacity;
+  font:500 11px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg);
+  padding:9px 14px 9px 12px;border-radius:100px;background:rgba(10,14,26,.66);border:1px solid rgba(217,196,156,.4);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 12px 30px -10px rgba(0,0,0,.75)}
+.orbit-chip::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--gold);margin-right:9px;vertical-align:1px}

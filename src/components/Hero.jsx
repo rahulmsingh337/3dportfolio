@@ -7,6 +7,7 @@ import { IconLinkedIn, IconGitHub, IconPrompify } from "./Icons";
 import { playFlipSound } from "../utils/flipSound";
 import { playHoverSound } from "../utils/hoverSound";
 
+const ORBIT = ["BTP", "OData", "GenAI", "CDS", "RAP", "S/4HANA"];
 const ROLES = ["SAP ABAP Lead", "S/4HANA Transformation", "ABAP Cloud Certified", "EAM Specialist", "GenAI Developer"];
 const EASE = [0.22, 1, 0.36, 1];
 const rise = (d) => ({ initial: { opacity: 0, y: 28 }, animate: { opacity: 1, y: 0 }, transition: { duration: 1, delay: d, ease: EASE } });
@@ -14,12 +15,40 @@ const rise = (d) => ({ initial: { opacity: 0, y: 28 }, animate: { opacity: 1, y:
 export default function Hero() {
   const [i, setI] = useState(0);
   const tilt = useRef(null);
+  const wrapRef = useRef(null);
+  const chipRefs = useRef([]);
   const lastPtr = useRef("mouse");
   const [flipped, setFlipped] = useState(false);
 
   useEffect(() => {
     const t = setInterval(() => setI((v) => (v + 1) % ROLES.length), 3200);
     return () => clearInterval(t);
+  }, []);
+
+  // Orbiting tech chips: an ellipse around the portrait; front half passes over the photo edge, back half goes behind it.
+  useEffect(() => {
+    const wrap = wrapRef.current;
+    if (!wrap) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const t0 = performance.now();
+    let raf;
+    const place = (t) => {
+      const w = wrap.clientWidth, h = wrap.clientHeight;
+      const k = w < 360 ? 0.05 : 0.11;
+      const rx = (w / 2) * (1.12 + k), ry = (h / 2) * (1.05 + k * 0.7);
+      const base = reduced ? 0.6 : ((t - t0) / 1000) * ((Math.PI * 2) / 26);
+      chipRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const a = base + i * ((Math.PI * 2) / ORBIT.length);
+        const depth = (Math.sin(a) + 1) / 2;                 // 0 = far side, 1 = near side
+        el.style.transform = `translate(-50%,-50%) translate3d(${(Math.cos(a) * rx).toFixed(1)}px,${(Math.sin(a) * ry).toFixed(1)}px,0) scale(${(0.86 + 0.14 * depth).toFixed(3)})`;
+        el.style.opacity = (0.55 + 0.45 * depth).toFixed(2);
+        el.style.zIndex = depth > 0.5 ? 3 : 0;
+      });
+      if (!reduced) raf = requestAnimationFrame(place);
+    };
+    raf = requestAnimationFrame(place);
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   const onMove = (e) => {
@@ -79,7 +108,10 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        <motion.div className="portrait-wrap" {...rise(0.3)} onMouseMove={onMove} onMouseLeave={onLeave}>
+        <motion.div className="portrait-wrap" ref={wrapRef} {...rise(0.3)} onMouseMove={onMove} onMouseLeave={onLeave}>
+          {ORBIT.map((t, i) => (
+            <span key={t} ref={(el) => (chipRefs.current[i] = el)} className="orbit-chip" aria-hidden="true">{t}</span>
+          ))}
           <span className="corner tl" /><span className="corner br" />
           <div className="tilt" ref={tilt}>
             <div
