@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Download, Mail } from "lucide-react";
+import { Download, Mail, Trophy } from "lucide-react";
 import { asset } from "../utils/assetPath";
 import { IS_MOBILE } from "../utils/motion";
 import { IconLinkedIn, IconGitHub, IconPrompify } from "./Icons";
+import { playFlipSound } from "../utils/flipSound";
+import { playHoverSound } from "../utils/hoverSound";
 
 const ROLES = ["SAP ABAP Lead", "S/4HANA Transformation", "ABAP Cloud Certified", "EAM Specialist", "GenAI Developer"];
 const EASE = [0.22, 1, 0.36, 1];
@@ -12,6 +14,8 @@ const rise = (d) => ({ initial: { opacity: 0, y: 28 }, animate: { opacity: 1, y:
 export default function Hero() {
   const [i, setI] = useState(0);
   const tilt = useRef(null);
+  const lastPtr = useRef("mouse");
+  const [flipped, setFlipped] = useState(false);
 
   useEffect(() => {
     const t = setInterval(() => setI((v) => (v + 1) % ROLES.length), 3200);
@@ -60,16 +64,16 @@ export default function Hero() {
           </motion.p>
 
           <motion.div className="hero-cta" {...rise(0.54)}>
-            <a href="#projects" className="btn btn-primary">View selected work</a>
-            <a href={asset("/resume.pdf")} download className="btn btn-ghost"><Download size={16} /> Résumé</a>
+            <a href="#projects" className="btn btn-primary" onMouseEnter={playHoverSound}>View selected work</a>
+            <a href={asset("/resume.pdf")} download className="btn btn-ghost" onMouseEnter={playHoverSound}><Download size={16} /> Résumé</a>
           </motion.div>
 
           <motion.div className="hero-meta" {...rise(0.66)}>
             <div className="soc">
-              <a href="https://www.linkedin.com/in/rahul-singh-sap-abap/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><IconLinkedIn /></a>
-              <a href="https://github.com/rahulmsingh337" target="_blank" rel="noreferrer" aria-label="GitHub"><IconGitHub /></a>
-              <a href="https://prompifytech.vercel.app" target="_blank" rel="noreferrer" aria-label="Prompify"><IconPrompify /></a>
-              <a href="mailto:rs58598@gmail.com" aria-label="Email"><Mail size={18} /></a>
+              <a href="https://www.linkedin.com/in/rahul-singh-sap-abap/" target="_blank" rel="noreferrer" aria-label="LinkedIn" onMouseEnter={playHoverSound}><IconLinkedIn /></a>
+              <a href="https://github.com/rahulmsingh337" target="_blank" rel="noreferrer" aria-label="GitHub" onMouseEnter={playHoverSound}><IconGitHub /></a>
+              <a href="https://prompifytech.vercel.app" target="_blank" rel="noreferrer" aria-label="Prompify" onMouseEnter={playHoverSound}><IconPrompify /></a>
+              <a href="mailto:rs58598@gmail.com" aria-label="Email" onMouseEnter={playHoverSound}><Mail size={18} /></a>
             </div>
             <div className="creds"><b>SAP Certified</b> · ABAP Cloud · Generative AI · S/4HANA Conversion</div>
           </motion.div>
@@ -77,11 +81,31 @@ export default function Hero() {
 
         <motion.div className="portrait-wrap" {...rise(0.3)} onMouseMove={onMove} onMouseLeave={onLeave}>
           <span className="corner tl" /><span className="corner br" />
-          <div className="portrait" ref={tilt}>
-            <img src={asset("/rahul.jpg")} alt="Rahul Singh" width={900} height={1350} decoding="async" fetchPriority="high" />
-            <div className="portrait-cap">
-              <div><strong>Rahul Singh</strong><span>SAP ABAP Lead · Noida</span></div>
-              <i aria-hidden="true" />
+          <div className="tilt" ref={tilt}>
+            <div
+              className={`flipper${flipped ? " is-flipped" : ""}`}
+              role="button" tabIndex={0} aria-pressed={flipped}
+              aria-label="Profile photo. Press to flip and see the award photo."
+              onPointerDown={(e) => { lastPtr.current = e.pointerType; }}
+              onPointerEnter={(e) => { if (e.pointerType === "mouse") { setFlipped(true); playFlipSound(); } }}
+              onPointerLeave={(e) => { if (e.pointerType === "mouse") { setFlipped(false); playFlipSound(); } }}
+              onClick={() => { if (lastPtr.current !== "mouse") { setFlipped((f) => !f); playFlipSound(); } }}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setFlipped((f) => !f); playFlipSound(); } }}
+            >
+              <div className="pface" aria-hidden={flipped}>
+                <img src={asset("/rahul.jpg")} alt="Rahul Singh" width={900} height={1350} decoding="async" fetchPriority="high" />
+                <span className="flip-pill">Hover / tap to flip ↻</span>
+                <div className="portrait-cap">
+                  <div><strong>Rahul Singh</strong><span>SAP ABAP Lead · Noida</span></div>
+                  <i aria-hidden="true" />
+                </div>
+              </div>
+              <div className="pface back" aria-hidden={!flipped}>
+                <img src={asset("/rahul-award.webp")} alt="Rahul Singh receiving the Unit Rise Award" width={1024} height={1536} decoding="async" />
+                <div className="portrait-cap">
+                  <div><strong><Trophy size={15} strokeWidth={1.6} /> Unit Rise Award Recipient</strong><span>Infosys · EAS SAP Unit</span></div>
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>

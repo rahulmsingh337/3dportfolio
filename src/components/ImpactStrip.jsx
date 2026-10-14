@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { playHoverSound } from "../utils/hoverSound";
 
 const STATS = [
   { v: 5,  pre: "",  suf: "+",  label: "Years SAP ABAP" },
@@ -38,7 +39,7 @@ export default function ImpactStrip() {
     <section aria-label="Impact at a glance" className="wrap" style={{ paddingBottom: "clamp(40px,6vw,88px)" }}>
       <div className="impact" ref={ref}>
         {STATS.map((s) => (
-          <div className="stat" key={s.label}>
+          <div className="stat" key={s.label} onMouseEnter={playHoverSound}>
             <div className="stat-n"><Count to={s.v} pre={s.pre} suf={s.suf} run={run} /></div>
             <div className="stat-l">{s.label}</div>
           </div>

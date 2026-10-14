@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { asset } from "../utils/assetPath";
 import SectionHeader from "./SectionHeader";
+import { playHoverSound } from "../utils/hoverSound";
 
 const CERTS = [
   { title: "SAP Certified Back-End Developer – ABAP Cloud (C_ABAPD_2601)", issuer: "SAP SE · Apr 2026", image: asset("/cert-abap-cloud.webp") },
@@ -54,7 +55,7 @@ function Lightbox({ images, start, onClose }) {
 
 function Tile({ t, onClick }) {
   return (
-    <button className="card tile" onClick={onClick}>
+    <button className="card tile" onClick={onClick} onMouseEnter={playHoverSound}>
       <img src={t.image} alt="" loading="lazy" />
       <div><small>{t.issuer}</small><h3>{t.title}</h3></div>
     </button>

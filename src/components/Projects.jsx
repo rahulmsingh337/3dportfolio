@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Layers, Zap, BarChart3, Mail, Terminal, Database, X, ArrowUpRight } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import { IS_MOBILE } from "../utils/motion";
+import { playHoverSound } from "../utils/hoverSound";
 
 const PROJECTS = [
   { id: "eam", icon: Layers, title: "SAP EAM Fiori Enhancements — F2173 & F2175",
@@ -94,9 +95,9 @@ export default function Projects() {
             </>
           );
           return IS_MOBILE ? (
-            <button key={p.id} className="card proj" onClick={() => setOpen(p)}>{body}</button>
+            <button key={p.id} className="card proj" onClick={() => setOpen(p)} onMouseEnter={playHoverSound}>{body}</button>
           ) : (
-            <motion.button key={p.id} className="card proj" onClick={() => setOpen(p)}
+            <motion.button key={p.id} className="card proj" onClick={() => setOpen(p)} onMouseEnter={playHoverSound}
               initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.9, delay: (i % 3) * 0.08, ease: [0.22, 1, 0.36, 1] }}>

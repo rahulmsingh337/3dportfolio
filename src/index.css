@@ -269,3 +269,40 @@
 
 /* Mobile: keep the background calm and cheap */
 html.is-mobile .sp-orb-core{animation:none!important}
+
+/* ── Flip cards (skills + hero portrait) ───── */
+.flipc{position:relative;height:340px;perspective:1000px;cursor:pointer;border-radius:var(--r-lg);
+  transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .35s var(--ease)}
+.flipc-in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .7s cubic-bezier(.34,1.56,.64,1)}
+.flipc.on .flipc-in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--r-lg);
+  padding:clamp(24px,2.4vw,34px);overflow:hidden;display:flex;flex-direction:column;
+  background:linear-gradient(155deg,rgba(255,255,255,.085),rgba(255,255,255,.03) 60%);border:1px solid var(--line);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 24px 60px -24px rgba(0,0,0,.6);transition:border-color .5s var(--ease)}
+.face.back{transform:rotateY(180deg);justify-content:center;
+  background:linear-gradient(155deg,rgba(217,196,156,.16),rgba(8,11,22,.94) 72%);border-color:rgba(217,196,156,.32)}
+.flipc:hover .face{border-color:rgba(217,196,156,.36)}
+.face.cap .cap-top{margin-bottom:22px}
+.flip-hint{margin-top:auto;padding-top:14px;font:500 10px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--fg-3);text-align:right}
+.back-label{font:500 10px/1 var(--f-mono);letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.back-proof{font:500 clamp(15px,1.2vw,16.5px)/1.55 var(--f-ui);color:var(--fg);letter-spacing:-.01em;margin:0 0 20px}
+@media(max-width:1000px){.flipc{height:364px}}
+@media(max-width:640px){.flipc{height:372px}}
+
+/* hero portrait flip */
+.tilt{transform-style:preserve-3d;transform:rotateX(var(--tx,0deg)) rotateY(var(--ty,0deg));transition:transform .5s var(--ease)}
+.flipper{position:relative;aspect-ratio:4/5;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.34,1.56,.64,1);cursor:pointer;border-radius:28px}
+.flipper.is-flipped{transform:rotateY(180deg)}
+.pface{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:28px;overflow:hidden;
+  border:1px solid var(--line-2);background:#0a0e1a;
+  box-shadow:0 50px 100px -40px rgba(0,0,0,.85),0 0 0 8px rgba(255,255,255,.025),inset 0 1px 0 rgba(255,255,255,.2)}
+.pface.back{transform:rotateY(180deg)}
+.pface img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block}
+.pface::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(5,7,13,.78));pointer-events:none}
+.pface.back img{object-position:50% 0}
+.pface.back .portrait-cap{border-color:rgba(217,196,156,.4)}
+.pface.back .portrait-cap strong{display:flex;align-items:center;gap:9px;color:var(--gold)}
+.flip-pill{position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:2;white-space:nowrap;pointer-events:none;
+  font:500 10px/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--fg-2);
+  padding:8px 14px;border-radius:100px;background:rgba(8,11,22,.62);border:1px solid var(--line);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}

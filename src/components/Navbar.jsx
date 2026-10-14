@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
+import { playHoverSound } from "../utils/hoverSound";
 
 const LINKS = [
   { id: "skills", label: "Capabilities" },
@@ -36,10 +37,10 @@ export default function Navbar() {
         <a className="nav-mark" href="#hero" aria-label="Rahul Singh, home">RS</a>
         <div className="nav-links">
           {LINKS.map((l) => (
-            <a key={l.id} href={`#${l.id}`} className={active === l.id ? "on" : ""}>{l.label}</a>
+            <a key={l.id} href={`#${l.id}`} className={active === l.id ? "on" : ""} onMouseEnter={playHoverSound}>{l.label}</a>
           ))}
         </div>
-        <a className="nav-cta" href="mailto:rs58598@gmail.com">Let&apos;s talk</a>
+        <a className="nav-cta" href="mailto:rs58598@gmail.com" onMouseEnter={playHoverSound}>Let&apos;s talk</a>
         <button className="nav-burger" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen((v) => !v)}>
           {open ? <X size={18} /> : <Menu size={18} />}
         </button>

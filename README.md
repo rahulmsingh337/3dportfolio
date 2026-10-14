@@ -29,13 +29,14 @@ An editorial, restrained look intended for senior and enterprise audiences.
 - **Surfaces:** frosted glass (`.card`) with a gold hairline on hover; one shared set of tokens and components in `src/index.css`.
 - **Layout:** one numbered section header pattern (`SectionHeader`), consistent 1200px grid and vertical rhythm, readable line lengths (experience bullets capped near 66 characters).
 - **Background:** cursor-reactive spatial scene (pointer light with fast core and slow halo, grid that lights up near the pointer, parallax colour orbs, floor plane that tilts), with no WebGL and nothing bright behind text.
-- **Restraint:** no sound effects, no custom cursor, no emoji icons, no fake skill percentages. Motion respects `prefers-reduced-motion`.
+- **Interaction:** capability cards flip to show delivered impact; the hero photo flips to the award photo on hover or tap. Subtle hover / flip / link sound effects play after the first interaction (browsers block audio before that).
+- **Restraint:** no custom cursor, no emoji icons, no fake skill percentages. Motion respects `prefers-reduced-motion` (the intro is skipped).
 
 ## Features
 
 - Sticky navigation with section links and active-section highlighting; mobile menu
 - Animated impact stats (count-up on scroll)
-- Evidence-backed capability cards (each capability states the delivered outcome)
+- Flip cards: each capability states the delivered outcome on the back; hero photo flips to the award photo
 - Experience in a two-column editorial layout with the key numbers emphasised
 - Project cards with a detail modal (Esc to close)
 - Credentials: verifiable SAP certifications and recognition, with an image lightbox
