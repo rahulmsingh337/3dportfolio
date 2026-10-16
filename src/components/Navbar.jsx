@@ -41,13 +41,13 @@ export default function Navbar() {
   return (
     <nav className={`nav${scrolled ? " scrolled" : ""}`} aria-label="Primary">
       <div className="nav-pill">
-        <a className="nav-mark" href="#hero" aria-label="Rahul Singh, home">RS</a>
+        <a className="nav-mark" href="#hero" aria-label="RS, Rahul Singh home">RS</a>
         <div className="nav-links">
           {LINKS.map((l) => (
             <a key={l.id} href={`#${l.id}`} className={active === l.id ? "on" : ""} onMouseEnter={playHoverSound}>{l.label}</a>
           ))}
         </div>
-        <button className="nav-ic" onClick={openPalette} aria-label="Open command palette" onMouseEnter={playHoverSound}>
+        <button className="nav-ic" onClick={openPalette} aria-label={`Command palette ${isMac ? "⌘K" : "Ctrl K"}`} onMouseEnter={playHoverSound}>
           <Search size={16} strokeWidth={1.7} /><span className="kbd">{isMac ? "⌘K" : "Ctrl K"}</span>
         </button>
         <button className="nav-ic" onClick={toggleSound} aria-label={muted ? "Turn sound on" : "Turn sound off"} aria-pressed={!muted}>

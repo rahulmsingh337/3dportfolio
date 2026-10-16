@@ -11,19 +11,24 @@ export function initFx() {
 
   const frame = () => {
     raf = 0;
-    // spotlight: light follows the pointer inside the hovered card
+    // READ phase (all layout reads first, so styles written below never force a re-layout mid-frame)
     const el = document.elementFromPoint(mx, my)?.closest?.(SPOT);
-    if (lastSpot && lastSpot !== el) lastSpot = null;
-    if (el) {
-      const r = el.getBoundingClientRect();
-      el.style.setProperty("--sx", (mx - r.left).toFixed(0) + "px");
-      el.style.setProperty("--sy", (my - r.top).toFixed(0) + "px");
-      lastSpot = el;
-    }
-    // magnetic: buttons lean toward the pointer when it gets close
+    const spotRect = el ? el.getBoundingClientRect() : null;
+    const reads = [];
     document.querySelectorAll(MAG).forEach((b) => {
       const r = b.getBoundingClientRect();
       if (r.bottom < -80 || r.top > window.innerHeight + 80) return;
+      reads.push([b, r]);
+    });
+    // WRITE phase
+    if (lastSpot && lastSpot !== el) lastSpot = null;
+    if (el) {
+      el.style.setProperty("--sx", (mx - spotRect.left).toFixed(0) + "px");
+      el.style.setProperty("--sy", (my - spotRect.top).toFixed(0) + "px");
+      lastSpot = el;
+    }
+    // magnetic: buttons lean toward the pointer when it gets close
+    reads.forEach(([b, r]) => {
       const dx = mx - (r.left + r.width / 2), dy = my - (r.top + r.height / 2);
       const reach = Math.max(r.width, r.height) / 2 + 44;
       const d = Math.hypot(dx, dy);

@@ -46,7 +46,6 @@ function FlipCard({ c, i }) {
     <div
       className={`flipc${on ? " on" : ""}`}
       role="button" tabIndex={0} aria-pressed={on}
-      aria-label={`${c.title}. ${on ? "Showing impact. " : ""}Press to flip.`}
       onClick={flip}
       onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); flip(); } }}
       onMouseEnter={playHoverSound}

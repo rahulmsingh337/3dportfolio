@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, useCallback, lazy, Suspense } from "react";
 import LoadingScreen from "./components/LoadingScreen";
 import "./index.css";
 
@@ -33,33 +33,30 @@ const markSeen = () => { try { sessionStorage.setItem("rs_intro", "1"); } catch 
 export default function App() {
   // Intro plays once per browser session; returning navigations skip straight to content.
   const [loading, setLoading] = useState(() => !seen());
-  const done = () => { markSeen(); setLoading(false); };
+  const done = useCallback(() => { markSeen(); setLoading(false); }, []);
   useEffect(() => { if (loading) return; return initFx(); }, [loading]);
 
   return (
     <>
-      {loading ? <LoadingScreen onComplete={done} /> : (
-        <>
-          <Suspense fallback={null}><AnimatedBackground /></Suspense>
-          <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[10000] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black">Skip to content</a>
-          <Navbar />
-          <ScrollUI />
-          <Toast />
-          <CommandPalette />
-          <main id="main">
-            <Hero />
-            <Suspense fallback={<Fallback />}>
-              <ImpactStrip />
-              <Skills />
-              <Experience />
-              <Projects />
-              <Journal />
-              <Awards />
-            </Suspense>
-            <Contact />
-          </main>
-        </>
-      )}
+      {loading && <LoadingScreen onComplete={done} />}
+      <Suspense fallback={null}><AnimatedBackground /></Suspense>
+      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[10000] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black">Skip to content</a>
+      <Navbar />
+      <ScrollUI />
+      <Toast />
+      <CommandPalette />
+      <main id="main">
+        <Hero />
+        <Suspense fallback={<Fallback />}>
+          <ImpactStrip />
+          <Skills />
+          <Experience />
+          <Projects />
+          <Journal />
+          <Awards />
+        </Suspense>
+        <Contact />
+      </main>
     </>
   );
 }

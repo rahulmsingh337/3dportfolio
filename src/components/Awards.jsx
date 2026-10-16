@@ -56,7 +56,7 @@ function Lightbox({ images, start, onClose }) {
 function Tile({ t, onClick }) {
   return (
     <button className="card tile" onClick={onClick} onMouseEnter={playHoverSound}>
-      <img src={t.image} alt="" loading="lazy" />
+      <img src={t.image.replace(/\.webp$/, "-t.webp")} alt="" loading="lazy" width={88} height={64} />
       <div><small>{t.issuer}</small><h3>{t.title}</h3></div>
     </button>
   );

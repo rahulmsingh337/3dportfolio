@@ -56,7 +56,8 @@ An editorial, restrained look intended for senior and enterprise audiences.
 - 1200×630 social card (`public/og-image.jpg`), consistent title / Open Graph / Twitter tags, and canonical URL
 - `robots.txt`, `sitemap.xml`, `llms.txt`, web manifest, and favicon / touch icons in `public/`
 - Real 404: unknown URLs return HTTP 404 with `public/404.html` (noindex); no catch-all rewrite, so no soft-404s
-- Self-hosted fonts and declared image dimensions; security and cache headers in `vercel.json`
+- Self-hosted Latin-only fonts (preloaded), right-sized responsive images with declared dimensions, the stylesheet inlined at build, the hidden flip image and credential thumbnails loaded only when needed; security and cache headers in `vercel.json`
+- Lighthouse (local production build, simulated mobile): Performance 97, Accessibility 100, Best Practices 100, SEO 100; CLS 0, TBT 0 ms
 - Still a client-rendered SPA. For full prerendering, move to `vite-react-ssg`, Astro, or Next.js.
 
 ## Tech stack
@@ -66,7 +67,7 @@ An editorial, restrained look intended for senior and enterprise audiences.
 | Framework | React 19 + Vite 8 |
 | Styling | Tailwind CSS v4 (`@tailwindcss/vite`) plus a custom design-system stylesheet |
 | Animation | Motion (`motion/react`) and CSS |
-| Fonts | Fraunces, Inter, JetBrains Mono (Fontsource, self-hosted) |
+| Fonts | Fraunces, Inter, JetBrains Mono (Latin subsets, self-hosted in `src/fonts`) |
 | Icons | Lucide React plus monochrome brand icons |
 | Hosting | Vercel (auto-deploy on push to `main`) |
 

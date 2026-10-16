@@ -19,10 +19,12 @@ export default function Hero() {
   const chipRefs = useRef([]);
   const lastPtr = useRef("mouse");
   const [flipped, setFlipped] = useState(false);
+  const [armBack, setArmBack] = useState(false);           // load the award photo only when needed
 
   useEffect(() => {
     const t = setInterval(() => setI((v) => (v + 1) % ROLES.length), 3200);
-    return () => clearInterval(t);
+    const idle = window.requestIdleCallback ? window.requestIdleCallback(() => setArmBack(true), { timeout: 4000 }) : setTimeout(() => setArmBack(true), 3500);
+    return () => { clearInterval(t); if (window.cancelIdleCallback) window.cancelIdleCallback(idle); else clearTimeout(idle); };
   }, []);
 
   // Orbiting tech chips: an ellipse around the portrait; front half passes over the photo edge, back half goes behind it.
@@ -32,8 +34,10 @@ export default function Hero() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const t0 = performance.now();
     let raf;
+    let w = wrap.clientWidth, h = wrap.clientHeight;          // cached: no layout read per frame
+    const ro = new ResizeObserver(() => { w = wrap.clientWidth; h = wrap.clientHeight; });
+    ro.observe(wrap);
     const place = (t) => {
-      const w = wrap.clientWidth, h = wrap.clientHeight;
       const k = w < 360 ? 0.05 : 0.11;
       const rx = (w / 2) * (1.12 + k), ry = (h / 2) * (1.05 + k * 0.7);
       const base = reduced ? 0.6 : ((t - t0) / 1000) * ((Math.PI * 2) / 26);
@@ -48,7 +52,7 @@ export default function Hero() {
       if (!reduced) raf = requestAnimationFrame(place);
     };
     raf = requestAnimationFrame(place);
-    return () => cancelAnimationFrame(raf);
+    return () => { cancelAnimationFrame(raf); ro.disconnect(); };
   }, []);
 
   const onMove = (e) => {
@@ -82,7 +86,7 @@ export default function Hero() {
             ))}
           </h1>
 
-          <motion.p className="hero-role" aria-live="polite" {...rise(0.3)}>
+          <motion.p className="hero-role" aria-live="polite" {...rise(0.2)}>
             <AnimatePresence mode="wait">
               <motion.span key={i} style={{ display: "inline-block" }}
                 initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }}
@@ -92,17 +96,17 @@ export default function Hero() {
             </AnimatePresence>
           </motion.p>
 
-          <motion.p className="hero-lede" {...rise(0.42)}>
+          <motion.p className="hero-lede" {...rise(0.26)}>
             5+ years delivering SAP S/4HANA transformation, ABAP Cloud &amp; Clean Core modernization at Accenture &amp; Infosys.
             EAM · RAP · CDS · OData V4 · Fiori · Custom Code Remediation.
           </motion.p>
 
-          <motion.div className="hero-cta" {...rise(0.54)}>
+          <motion.div className="hero-cta" {...rise(0.34)}>
             <a href="#projects" className="btn btn-primary" onMouseEnter={playHoverSound}>View selected work</a>
             <a href={asset("/resume.pdf")} download className="btn btn-ghost" onMouseEnter={playHoverSound}><Download size={16} /> Résumé</a>
           </motion.div>
 
-          <motion.div className="hero-meta" {...rise(0.66)}>
+          <motion.div className="hero-meta" {...rise(0.42)}>
             <div className="soc">
               <a href="https://www.linkedin.com/in/rahul-singh-sap-abap/" target="_blank" rel="noreferrer" aria-label="LinkedIn" onMouseEnter={playHoverSound}><IconLinkedIn /></a>
               <a href="https://github.com/rahulmsingh337" target="_blank" rel="noreferrer" aria-label="GitHub" onMouseEnter={playHoverSound}><IconGitHub /></a>
@@ -122,15 +126,14 @@ export default function Hero() {
             <div
               className={`flipper${flipped ? " is-flipped" : ""}`}
               role="button" tabIndex={0} aria-pressed={flipped}
-              aria-label="Profile photo. Press to flip and see the award photo."
               onPointerDown={(e) => { lastPtr.current = e.pointerType; }}
-              onPointerEnter={(e) => { if (e.pointerType === "mouse") { setFlipped(true); playFlipSound(); } }}
+              onPointerEnter={(e) => { setArmBack(true); if (e.pointerType === "mouse") { setFlipped(true); playFlipSound(); } }}
               onPointerLeave={(e) => { if (e.pointerType === "mouse") { setFlipped(false); playFlipSound(); } }}
               onClick={() => { if (lastPtr.current !== "mouse") { setFlipped((f) => !f); playFlipSound(); } }}
               onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setFlipped((f) => !f); playFlipSound(); } }}
             >
               <div className="pface" aria-hidden={flipped}>
-                <img src={asset("/rahul.jpg")} alt="Rahul Singh" width={900} height={1350} decoding="async" fetchPriority="high" />
+                <img src={asset("/rahul-880.webp")} srcSet={`${asset("/rahul-480.webp")} 480w, ${asset("/rahul-880.webp")} 880w`} sizes="(max-width: 899px) 262px, 440px" alt="Rahul Singh" width={880} height={1320} decoding="async" fetchPriority="high" />
                 <span className="flip-pill">Hover / tap to flip ↻</span>
                 <div className="portrait-cap">
                   <div><strong>Rahul Singh</strong><span>SAP ABAP Lead · Noida</span></div>
@@ -138,7 +141,7 @@ export default function Hero() {
                 </div>
               </div>
               <div className="pface back" aria-hidden={!flipped}>
-                <img src={asset("/rahul-award.webp")} alt="Rahul Singh receiving the Unit Rise Award" width={1024} height={1536} decoding="async" />
+                <img src={armBack ? asset("/rahul-award-880.webp") : undefined} srcSet={armBack ? `${asset("/rahul-award-480.webp")} 480w, ${asset("/rahul-award-880.webp")} 880w` : undefined} sizes="(max-width: 899px) 262px, 440px" alt="Rahul Singh receiving the Unit Rise Award" width={880} height={1320} decoding="async" />
                 <div className="portrait-cap">
                   <div><strong><Trophy size={15} strokeWidth={1.6} /> Unit Rise Award Recipient</strong><span>Infosys · EAS SAP Unit</span></div>
                 </div>
