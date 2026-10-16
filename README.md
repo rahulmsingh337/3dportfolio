@@ -35,10 +35,10 @@ An editorial, restrained look intended for senior and enterprise audiences.
 ## Features
 
 - Sticky navigation with section links and active-section highlighting; mobile menu
-- **Command palette** (Ctrl/⌘ + K, or `/`): jump to any section, download the résumé, copy the email, open profiles, toggle sound. Fully keyboard-driven (↑ ↓ Enter Esc) with ARIA combobox semantics.
+- **Command palette** (Ctrl/⌘ + K, or `/`): jump to any section, download the résumé, email, open profiles, toggle sound. Fully keyboard-driven (↑ ↓ Enter Esc) with ARIA combobox semantics.
 - **Project filters** (S/4HANA & EAM, Custom development, Open source & AI) with animated reflow
 - **Card spotlight** (a soft gold light follows the pointer inside cards) and **magnetic buttons**; both fine-pointer only and off under reduced motion
-- Reading-progress line, back-to-top button, copy-email with confirmation toast
+- Reading-progress line and back-to-top button; a small confirmation toast for the sound toggle
 - **Sound toggle** in the nav (remembered across visits); masked word-by-word headline reveals
 - Animated impact stats (count-up on scroll)
 - Orbiting tech chips (BTP, OData, GenAI, CDS, RAP, S/4HANA) circle the hero photo, passing behind and in front of it

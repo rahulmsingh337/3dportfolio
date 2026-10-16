@@ -1,10 +1,6 @@
-import { Mail, Phone, ArrowUpRight, Copy } from "lucide-react";
+import { Mail, Phone, ArrowUpRight } from "lucide-react";
 import { IconLinkedIn, IconGitHub, IconPrompify } from "./Icons";
 import { playLinkSound } from "../utils/linkSound";
-import { copyText, toast } from "../utils/toast";
-
-const EMAIL = "rs58598@gmail.com";
-const copyEmail = async () => toast((await copyText(EMAIL)) ? "Email address copied" : "Copy failed. Use " + EMAIL);
 
 export default function Contact() {
   return (
@@ -21,7 +17,6 @@ export default function Contact() {
       </p>
       <div className="contact-links">
         <a onMouseEnter={playLinkSound} onClick={playLinkSound} className="btn btn-primary" href="mailto:rs58598@gmail.com"><Mail size={16} /> Email me</a>
-        <button type="button" className="btn btn-ghost" onMouseEnter={playLinkSound} onClick={copyEmail}><Copy size={16} /> Copy email</button>
         <a onMouseEnter={playLinkSound} onClick={playLinkSound} className="btn btn-ghost" href="https://www.linkedin.com/in/rahul-singh-sap-abap/" target="_blank" rel="noreferrer"><IconLinkedIn /> LinkedIn</a>
         <a onMouseEnter={playLinkSound} onClick={playLinkSound} className="btn btn-ghost" href="https://github.com/rahulmsingh337" target="_blank" rel="noreferrer"><IconGitHub /> GitHub</a>
         <a onMouseEnter={playLinkSound} onClick={playLinkSound} className="btn btn-ghost" href="https://prompifytech.vercel.app" target="_blank" rel="noreferrer"><IconPrompify /> Prompify <ArrowUpRight size={14} /></a>

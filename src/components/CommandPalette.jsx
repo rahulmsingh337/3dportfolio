@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Search, CornerDownLeft } from "lucide-react";
 import { asset } from "../utils/assetPath";
-import { copyText, toast } from "../utils/toast";
+import { toast } from "../utils/toast";
 import { isMuted, setMuted, onMuteChange } from "../utils/soundPrefs";
 import { playHoverSound } from "../utils/hoverSound";
 
@@ -33,8 +33,6 @@ export default function CommandPalette() {
     { id: "resume", group: "Actions", label: "Download résumé", hint: "PDF", kw: "cv resume pdf download",
       run: () => { const a = document.createElement("a"); a.href = asset("/resume.pdf"); a.download = ""; document.body.appendChild(a); a.click(); a.remove(); } },
     { id: "email", group: "Actions", label: "Email Rahul", hint: EMAIL, kw: "mail contact hire", run: () => { window.location.href = `mailto:${EMAIL}`; } },
-    { id: "copy", group: "Actions", label: "Copy email address", hint: "Clipboard", kw: "mail clipboard",
-      run: async () => toast((await copyText(EMAIL)) ? "Email address copied" : "Copy failed. Use rs58598@gmail.com") },
     { id: "li", group: "Links", label: "LinkedIn", hint: "Profile", kw: "social", run: () => open("https://www.linkedin.com/in/rahul-singh-sap-abap/") },
     { id: "gh", group: "Links", label: "GitHub", hint: "Repositories", kw: "code social", run: () => open("https://github.com/rahulmsingh337") },
     { id: "pf", group: "Links", label: "Prompify", hint: "AI prompt app", kw: "ai app", run: () => open("https://prompifytech.vercel.app") },
