@@ -6,24 +6,24 @@ const JOBS = [
   { company: "Accenture", role: "SAP ABAP Lead | S/4HANA Transformation",
     period: "Dec 2025 – Present", location: "Noida, UP", current: true,
     points: [
-      "Lead SAP S/4HANA transformation workstreams — HANA remediation of 60+ custom ABAP objects, eliminating ATC critical findings for Clean Core compliance.",
-      "Deliver enhancements for SAP EAM Fiori apps F2173 (Manage Maintenance Orders) and F2175 (Schedule Maintenance Orders & Operations); support maintenance planning and scheduling processes.",
-      "Design and implement an enterprise-scale maintenance order mass-printing solution integrated with SAP Fiori; support Maintenance Phase 9 cutover, data validation, reconciliation, and hypercare.",
-      "Develop CDS Views, OData V4 services, and RAP-based Fiori apps on SAP BTP, reducing custom footprint ~30% via Released API adoption and Clean Core extensibility.",
-      "Mentor developers on RAP, CDS Views, OData V4, Clean Core principles, and ABAP Cloud development; lead technical reviews across an 11-person team.",
-      "Contribute to ABAP Cloud adoption, FSCM field-mapping analysis, custom object impact assessment, and migration planning for S/4HANA conversion.",
-      "Support go-live, hypercare, and cutover activities; deliver production support with zero critical post-go-live defects across major transformation initiatives.",
+      "Lead the technical side of an S/4HANA transformation: remediated 60+ custom ABAP objects for HANA and cleared the ATC critical findings standing between the client and Clean Core.",
+      "Shipped enhancements to SAP EAM Fiori apps F2173 (Manage Maintenance Orders) and F2175 (Schedule Maintenance Orders & Operations), keeping maintenance planning and scheduling moving.",
+      "Designed and built an enterprise-scale mass-printing solution for maintenance orders inside Fiori, then stayed through the Maintenance Phase 9 cutover: data validation, reconciliation and hypercare.",
+      "Built CDS views, OData V4 services and RAP-based Fiori apps on SAP BTP, trimming the custom footprint ~30% by moving to released APIs and Clean Core extensibility.",
+      "Mentor an 11-person team on RAP, CDS, OData V4, Clean Core and ABAP Cloud, and lead the technical reviews that keep quality consistent.",
+      "Help shape the conversion plan itself: FSCM field-mapping analysis, custom-object impact assessment and ABAP Cloud adoption.",
+      "Stay through go-live. Cutover, hypercare and production support, with zero critical post-go-live defects across major transformation initiatives.",
     ],
     tech: ["S/4HANA Transformation", "SAP EAM", "ABAP Cloud", "Clean Core", "RAP", "CDS Views", "OData V4", "SAP Fiori", "SAP BTP", "AMDP", "SmartShift", "ATC", "TDD"] },
   { company: "Infosys", role: "SAP ABAP Consultant | Infosys Certified Fiori Consultant",
     period: "May 2021 – Dec 2025", location: "Noida, UP", current: false,
     points: [
-      "Progressed from ABAP Developer to AMS Track Lead within 18 months — led technical delivery for 3 concurrent application management projects for global manufacturing and logistics clients.",
-      "Developed 20+ reports (Classical, Interactive, ALV/SALV) and interface programs (Proxies, RFC, IDocs, Web Dynpro) across SAP FICO, MM, and SD.",
-      "Architected SAP Workflow for multi-level approval automation — reduced manual processing time by ~40% across a 500+ user business unit.",
-      "Applied ABAP 7.5 modernisation techniques across a legacy codebase — cutting average program runtime by 25–35%.",
-      "LT03 custom transaction avoided a €50K+ third-party tool cost; received a formal client appreciation letter.",
-      "16 consecutive INSTA Rewards · 5× Unit Rise Awards · Best Performer · ACE COE Performer Award.",
+      "Rose from ABAP Developer to AMS Track Lead in 18 months, leading technical delivery across 3 concurrent application-management projects for global manufacturing and logistics clients.",
+      "Wrote 20+ reports (Classical, Interactive, ALV/SALV) and interfaces (Proxies, RFC, IDocs, Web Dynpro) for FICO, MM and SD.",
+      "Designed a multi-level approval workflow that cut manual processing time ~40% for a 500+ user business unit.",
+      "Modernised legacy code with ABAP 7.5 techniques, cutting average program runtime by 25–35%.",
+      "Built a custom LT03 transaction that avoided a €50K+ third-party tool and earned a formal client appreciation letter.",
+      "Recognised with 16 consecutive INSTA Rewards, 5× Unit Rise Awards, Best Performer and the ACE COE Performer Award.",
     ],
     tech: ["SAP Fiori", "Web Dynpro", "ALE/IDocs", "Adobe Forms", "ABAP 7.5", "BAPIs", "SAP Workflow", "BRF+", "CO-PA", "OOABAP"] },
 ];
@@ -35,7 +35,7 @@ const emph = (t) => t.split(NUM).map((s, i) => (i % 2 ? <b key={i}>{s}</b> : s))
 export default function Experience() {
   return (
     <section id="experience" className="sec wrap">
-      <SectionHeader n="02" eyebrow="Professional path" srLabel="SAP Professional Experience" title="The" em="journey" />
+      <SectionHeader n="02" eyebrow="Professional path" srLabel="SAP Professional Experience" title="From keeping SAP running to" em="reinventing it" />
       <div>
         {JOBS.map((j) => {
           const body = (

@@ -8,7 +8,7 @@ import { playFlipSound } from "../utils/flipSound";
 import { playHoverSound } from "../utils/hoverSound";
 
 const ORBIT = ["BTP", "OData", "GenAI", "CDS", "RAP", "S/4HANA"];
-const ROLES = ["SAP ABAP Lead", "S/4HANA Transformation", "ABAP Cloud Certified", "EAM Specialist", "GenAI Developer"];
+const ROLES = ["SAP ABAP Lead", "Clean Core, by design", "From ECC to S/4HANA", "ABAP Cloud certified", "Generative AI certified"];
 const EASE = [0.22, 1, 0.36, 1];
 const rise = (d) => ({ initial: { opacity: 0, y: 28 }, animate: { opacity: 1, y: 0 }, transition: { duration: 1, delay: d, ease: EASE } });
 
@@ -97,12 +97,12 @@ export default function Hero() {
           </motion.p>
 
           <motion.p className="hero-lede" {...rise(0.26)}>
-            5+ years delivering SAP S/4HANA transformation, ABAP Cloud &amp; Clean Core modernization at Accenture &amp; Infosys.
-            EAM · RAP · CDS · OData V4 · Fiori · Custom Code Remediation.
+            I help enterprises move from ECC to S/4HANA without dragging the past along: remediating years of custom
+            code, adopting Clean Core, and building the new on ABAP Cloud, RAP and Fiori. Five-plus years across Infosys and Accenture.
           </motion.p>
 
           <motion.div className="hero-cta" {...rise(0.34)}>
-            <a href="#projects" className="btn btn-primary" onMouseEnter={playHoverSound}>View selected work</a>
+            <a href="#projects" className="btn btn-primary" onMouseEnter={playHoverSound}>See the work</a>
             <a href={asset("/resume.pdf")} download className="btn btn-ghost" onMouseEnter={playHoverSound}><Download size={16} /> Résumé</a>
           </motion.div>
 

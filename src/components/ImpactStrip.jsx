@@ -2,12 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { playHoverSound } from "../utils/hoverSound";
 
 const STATS = [
-  { v: 5,  pre: "",  suf: "+",  label: "Years SAP ABAP" },
-  { v: 60, pre: "",  suf: "+",  label: "ABAP objects remediated" },
-  { v: 50, pre: "€", suf: "K+", label: "Client cost avoided" },
+  { v: 5,  pre: "",  suf: "+",  label: "Years of ABAP delivery" },
+  { v: 60, pre: "",  suf: "+",  label: "Custom objects remediated" },
+  { v: 50, pre: "€", suf: "K+", label: "Third-party spend avoided" },
   { v: 16, pre: "",  suf: "×",  label: "Consecutive INSTA awards" },
-  { v: 40, pre: "",  suf: "%",  label: "Workflow processing time cut" },
-  { v: 30, pre: "",  suf: "%",  label: "Custom footprint reduced" },
+  { v: 40, pre: "",  suf: "%",  label: "Less manual workflow time" },
+  { v: 30, pre: "",  suf: "%",  label: "Lighter custom footprint" },
 ];
 
 function Count({ to, pre, suf, run }) {

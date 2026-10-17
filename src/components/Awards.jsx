@@ -67,8 +67,8 @@ export default function Awards() {
   return (
     <section id="awards" className="sec wrap">
       <AnimatePresence>{lb && <Lightbox images={lb.images} start={lb.i} onClose={() => setLb(null)} />}</AnimatePresence>
-      <SectionHeader n="05" eyebrow="Credentials & recognition" srLabel="SAP Certifications" title="Certifications &" em="awards"
-        lede="Recognitions from Infosys EAS SAP spanning skill certifications, peer nominations, and quarterly RISE awards." />
+      <SectionHeader n="05" eyebrow="Credentials & recognition" srLabel="SAP Certifications" title="Certified &" em="recognised"
+        lede="Exams passed, badges you can verify, and the quarterly awards that came from the people I worked with." />
 
       <div className="subhead">Certifications</div>
       <div className="tiles">

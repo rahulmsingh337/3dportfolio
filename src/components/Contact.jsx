@@ -10,10 +10,10 @@ export default function Contact() {
       </div>
       <h2 className="display">
         <span className="sr-only">Contact Rahul Singh, SAP ABAP Lead: </span>
-        Let&apos;s build something <em>exceptional.</em>
+        Ready to give your SAP landscape a <em>second act?</em>
       </h2>
       <p className="lede">
-        Open to SAP ABAP Cloud and S/4HANA transformation engagements and senior roles. Based in Noida, India, working with global teams.
+        Planning an S/4HANA move, wrestling with years of custom code, or building on ABAP Cloud? I’d like to hear about it. Based in Noida, India, working with global teams.
       </p>
       <div className="contact-links">
         <a onMouseEnter={playLinkSound} onClick={playLinkSound} className="btn btn-primary" href="mailto:rs58598@gmail.com"><Mail size={16} /> Email me</a>

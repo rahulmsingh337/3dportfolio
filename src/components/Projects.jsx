@@ -8,41 +8,50 @@ import { playFlipSound } from "../utils/flipSound";
 
 const PROJECTS = [
   { id: "eam", cat: "s4", icon: Layers, title: "SAP EAM Fiori Enhancements — F2173 & F2175",
-    desc: "Delivered enhancements for SAP EAM Fiori apps F2173 (Manage Maintenance Orders) and F2175 (Schedule Maintenance Orders & Operations). Improved maintenance planning and order execution processes.",
+    blurb: "Two Fiori apps that maintenance planners live in, extended so planning and execution run smoother.",
+    desc: "Maintenance planners spend their days in two Fiori apps: Manage Maintenance Orders (F2173) and Schedule Maintenance Orders & Operations (F2175). I enhanced both, so planning and order execution run more smoothly.",
     tags: ["SAP EAM", "F2173", "F2175", "SAP Fiori", "S/4HANA"],
     outcome: "Supported Maintenance Phase 9 cutover and go-live with zero critical defects." },
   { id: "massprint", cat: "s4", icon: BarChart3, title: "Maintenance Order Mass-Printing Solution",
-    desc: "Designed and implemented enterprise-scale mass-printing capability for maintenance orders integrated with SAP Fiori applications. Streamlined operational execution and reduced manual effort for maintenance teams.",
+    blurb: "Printing hundreds of maintenance orders, without hundreds of manual steps.",
+    desc: "Printing one maintenance order is trivial; printing a whole batch used to be a chore. I designed and built an enterprise-scale mass-printing capability inside Fiori that takes the manual effort out of it for maintenance teams.",
     tags: ["SAP EAM", "Mass Printing", "SAP Fiori", "ABAP", "Clean Core"],
     outcome: "Eliminated manual print effort for maintenance operations teams." },
   { id: "fscm", cat: "s4", icon: Database, title: "FSCM Impact Assessment & S/4HANA Conversion Analysis",
-    desc: "Performed FSCM field-mapping analysis during SAP S/4HANA migration. Identified custom object impacts and remediation requirements. Collaborated with solution architects during design and testing cycles.",
+    blurb: "Know what breaks before you convert: the FSCM field-mapping behind an S/4HANA move.",
+    desc: "Before you convert, you have to know what will break. I mapped FSCM fields during the S/4HANA migration, assessed the impact on custom objects, and worked with solution architects through design and testing cycles.",
     tags: ["FSCM", "S/4HANA", "Migration Assessment", "Custom Code", "Impact Analysis"],
-    outcome: "Comprehensive migration readiness assessment supporting business go-live planning." },
+    outcome: "A comprehensive migration readiness assessment supporting business go-live planning." },
   { id: "lt03", cat: "custom", icon: Terminal, title: "LT03 Custom Transaction",
-    desc: "Led end-to-end POC for a client-blocking LT03 limitation. Built a custom ABAP transaction that avoided a €50K+ third-party tool purchase. Zero post-go-live defects. Received formal client appreciation letter.",
+    blurb: "A blocked process, a €50K+ quote, and a custom transaction that made the quote unnecessary.",
+    desc: "A limitation in LT03 was blocking the client, and a third-party fix carried a €50K+ price tag. I led the proof of concept, then built a custom ABAP transaction instead: delivered on time, zero post-go-live defects, and a formal client appreciation letter.",
     tags: ["ABAP", "SAP WM", "Custom TX", "Client Delivery"],
     outcome: "€50K+ third-party tool cost avoided. Client appreciation letter." },
   { id: "bol", cat: "custom", icon: Mail, title: "US Email Automation — BOL & Packing Slip",
-    desc: "Led enhancement of email output automation for Bill of Lading and packing slips. Implemented PO/DN consolidation logic eliminating ~200 duplicate email triggers per month.",
+    blurb: "Ending the same Bill of Lading email firing again and again: ~200 duplicates a month.",
+    desc: "The same Bill of Lading and packing-slip emails kept firing more than once. I led the output-automation fix and added PO/DN consolidation logic, ending ~200 duplicate email triggers a month.",
     tags: ["Email Automation", "SmartForms", "SAP SD", "BOL"],
     outcome: "~200 duplicate emails/month eliminated · 30% output processing time reduction." },
   { id: "copa", cat: "custom", icon: Database, title: "COPA Report Reconciliation",
-    desc: "Reconciliation report fetching frozen index data from background jobs, calculating FI, CO-PA, and Statistical values against posting dates. Replaced a 4-hour manual monthly process.",
+    blurb: "Four hours of month-end reconciliation, replaced by a report.",
+    desc: "Month-end reconciliation used to be a 4-hour manual exercise. I built a report that reads frozen index data from background jobs and calculates FI, CO-PA and statistical values against posting dates.",
     tags: ["FI/CO", "CO-PA", "Background Jobs", "Financial Reporting"],
     outcome: "~4 hours/month saved on manual reconciliation per period." },
   { id: "rap", cat: "oss", icon: Layers, title: "ABAP Cloud RAP Reference",
-    desc: "Reference RAP model on SAP BTP ABAP Environment — BO definition, OData V4 service, Fiori Elements UI. Adopted as internal onboarding material for 3 developers at Accenture.",
+    blurb: "A hands-on RAP reference on BTP, from business object to Fiori Elements UI.",
+    desc: "A hands-on RAP model on the SAP BTP ABAP Environment: business object, OData V4 service and Fiori Elements UI, all in one place. It’s used as onboarding material for 3 developers at Accenture.",
     tags: ["RAP", "OData V4", "SAP BTP", "Fiori Elements", "Clean Core"],
     outcome: "Adopted as onboarding material for 3 Accenture developers.",
     link: "https://github.com/rahulmsingh337/abap-cloud-rap-reference-project" },
   { id: "s4", cat: "oss", icon: Zap, title: "S/4HANA Migration Cookbook",
-    desc: "Open-source SAP migration reference covering HANA remediation patterns, Clean Core best practices, and AMDP migration templates. Patterns drawn from general SAP migration practice.",
+    blurb: "An open-source cookbook for the ECC-to-S/4HANA journey.",
+    desc: "An open-source cookbook for ECC-to-S/4HANA work: HANA remediation patterns, Clean Core practices and AMDP migration templates, drawn from general SAP migration practice.",
     tags: ["S/4HANA", "HANA", "Clean Core", "AMDP", "Migration"],
     outcome: "Open-source reference for ECC-to-S/4HANA migration patterns.",
     link: "https://github.com/rahulmsingh337/s4hana_migration-code-cookbook" },
   { id: "prompify", cat: "oss", icon: Zap, title: "Prompify — AI Prompt Engineering App",
-    desc: "Full-stack AI prompt optimisation app (React/TypeScript, Firebase Auth, Gemini API, Express backend). Demonstrates SAP + AI convergence and full-stack capability beyond the SAP stack.",
+    blurb: "A full-stack AI app that turns rough ideas into well-structured prompts.",
+    desc: "Prompify turns rough ideas into well-structured AI prompts. It’s a full-stack app (React, TypeScript, Firebase Auth, Gemini API, Express) and a reminder that SAP and AI skills can live in the same engineer.",
     tags: ["React", "TypeScript", "Gemini API", "Firebase", "AI/ML"],
     outcome: "Live at prompifytech.vercel.app",
     link: "https://prompifytech.vercel.app" },
@@ -90,8 +99,8 @@ export default function Projects() {
 
   return (
     <section id="projects" className="sec wrap">
-      <SectionHeader n="03" eyebrow="Selected work" srLabel="SAP Projects" title="Impact &" em="innovation"
-        lede="Delivery from live S/4HANA programmes, plus open-source references and tools built in my own time." />
+      <SectionHeader n="03" eyebrow="Selected work" srLabel="SAP Projects" title="Work that" em="shipped"
+        lede="Built inside live S/4HANA programmes, plus a few things I made on my own time because they needed to exist." />
 
       <div className="filters" role="tablist" aria-label="Filter projects">
         {FILTERS.map((f) => (
@@ -113,7 +122,7 @@ export default function Projects() {
                   <Icon size={20} strokeWidth={1.5} />
                 </div>
                 <h3>{p.title}</h3>
-                <p style={{ display: "-webkit-box", WebkitLineClamp: 4, WebkitBoxOrient: "vertical", overflow: "hidden" }}>{p.desc}</p>
+                <p>{p.blurb}</p>
                 <div className="proj-tags">{p.tags.slice(0, 3).map((t) => <span className="tag" key={t}>{t}</span>)}</div>
                 <div className="proj-out"><div><b>Outcome</b>{p.outcome}</div></div>
               </>
