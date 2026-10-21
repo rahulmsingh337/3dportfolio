@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
+import { useScrub } from "../utils/scrub";
 import { Download, Mail, Trophy } from "lucide-react";
 import { asset } from "../utils/assetPath";
 import { IS_MOBILE } from "../utils/motion";
@@ -14,6 +15,13 @@ const rise = (d) => ({ initial: { opacity: 0, y: 28 }, animate: { opacity: 1, y:
 
 export default function Hero() {
   const [i, setI] = useState(0);
+  const scrub = useScrub();
+  const heroRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -110]);
+  const copyO = useTransform(scrollYProgress, [0, 0.72], [1, 0]);
+  const portY = useTransform(scrollYProgress, [0, 1], [0, 90]);
+  const portS = useTransform(scrollYProgress, [0, 1], [1, 0.93]);
   const tilt = useRef(null);
   const wrapRef = useRef(null);
   const chipRefs = useRef([]);
@@ -70,9 +78,9 @@ export default function Hero() {
   };
 
   return (
-    <section id="hero" className="hero">
+    <section id="hero" className="hero" ref={heroRef}>
       <div className="wrap hero-grid">
-        <div>
+        <motion.div style={scrub ? { y: copyY, opacity: copyO } : undefined}>
           <motion.div className="eyebrow" {...rise(0.05)}>
             <span>Accenture</span><span className="rule" /><span>Noida, India</span>
           </motion.div>
@@ -115,9 +123,10 @@ export default function Hero() {
             </div>
             <div className="creds"><b>SAP Certified</b> · ABAP Cloud · Generative AI · S/4HANA Conversion</div>
           </motion.div>
-        </div>
+        </motion.div>
 
-        <motion.div className="portrait-wrap" ref={wrapRef} {...rise(0.3)} onMouseMove={onMove} onMouseLeave={onLeave}>
+        <motion.div className="portrait-wrap" ref={wrapRef} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.3, ease: EASE }}
+          style={scrub ? { y: portY, scale: portS } : undefined} onMouseMove={onMove} onMouseLeave={onLeave}>
           {ORBIT.map((t, i) => (
             <span key={t} ref={(el) => (chipRefs.current[i] = el)} className="orbit-chip" aria-hidden="true">{t}</span>
           ))}

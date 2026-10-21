@@ -385,3 +385,26 @@ kbd{font:500 10.5px/1 var(--f-mono);padding:5px 7px;border-radius:6px;border:1px
 .chip:hover{border-color:var(--gold-2);color:var(--fg)}
 .chip.on{background:var(--fg);color:#07090f;border-color:transparent}
 .chip.on small{color:#555a6b}
+
+/* ═══ Scroll-driven layout ═══ */
+/* pinned horizontal capabilities stage (desktop) */
+.pin-sec{position:relative}
+.pin{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,3vh,34px);padding-top:84px;padding-bottom:24px;overflow:hidden}
+.pin>.wrap{width:100%}
+.pin .sec-head{margin-bottom:0}
+.hscroll{display:flex;gap:20px;width:max-content;will-change:transform;
+  padding-inline:max(clamp(20px,4vw,48px),calc((100vw - 1200px) / 2 + clamp(20px,4vw,48px)))}
+.hcard{flex:none;width:clamp(330px,30vw,420px)}
+.hprog{display:flex;align-items:center;gap:16px;font:500 11px/1 var(--f-mono);letter-spacing:.2em;color:var(--fg-3)}
+.hbar{flex:1;height:1px;background:var(--line-2);position:relative;overflow:hidden}
+.hbar i{position:absolute;inset:0;background:var(--gold);transform-origin:0 50%}
+@media(max-height:800px){.pin .lede{display:none}.pin .display{font-size:clamp(34px,min(5.6vw,8.6svh),80px);margin-top:16px}.pin{padding-top:76px;gap:16px}}
+
+/* experience: drawing rail */
+.job-list{position:relative}
+.rail{position:absolute;left:-28px;top:8px;bottom:14px;width:1px;background:var(--line)}
+.rail i{position:absolute;inset:0;background:linear-gradient(var(--gold),rgba(217,196,156,.35));transform-origin:50% 0}
+@media(max-width:860px){.rail{display:none}}
+
+/* scrub wrappers must not break grids */
+.tiles>*{display:flex}.tiles>*>.tile{flex:1}

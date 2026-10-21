@@ -1,5 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 import SectionHeader from "./SectionHeader";
+import ScrubIn from "./ScrubIn";
 
 const ENTRIES = [
   { title: "The Autonomous Enterprise, certified: SAP’s strategy, architecture and value case", category: "Credential", date: "Oct 2026", href: "https://www.credly.com/badges/13bb62a4-9d1a-478f-8b73-830b1a6c942d" },
@@ -19,8 +20,9 @@ export default function Journal() {
       <SectionHeader n="04" eyebrow="Insights" title="Field" em="notes"
         lede="Notes on migrations, Clean Core and certification, written down so the next cutover goes a little smoother." />
       <div className="rows">
-        {ENTRIES.map((e) => (
-          <a key={e.title} className="card row" href={e.href} target="_blank" rel="noreferrer">
+        {ENTRIES.map((e, i) => (
+          <ScrubIn key={e.title} from={{ x: i % 2 ? 56 : -56, y: 0, opacity: 0.78 }} range={["start 96%", "start 70%"]}>
+          <a className="card row" href={e.href} target="_blank" rel="noreferrer">
             <span className="row-t">{e.title}</span>
             <span className="row-m">
               <span className="tag">{e.category}</span>
@@ -28,6 +30,7 @@ export default function Journal() {
               <ArrowUpRight className="row-a" size={18} strokeWidth={1.6} />
             </span>
           </a>
+          </ScrubIn>
         ))}
       </div>
       <div style={{ marginTop: 36 }}>

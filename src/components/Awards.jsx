@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { asset } from "../utils/assetPath";
 import SectionHeader from "./SectionHeader";
+import ScrubIn from "./ScrubIn";
 import { playHoverSound } from "../utils/hoverSound";
 
 const CERTS = [
@@ -72,12 +73,12 @@ export default function Awards() {
 
       <div className="subhead">Certifications</div>
       <div className="tiles">
-        {CERTS.map((c, i) => <Tile key={c.title} t={c} onClick={() => setLb({ images: CERTS.map((x) => x.image), i })} />)}
+        {CERTS.map((c, i) => <ScrubIn key={c.title} from={{ y: 40, scale: 0.94, opacity: 0.78 }} range={["start 98%", "start 72%"]}><Tile t={c} onClick={() => setLb({ images: CERTS.map((x) => x.image), i })} /></ScrubIn>)}
       </div>
 
       <div className="subhead">Awards &amp; client recognition</div>
       <div className="tiles">
-        {RISE.map((c, i) => <Tile key={c.title + c.issuer} t={c} onClick={() => setLb({ images: RISE.map((x) => x.image), i })} />)}
+        {RISE.map((c, i) => <ScrubIn key={c.title + c.issuer} from={{ y: 40, scale: 0.94, opacity: 0.78 }} range={["start 98%", "start 72%"]}><Tile t={c} onClick={() => setLb({ images: RISE.map((x) => x.image), i })} /></ScrubIn>)}
       </div>
 
       <div className="card insta">

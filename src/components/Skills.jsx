@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import { Terminal, Layers, Database, Layout, Shield, Bot } from "lucide-react";
 import SectionHeader from "./SectionHeader";
 import { IS_MOBILE } from "../utils/motion";
+import { useScrub } from "../utils/scrub";
 import { playFlipSound } from "../utils/flipSound";
 import { playHoverSound } from "../utils/hoverSound";
 
@@ -29,7 +30,7 @@ const CAPS = [
     proof: "~200 duplicate email triggers per month eliminated. 30% output processing time reduction." },
 ];
 
-function FlipCard({ c, i }) {
+function FlipCard({ c, i, bare }) {
   const [on, setOn] = useState(false);
   const Icon = c.icon;
   const flip = () => { setOn((v) => !v); playFlipSound(); };
@@ -70,7 +71,7 @@ function FlipCard({ c, i }) {
     </div>
   );
 
-  return IS_MOBILE ? card : (
+  return (IS_MOBILE || bare) ? card : (
     <motion.div
       initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
@@ -80,11 +81,56 @@ function FlipCard({ c, i }) {
   );
 }
 
+const HEAD = {
+  n: "01", eyebrow: "Capabilities", srLabel: "SAP ABAP Skills", title: "Sharp tools for", em: "heavy landscapes",
+  lede: "Six disciplines, each with a result behind it. Tap a card to see what it delivered.",
+};
+
+/** Desktop: the section pins to the screen and the cards travel sideways as you scroll. */
+function PinnedSkills() {
+  const sec = useRef(null);
+  const track = useRef(null);
+  const [dist, setDist] = useState(1800);
+  const [vh, setVh] = useState(() => window.innerHeight);
+
+  useEffect(() => {
+    const measure = () => {
+      if (!track.current) return;
+      setDist(Math.max(0, track.current.scrollWidth - window.innerWidth));
+      setVh(window.innerHeight);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(track.current);
+    window.addEventListener("resize", measure);
+    return () => { ro.disconnect(); window.removeEventListener("resize", measure); };
+  }, []);
+
+  const { scrollYProgress } = useScroll({ target: sec, offset: ["start start", "end end"] });
+  const sp = useSpring(scrollYProgress, { stiffness: 140, damping: 28, mass: 0.35 });
+  const x = useTransform(sp, [0, 1], [0, -dist]);
+
+  return (
+    <section id="skills" ref={sec} className="pin-sec" style={{ height: dist + vh }}>
+      <div className="pin">
+        <div className="wrap"><SectionHeader {...HEAD} /></div>
+        <motion.div className="hscroll" ref={track} style={{ x }}>
+          {CAPS.map((c, i) => <div className="hcard" key={c.title}><FlipCard c={c} i={i} bare /></div>)}
+        </motion.div>
+        <div className="wrap hprog" aria-hidden="true">
+          <span>01</span><div className="hbar"><motion.i style={{ scaleX: sp }} /></div><span>06</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Skills() {
+  const scrub = useScrub();
+  if (scrub) return <PinnedSkills />;
   return (
     <section id="skills" className="sec wrap">
-      <SectionHeader n="01" eyebrow="Capabilities" srLabel="SAP ABAP Skills" title="Sharp tools for" em="heavy landscapes"
-        lede="Six disciplines, each with a result behind it. Tap a card to see what it delivered." />
+      <SectionHeader {...HEAD} />
       <div className="grid-3">
         {CAPS.map((c, i) => <FlipCard key={c.title} c={c} i={i} />)}
       </div>

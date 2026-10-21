@@ -1,6 +1,8 @@
-import { motion } from "motion/react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
+import ScrubIn from "./ScrubIn";
+import { useScrub } from "../utils/scrub";
 import SectionHeader from "./SectionHeader";
-import { IS_MOBILE } from "../utils/motion";
 
 const JOBS = [
   { company: "Accenture", role: "SAP ABAP Lead | S/4HANA Transformation",
@@ -32,37 +34,43 @@ const JOBS = [
 const NUM = /(~?\d+(?:–\d+)?[%+×]|€\d+K\+|\bzero critical post-go-live defects)/g;
 const emph = (t) => t.split(NUM).map((s, i) => (i % 2 ? <b key={i}>{s}</b> : s));
 
+function Rail({ listRef }) {
+  const { scrollYProgress } = useScroll({ target: listRef, offset: ["start 72%", "end 58%"] });
+  const grow = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  return <div className="rail" aria-hidden="true"><motion.i style={{ scaleY: grow }} /></div>;
+}
+
+function Job({ j }) {
+  const scrub = useScrub();
+  const list = useRef(null);
+  return (
+    <article className="job">
+      <div className="job-meta">
+        <h3 className="job-co">{j.company}</h3>
+        <p className="job-role">{j.role}</p>
+        <div className="job-when"><span>{j.period}</span><span>{j.location}</span></div>
+        {j.current && <span className="job-now"><i />Current role</span>}
+      </div>
+      <div>
+        <div className="job-list" ref={list}>
+          {scrub && <Rail listRef={list} />}
+          <ul>
+            {j.points.map((p) => (
+              <ScrubIn as="li" key={p} from={{ x: -26, y: 0, opacity: 0.65 }} range={["start 90%", "start 60%"]}>{emph(p)}</ScrubIn>
+            ))}
+          </ul>
+        </div>
+        <div className="job-tech">{j.tech.map((t) => <span className="tag" key={t}>{t}</span>)}</div>
+      </div>
+    </article>
+  );
+}
+
 export default function Experience() {
   return (
     <section id="experience" className="sec wrap">
       <SectionHeader n="02" eyebrow="Professional path" srLabel="SAP Professional Experience" title="From keeping SAP running to" em="reinventing it" />
-      <div>
-        {JOBS.map((j) => {
-          const body = (
-            <>
-              <div className="job-meta">
-                <h3 className="job-co">{j.company}</h3>
-                <p className="job-role">{j.role}</p>
-                <div className="job-when"><span>{j.period}</span><span>{j.location}</span></div>
-                {j.current && <span className="job-now"><i />Current role</span>}
-              </div>
-              <div>
-                <ul>{j.points.map((p) => <li key={p}>{emph(p)}</li>)}</ul>
-                <div className="job-tech">{j.tech.map((t) => <span className="tag" key={t}>{t}</span>)}</div>
-              </div>
-            </>
-          );
-          return IS_MOBILE ? (
-            <article className="job" key={j.company}>{body}</article>
-          ) : (
-            <motion.article className="job" key={j.company}
-              initial={{ opacity: 0, y: 36 }} whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }} transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}>
-              {body}
-            </motion.article>
-          );
-        })}
-      </div>
+      <div>{JOBS.map((j) => <Job key={j.company} j={j} />)}</div>
     </section>
   );
 }

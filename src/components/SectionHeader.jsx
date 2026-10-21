@@ -1,53 +1,63 @@
-import { Fragment } from "react";
-import { motion } from "motion/react";
-import { IS_MOBILE } from "../utils/motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
+import { useScrub } from "../utils/scrub";
 
-const EASE = [0.22, 1, 0.36, 1];
-
-/** Masked word-by-word reveal for the display title. */
-function Words({ text, italic, offset = 0 }) {
-  return text.split(" ").filter(Boolean).map((w, i) => (
-    <Fragment key={w + i}>
+/** One word of the display title: rises out of a mask as the header scrolls into view (scrubbed). */
+function Word({ p, i, n, italic, children }) {
+  const start = Math.min(0.5, (i / Math.max(1, n)) * 0.55);
+  const y = useTransform(p, [start, Math.min(1, start + 0.5)], ["118%", "0%"]);
+  return (
+    <>
       <span className="mask">
-        <motion.span className="word" style={italic ? { fontStyle: "italic", color: "var(--gold)" } : undefined}
-          initial={{ y: "115%" }} whileInView={{ y: 0 }} viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1, delay: (offset + i) * 0.07, ease: EASE }}>
-          {w}
-        </motion.span>
+        <motion.span className="word" style={{ y, ...(italic ? { fontStyle: "italic", color: "var(--gold)" } : null) }}>{children}</motion.span>
       </span>{" "}
-    </Fragment>
-  ));
+    </>
+  );
 }
 
-/** Shared section heading: numbered eyebrow, serif display title (italic gold accent), optional lede. */
-export default function SectionHeader({ n, eyebrow, title, em, srLabel, lede }) {
-  if (IS_MOBILE) {
-    return (
-      <header className="sec-head">
-        <div className="eyebrow"><span>{n}</span><span className="rule" /><span>{eyebrow}</span></div>
-        <h2 className="display">{srLabel && <span className="sr-only">{srLabel}: </span>}{title}{em && <> <em>{em}</em></>}</h2>
-        {lede && <p className="lede">{lede}</p>}
-      </header>
-    );
-  }
-  const n1 = title.split(" ").filter(Boolean).length;
+const split = (title, em) => [
+  ...title.split(" ").filter(Boolean).map((w) => ({ w })),
+  ...(em ? em.split(" ").filter(Boolean).map((w) => ({ w, italic: true })) : []),
+];
+
+function ScrubHeader({ n, eyebrow, title, em, srLabel, lede }) {
+  const ref = useRef(null);
+  const { scrollYProgress: p } = useScroll({ target: ref, offset: ["start 94%", "start 52%"] });
+  const eo = useTransform(p, [0, 0.35], [0, 1]);
+  const ey = useTransform(p, [0, 0.35], [16, 0]);
+  const lo = useTransform(p, [0.45, 1], [0, 1]);
+  const ly = useTransform(p, [0.45, 1], [20, 0]);
+  const words = split(title, em);
   return (
-    <header className="sec-head">
-      <motion.div className="eyebrow" initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.8, ease: EASE }}>
+    <header ref={ref} className="sec-head">
+      <motion.div className="eyebrow" style={{ opacity: eo, y: ey }}>
         <span>{n}</span><span className="rule" /><span>{eyebrow}</span>
       </motion.div>
       <h2 className="display">
         {srLabel && <span className="sr-only">{srLabel}: </span>}
         <span aria-label={`${title}${em ? " " + em : ""}`}>
-          <Words text={title} />
-          {em && <Words text={em} italic offset={n1} />}
+          {words.map((o, i) => <Word key={o.w + i} p={p} i={i} n={words.length} italic={o.italic}>{o.w}</Word>)}
         </span>
       </h2>
-      {lede && (
-        <motion.p className="lede" initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.9, delay: 0.25, ease: EASE }}>{lede}</motion.p>
-      )}
+      {lede && <motion.p className="lede" style={{ opacity: lo, y: ly }}>{lede}</motion.p>}
     </header>
   );
+}
+
+function StaticHeader({ n, eyebrow, title, em, srLabel, lede }) {
+  return (
+    <header className="sec-head">
+      <div className="eyebrow"><span>{n}</span><span className="rule" /><span>{eyebrow}</span></div>
+      <h2 className="display">
+        {srLabel && <span className="sr-only">{srLabel}: </span>}
+        {title}{em && <> <em>{em}</em></>}
+      </h2>
+      {lede && <p className="lede">{lede}</p>}
+    </header>
+  );
+}
+
+/** Shared section heading: numbered eyebrow, serif display title (italic gold accent), optional lede. */
+export default function SectionHeader(props) {
+  return useScrub() ? <ScrubHeader {...props} /> : <StaticHeader {...props} />;
 }
