@@ -35,6 +35,7 @@ An editorial, restrained look intended for senior and enterprise audiences.
 ## Features
 
 - Sticky navigation with section links and active-section highlighting; mobile menu
+- **Scroll-driven animation** (desktop, off for phones and for `prefers-reduced-motion`): the hero lifts away as you leave it; section titles write themselves in word by word; the stat numbers count with scroll position; **Capabilities pins to the screen while its cards travel sideways**; a gold rail draws down the experience timeline as each bullet brightens; insight rows and credentials slide in from alternating sides; the contact headline scales in. Implemented with Motion's `useScroll` / `useTransform` (no time-based timers), and the scroll trackers are only created when the animation is active.
 - **Command palette** (Ctrl/⌘ + K, or `/`): jump to any section, download the résumé, email, open profiles, toggle sound. Fully keyboard-driven (↑ ↓ Enter Esc) with ARIA combobox semantics.
 - **Project filters** (S/4HANA & EAM, Custom development, Open source & AI) with animated reflow
 - **Card spotlight** (a soft gold light follows the pointer inside cards) and **magnetic buttons**; both fine-pointer only and off under reduced motion
@@ -57,7 +58,7 @@ An editorial, restrained look intended for senior and enterprise audiences.
 - `robots.txt`, `sitemap.xml`, `llms.txt`, web manifest, and favicon / touch icons in `public/`
 - Real 404: unknown URLs return HTTP 404 with `public/404.html` (noindex); no catch-all rewrite, so no soft-404s
 - Self-hosted Latin-only fonts (preloaded), right-sized responsive images with declared dimensions, the stylesheet inlined at build, the hidden flip image and credential thumbnails loaded only when needed; security and cache headers in `vercel.json`
-- Lighthouse (local production build, simulated mobile): Performance 97, Accessibility 100, Best Practices 100, SEO 100; CLS 0, TBT 0 ms
+- Lighthouse (local production build): Accessibility 100, Best Practices 100, SEO 100; Performance 98 on desktop and roughly 85–97 on simulated mobile depending on the test machine; CLS 0, TBT 0 ms
 - Still a client-rendered SPA. For full prerendering, move to `vite-react-ssg`, Astro, or Next.js.
 
 ## Tech stack
