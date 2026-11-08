@@ -1,159 +1,63 @@
-<div align="center">
+# Rahul Singh — scroll-driven portfolio
 
-# Rahul Singh — Portfolio
+A cinematic, scroll-driven portfolio. Concept: **From Legacy to Clean Core** — the page is one story, told by scroll.
 
-### SAP ABAP Lead · S/4HANA Transformation · Clean Core · RAP · OData V4 · ABAP Cloud
+**Stack:** Next.js (App Router) · TypeScript · Tailwind CSS v4 · GSAP + ScrollTrigger · Lenis · Motion (overlays only) · Lucide.
+No Three.js: the immersive scene is a Canvas 2D particle morph (same impact, a fraction of the cost).
 
-![Deploy](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel&logoColor=white)
-![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-8-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Tailwind](https://img.shields.io/badge/Tailwind-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
-![UI](https://img.shields.io/badge/Design-Ink%20%C2%B7%20Gold%20%C2%B7%20Glass-D9C49C?style=for-the-badge)
-
-[Live site](https://rahulsinghsap.vercel.app) · [LinkedIn](https://www.linkedin.com/in/rahul-singh-sap-abap/) · [GitHub](https://github.com/rahulmsingh337)
-
-</div>
-
----
-
-## About
-
-Personal portfolio of Rahul Singh, SAP ABAP Lead at Accenture (Noida, India). It covers ECC-to-S/4HANA transformation work, ABAP Cloud and Clean Core development, certifications, and open-source SAP references.
-
-## Design system
-
-An editorial, restrained look intended for senior and enterprise audiences.
-
-- **Palette:** near-black ink (`#05070d`), warm white headings, one champagne-gold accent (`#d9c49c`) for labels, numerals and hairlines. No rainbow accents.
-- **Type:** Fraunces (light display serif, italic gold accent word) for headings, Inter for UI and body, JetBrains Mono for small labels. All fonts are self-hosted via Fontsource (no Google Fonts request).
-- **Surfaces:** frosted glass (`.card`) with a gold hairline on hover; one shared set of tokens and components in `src/index.css`.
-- **Layout:** one numbered section header pattern (`SectionHeader`), consistent 1200px grid and vertical rhythm, readable line lengths (experience bullets capped near 66 characters).
-- **Background:** cursor-reactive spatial scene (pointer light with fast core and slow halo, grid that lights up near the pointer, parallax colour orbs, floor plane that tilts), with no WebGL and nothing bright behind text.
-- **Interaction:** capability cards flip to show delivered impact; the hero photo flips to the award photo on hover or tap. Subtle hover / flip / link sound effects play after the first interaction (browsers block audio before that).
-- **Restraint:** no custom cursor, no emoji icons, no fake skill percentages. Motion respects `prefers-reduced-motion` (the intro is skipped).
-
-## Features
-
-- Sticky navigation with section links and active-section highlighting; mobile menu
-- **Scroll-driven animation** (desktop, off for phones and for `prefers-reduced-motion`): the hero lifts away as you leave it; section titles write themselves in word by word; the stat numbers count with scroll position; **Capabilities pins to the screen while its cards travel sideways**; a gold rail draws down the experience timeline as each bullet brightens; insight rows and credentials slide in from alternating sides; the contact headline scales in. Implemented with Motion's `useScroll` / `useTransform` (no time-based timers), and the scroll trackers are only created when the animation is active.
-- **Command palette** (Ctrl/⌘ + K, or `/`): jump to any section, download the résumé, email, open profiles, toggle sound. Fully keyboard-driven (↑ ↓ Enter Esc) with ARIA combobox semantics.
-- **Project filters** (S/4HANA & EAM, Custom development, Open source & AI) with animated reflow
-- **Card spotlight** (a soft gold light follows the pointer inside cards) and **magnetic buttons**; both fine-pointer only and off under reduced motion
-- Reading-progress line and back-to-top button; a small confirmation toast for the sound toggle
-- **Sound toggle** in the nav (remembered across visits); masked word-by-word headline reveals
-- Animated impact stats (count-up on scroll)
-- Orbiting tech chips (BTP, OData, GenAI, CDS, RAP, S/4HANA) circle the hero photo, passing behind and in front of it
-- Flip cards: each capability states the delivered outcome on the back; hero photo flips to the award photo
-- Experience in a two-column editorial layout with the key numbers emphasised
-- Project cards with a detail modal (Esc to close)
-- Credentials: verifiable SAP certifications and recognition, with an image lightbox
-- Intro plays once per browser session and is skipped for reduced-motion users
-
-## SEO
-
-- Valid JSON-LD in `index.html`: `Person` (with credential verification links), `WebSite`, `ProfilePage`, and an `ItemList` of projects
-- Static fallback content inside `#root` plus real heading structure, so crawlers, link previews and no-JS visitors get content before JavaScript runs. React replaces it on mount, so keep it in sync with the visible sections.
-- Semantic landmarks (`<nav>`, `<main>`), skip link, descriptive section headings, and a single `<h1>`
-- 1200×630 social card (`public/og-image.jpg`), consistent title / Open Graph / Twitter tags, and canonical URL
-- `robots.txt`, `sitemap.xml`, `llms.txt`, web manifest, and favicon / touch icons in `public/`
-- Real 404: unknown URLs return HTTP 404 with `public/404.html` (noindex); no catch-all rewrite, so no soft-404s
-- Self-hosted Latin-only fonts (preloaded), right-sized responsive images with declared dimensions, the stylesheet inlined at build, the hidden flip image and credential thumbnails loaded only when needed; security and cache headers in `vercel.json`
-- Lighthouse (local production build): Accessibility 100, Best Practices 100, SEO 100; Performance 98 on desktop and roughly 85–97 on simulated mobile depending on the test machine; CLS 0, TBT 0 ms
-- Still a client-rendered SPA. For full prerendering, move to `vite-react-ssg`, Astro, or Next.js.
-
-## Tech stack
-
-| Area | Choice |
-|------|--------|
-| Framework | React 19 + Vite 8 |
-| Styling | Tailwind CSS v4 (`@tailwindcss/vite`) plus a custom design-system stylesheet |
-| Animation | Motion (`motion/react`) and CSS |
-| Fonts | Fraunces, Inter, JetBrains Mono (Latin subsets, self-hosted in `src/fonts`) |
-| Icons | Lucide React plus monochrome brand icons |
-| Hosting | Vercel (auto-deploy on push to `main`) |
-
-## Project structure
-
-```
-3dportfolio/
-├── public/                  # photo, og-image, icons, certificates (WebP), resume.pdf, robots/sitemap/llms.txt, 404.html
-├── src/
-│   ├── components/
-│   │   ├── AnimatedBackground.jsx   # cursor-reactive spatial background
-│   │   ├── LoadingScreen.jsx        # minimal monogram intro (once per session)
-│   │   ├── Navbar.jsx
-│   │   ├── Hero.jsx
-│   │   ├── ImpactStrip.jsx
-│   │   ├── SectionHeader.jsx        # shared numbered section heading
-│   │   ├── Skills.jsx               # capabilities with evidence
-│   │   ├── Experience.jsx
-│   │   ├── Projects.jsx             # 9 projects + modal
-│   │   ├── Journal.jsx              # insights list
-│   │   ├── Awards.jsx               # certifications, awards, lightbox
-│   │   ├── Contact.jsx
-│   │   └── Icons.jsx
-│   ├── utils/                       # asset path, motion flags
-│   ├── App.jsx
-│   ├── main.jsx                     # font imports
-│   └── index.css                    # tokens + components
-├── index.html                       # meta, JSON-LD, static fallback
-├── vercel.json                      # build, headers, redirects (no SPA rewrite)
-└── vite.config.js
-```
-
-## Getting started
-
-Requires Node 18+ and npm 9+.
+## Run
 
 ```bash
-git clone https://github.com/rahulmsingh337/3dportfolio.git
-cd 3dportfolio
 npm install
-npm run dev        # http://localhost:5173
+npm run dev        # http://localhost:3000
+npm run build && npm start
+npm run typecheck
 ```
 
-```bash
-npm run build      # production build to dist/
-npm run preview    # serve the production build locally
-npm run lint
+## Scroll choreography
+
+| Section | What scroll does | Tech |
+|---|---|---|
+| Hero | Masked headline reveal; cursor-reactive depth layers; content recedes on scroll | GSAP timeline + `quickTo`, ScrollTrigger scrub |
+| Manifesto (pinned) | Words ignite by progress while LEGACY / CORE zoom through each other | ScrollTrigger scrub, sticky stage |
+| Impact | Counters scrubbed to scroll position | ScrollTrigger scrub |
+| Capabilities | Pinned horizontal travel; per-card depth, tilt and flip | ScrollTrigger pin + per-frame `--d` depth |
+| Work | Five "scenes": visual expands from an inset mask; scroll progress (`--p`) drives each visual in pure CSS | ScrollTrigger scrub → CSS variable |
+| Clean Core | ~780 particles collapse from a tangled cloud into concentric rings; three captions | Canvas 2D, scrubbed progress |
+| Journey | Sticky year reel, drawing line, masked milestone cards | ScrollTrigger |
+| Credentials | Staggered batch reveal, keyboard-accessible viewer | ScrollTrigger.batch, Motion |
+| Final CTA | Oversized type scales in, light swells, magnetic CTA | ScrollTrigger scrub, CSS conic gradient |
+
+## Responsive tiers (`gsap.matchMedia`, see `lib/gsap.ts`)
+
+- **Desktop (≥1024px):** full cinematic experience.
+- **Tablet (768–1023px):** pinned storytelling kept; pointer-driven effects simplified.
+- **Mobile (<768px):** purpose-built — capabilities become a native swipe carousel, scenes stack, canvas density drops (320 particles), hero entrance is skipped so content is visible at first paint.
+- **`prefers-reduced-motion`:** Lenis off, no pinning or scrubbing, every section renders statically with all content visible.
+
+## Performance & accessibility notes
+
+- Transform/opacity only; one rAF loop for the backdrop, one for the canvas (paused off-screen and when the tab is hidden).
+- ScrollTriggers are created inside `gsap.matchMedia()` and reverted on unmount.
+- Lighthouse (local production build): desktop 100 / 100 / 100 / 100; mobile 100 accessibility, best practices and SEO, real first/largest paint ≈ 1.2 s on a slow test machine (simulated-throttle performance score is lower).
+- Server-rendered content: all copy is in the HTML; JS only adds motion. A `js-fail` fallback reveals content if scripts never run.
+- Semantic landmarks, skip link, focus-managed menu / palette / viewer, ARIA on flip cards, `⌘/Ctrl+K` command palette, sound toggle (default on, persisted).
+
+## Structure
+
+```
+app/              layout, page, globals.css (tokens/UI), sections.css (sections)
+components/
+  sections/       Hero, Manifesto, Stats, Capabilities, Work(+Scene), CoreStory, Journey, Credentials, FinalCTA
+  visuals/        PortraitFlip, CoreCanvas, SceneVisuals
+  layout/         Backdrop, Nav (+menu), ScrollProgress, CommandPalette, Toast, Footer
+  ui/             MaskText, MagneticButton, TiltCard, Icons
+  providers/      SmoothScroll (Lenis ↔ GSAP ticker)
+hooks/  lib/      gsap setup, animation helpers, sound, events, content data (lib/data/*)
 ```
 
-## Deployment
+Content lives in `lib/data/*` — edit copy and numbers there, not in components.
 
-Hosted on Vercel. Every push to `main` triggers a build (`npm run build`, output `dist/`). Unknown URLs return a real 404 (`public/404.html`).
+## Deploying
 
-## Sections
-
-| # | Section | Content |
-|---|---------|---------|
-| – | Hero | Name, role, portrait, credentials, links |
-| – | Impact | Headline numbers (years, objects remediated, cost avoided, awards, time and footprint reductions) |
-| 01 | Capabilities | Six disciplines, each with delivered evidence |
-| 02 | Experience | Accenture (current) and Infosys |
-| 03 | Work | 9 projects, including EAM Fiori, mass-printing, FSCM, RAP reference, migration cookbook, Prompify |
-| 04 | Insights | Credentials, open-source notes and topics |
-| 05 | Credentials | SAP certifications, recognition, INSTA awards |
-| 06 | Contact | Email, LinkedIn, GitHub, Prompify, WhatsApp |
-
-## Certifications shown on the site
-
-- SAP Certified Back-End Developer, ABAP Cloud (C_ABAPD_2601)
-- SAP Certified, SAP Generative AI Developer
-- SAP Certified, SAP S/4HANA Conversion and SAP System Upgrade
-- SAP Certified, Positioning SAP Business AI Platform
-- SAP Certified, Positioning the Autonomous Enterprise
-- SAP S/4HANA Functional and Technical Professional (Infosys)
-
-## Related
-
-- [ABAP Cloud RAP Reference Project](https://github.com/rahulmsingh337/abap-cloud-rap-reference-project)
-- [S/4HANA Migration Code Cookbook](https://github.com/rahulmsingh337/s4hana_migration-code-cookbook)
-- [Prompify](https://prompifytech.vercel.app)
-
----
-
-<div align="center">
-
-© 2026 Rahul Singh. All rights reserved.
-
-</div>
+Not deployed. When ready: this replaces the current Vite site, so set the Vercel project's framework preset to Next.js (the old `vercel.json` Vite settings must be removed), and preview on a branch before promoting to production.

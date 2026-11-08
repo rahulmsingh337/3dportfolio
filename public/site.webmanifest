@@ -4,8 +4,8 @@
   "description": "SAP ABAP Lead at Accenture. S/4HANA transformation, ABAP Cloud, Clean Core, RAP, CDS Views, OData V4.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#05070d",
-  "theme_color": "#05070d",
+  "background_color": "#05060b",
+  "theme_color": "#05060b",
   "lang": "en-IN",
   "icons": [
     { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
